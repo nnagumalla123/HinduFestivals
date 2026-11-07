@@ -1,10 +1,10 @@
-# Hindu Festival Companion — Product Requirements Document
+# Desi Days — Product Requirements Document
 
 **Status:** Approved for implementation planning  
 **Version:** 1.0  
 **Date:** 2026-11-07  
 **Owner:** Project creator  
-**Working name:** Hindu Festival Companion (may be renamed)
+**Product name:** Desi Days (renamed from the working name "Hindu Festival Companion"). Wordmark in the header: "Desi Days". The repository, folder, and npm package keep their original names.
 
 ## 1. Vision
 **Tagline:** Your traditions, wherever life takes you.
@@ -44,10 +44,10 @@ Diwali/Deepavali; Ugadi; Holi; Ganesh Chaturthi; Navaratri; Vijayadashami/Dusseh
 ## 3. Navigation and screens
 | Route | Access | Requirements |
 |---|---|---|
-| `/` | Public | Next verified upcoming festival; countdown; upcoming 3–5 cards; discovery/search; clear calendar location; no invented dates. |
-| `/calendar` | Public | Month/list toggle; previous/next month; select day; date and region filters; festival click-through; preserve view state in URL where practical. |
-| `/explore` | Public | Search by name/alias/deity; festival cards; regional filters; empty/loading/error states. |
-| `/festivals/[slug]` | Public | Hero, aliases, dates and reference location, quick facts, layered story sections, deities, practices, food/fasting, celebration styles, regional differences, sources, follow/reminder actions. |
+| `/` | Public | Next verified upcoming festival; countdown; upcoming 3–5 cards; discovery/search; reference location and year shown alongside the next festival's date and countdown (no global banner; see section 7); no invented dates. |
+| `/calendar` | Public | Full label "Reference calendar: Atlanta, GA · 2027" directly beneath the page heading; month/list toggle; previous/next month; select day; date and region filters; festival click-through; preserve view state in URL where practical. |
+| `/explore` | Public | Search by name/alias/deity; festival cards (reference location and year shown alongside any date a card displays); regional filters; empty/loading/error states. |
+| `/festivals/[slug]` | Public | Hero, aliases, dates each shown with their reference location and year, quick facts, layered story sections, deities, practices, food/fasting, celebration styles, regional differences, sources, follow/reminder actions. |
 | `/my-festivals` | Signed-in | Followed festivals, upcoming verified occurrences, reminder state; guest sign-in invitation. |
 | `/login`, `/signup` | Public | Email/password; verification and error states; redirect back to original action. |
 | `/onboarding` | Signed-in | Optional multi-region selection, calendar reference location, IANA time zone, explicit festival follows, email opt-in. |
@@ -58,7 +58,7 @@ Desktop header: Home, Calendar, Explore, My Festivals, account menu. Mobile: bot
 
 ## 4. Detailed festival page contract
 Order:
-1. Hero: image, title, aliases, subtitle, date(s), reference location and year, countdown if verified, follow and reminder actions.
+1. Hero: image, title, aliases, subtitle, date(s) shown together with their reference location and year, countdown if verified, follow and reminder actions.
 2. Quick facts: meaning, observance length, associated deities (when relevant), common customs, dietary practices (qualified).
 3. Why celebrate? 80–150 word beginner summary.
 4. Stories & mythology: expandable, attributed to texts/traditions; distinguish belief/narrative from verifiable historical claims.
@@ -89,7 +89,7 @@ Select Telugu and Tamil interests → browse all festivals, with relevant region
 |---|---|---|---|
 | FR-01 | P0 | Guest-readable published pages | Anonymous user can view home, explore, calendar, and details. |
 | FR-02 | P0 | Search names, aliases, deity names | Relevant festivals returned, case-insensitive; empty state. |
-| FR-03 | P0 | Verified occurrence calendar | Only verified dates labeled confirmed; explicit location/year; month/list and navigation. |
+| FR-03 | P0 | Verified occurrence calendar | Only verified dates labeled confirmed; reference location and year shown alongside every location-dependent date (section 7); full reference label beneath the Calendar heading; month/list and navigation. |
 | FR-04 | P0 | Festival editorial content | Every published guide has overview, celebration guidance, and references; nuanced customs. |
 | FR-05 | P0 | Layered reading | Short summary and expandable deeper content; keyboard accessible. |
 | FR-06 | P0 | Auth | Sign-up, verification, login, logout, protected routes and safe redirects. |
@@ -107,6 +107,12 @@ Select Telugu and Tamil interests → browse all festivals, with relevant region
 ## 7. Date and cultural accuracy policy
 - Hindu observance dates can depend on tithi, sunrise/moonrise, geographic location, and calendar traditions. A single Gregorian date is not globally universal.
 - Initial reference calendar location: **Atlanta, Georgia, USA**. Store its coordinates, IANA time zone and editorial method; do not imply that an Atlanta date is accurate for all users.
+- **Location context rules (display):**
+  - The Calendar page shows the full label "Reference calendar: Atlanta, GA · 2027" directly beneath its page heading.
+  - No global reference-location banner. Do not repeat the label at the top of every page, or in the header, footer, or shared layout.
+  - Whenever a verified, location-dependent date is shown (home next-festival date and countdown, Explore cards that show dates, festival detail pages, My Festivals, reminder emails), the relevant reference location and year must appear clearly alongside that date, visible without hovering or clicking.
+  - Never show a location-dependent festival date without sufficient location context.
+  - Pages or components that show no dates (for example 'Date not yet verified') do not need the label.
 - For 2027, date records must be researched and verified with a reliable Panchang/calendar source and documented source URL before publication. **No dates are supplied in this PRD**; placeholders are never published as verified.
 - If a date is unavailable or disputed, show 'Date not yet verified' and disable scheduling for that occurrence.
 - Multi-day observances have start/end dates; for MVP, reminders attach to the first day of the explicitly followed festival occurrence. Do not automatically send for every sub-observance.
@@ -136,6 +142,11 @@ Palette: maroon `#7B1E2B`, saffron `#C46B26`, gold `#D6A545`, ivory `#F8EEDB`, g
 
 ## 11. Dependencies and open editorial tasks
 - Verify actual 2027 Atlanta-reference festival dates and source methodology; no assumption that every festival has one uncontested date.
+- **Research source roles (keep these three jobs separate):**
+  - **Festival discovery** (which festivals and observances exist, their names and aliases, ideas for expanding the catalog): candidate source *CalendarLabs, 2027 Hindu holidays*, https://www.calendarlabs.com/holidays/hindu/2027. The launch catalog stays the ten festivals in section 2; the catalog may expand after launch.
+  - **Date verification** (the dates users see, count down to, or receive reminders for): requires reliable, location-specific Hindu calendar/Panchang sources for the reference location (Atlanta, GA), with the source URL and method recorded. CalendarLabs dates are **not** verified for Atlanta: it is unknown what location or method they assume until confirmed. They may be used only as a cross-check, and any disagreement means the occurrence stays draft or disputed ('Date not yet verified').
+  - **Cultural content research** (stories, rituals, food, fasting, regional customs): primary texts and reputable cultural, temple, or academic sources, attributed by tradition. A holiday-list website is not a source for cultural or religious claims.
+  - Before any use, check each source's terms of use and copyright; summarize in our own words, do not copy its text or tables. No automated data ingestion from any source without explicit approval.
 - Research and review 10 festival guides with culturally knowledgeable reviewers where possible.
 - Select a licensed image set and attribution format.
 - Confirm email provider, sender domain, quotas, and scheduler cadence before Phase 5.

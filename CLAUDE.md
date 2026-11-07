@@ -1,4 +1,4 @@
-# CLAUDE.md — Hindu Festival Companion
+# CLAUDE.md — Desi Days
 
 You are an implementation assistant for a **first-year CS student building a real full-stack portfolio project**. Optimize for correct, understandable, maintainable code and active learning, not maximum code output.
 
@@ -31,7 +31,9 @@ Next.js App Router, React, TypeScript, Tailwind, Supabase PostgreSQL/Auth, trans
 - Never use a universal 'vegetarian required' boolean; practices vary by tradition/family.
 - Stories must be attributed to their relevant religious traditions; distinguish religious narratives from historical assertions.
 - Show source references and reviewed dates; never invent calendar dates or cite unverified data as fact.
-- Reference calendar location is Atlanta for the first 2027 release. A user's time zone controls email delivery time, not the religious festival date. Show location prominently.
+- Keep three research jobs separate: festival discovery, date verification, and cultural content research (see PRD section 11). General holiday-list sites such as CalendarLabs (https://www.calendarlabs.com/holidays/hindu/2027) are candidate sources for discovery and cross-checking only. Their dates are never treated as verified for Atlanta; verify with reliable location-specific Hindu calendar sources before publishing a date or enabling a countdown or reminder. Do not build data ingestion from any source without approval.
+- Reference calendar location is Atlanta, GA (year 2027) for the first release. A user's time zone controls email delivery time, not the religious festival date.
+- Location context rules: (1) The Calendar page shows the full label "Reference calendar: Atlanta, GA · 2027" directly beneath its page heading. (2) Never add a global reference-location banner, and never repeat the label at the top of every page (not in the header, footer, or layout). (3) Whenever a verified, location-dependent festival date is shown (home countdown/cards, Explore cards, festival detail pages, My Festivals, reminder emails), show its reference location and year clearly alongside that date. Never show a location-dependent date without sufficient location context. (4) Pages that show no dates (for example while a date is 'Date not yet verified') do not need the label.
 - Missing/unverified dates: show 'Date not yet verified'; no countdown or email schedule.
 - Use both traditional and dorm/college-friendly celebration guidance. Avoid unsafe suggestions such as open flames in dorm rooms.
 

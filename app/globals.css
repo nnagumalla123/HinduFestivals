@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens: Desi Days
+ *
+ * Brand colors come from the PRD (maroon, saffron, gold, ivory, green).
+ * Each has a "deep" variant for places where the brand color alone would fail
+ * WCAG AA contrast (4.5:1 for normal text). The contrast ratios are checked by
+ * tests/contrast.test.ts, so edit colors here and the test will tell you if a
+ * pairing stops being readable.
+ *
+ * Usage rules of thumb:
+ *   maroon       primary actions, headings            (8.8:1 on ivory)
+ *   saffron      large text, borders, accents only    (3.3:1: NOT for body text)
+ *   saffron-deep small text/links in the saffron family (5.2:1 on ivory)
+ *   gold         decoration, rules, text on maroon    (2.0:1 on ivory: never text there)
+ *   gold-deep    small text in the gold family         (6.6:1 on ivory)
+ *   green        secondary actions, "verified" styling (6.7:1 on ivory)
+ */
+@theme {
+  /* Brand */
+  --color-maroon: #7b1e2b;
+  --color-maroon-deep: #5e1621; /* hover / dark surfaces */
+  --color-saffron: #c46b26;
+  --color-saffron-deep: #9a4f14;
+  --color-gold: #d6a545;
+  --color-gold-deep: #6b4f0e;
+  --color-gold-tint: #f3e3bc; /* soft highlight background */
+  --color-green: #315b47;
+  --color-green-deep: #234234; /* hover */
+
+  /* Surfaces and text */
+  --color-ivory: #f8eedb; /* page background */
+  --color-ivory-soft: #fcf8ef; /* cards and inputs sit slightly lighter */
+  --color-ink: #2b1b17; /* body text: warm near-black */
+  --color-ink-muted: #5c4a44; /* secondary text */
+  --color-error: #9b1c1c;
+
+  /* Fonts (the CSS variables are set by next/font in app/layout.tsx) */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-source-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Shape: soft, not pill-shaped or sharp */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+
+  /* Warm shadow (tinted with maroon instead of neutral grey) */
+  --shadow-card: 0 1px 2px rgb(123 30 43 / 0.08), 0 4px 14px rgb(123 30 43 / 0.06);
+}
+
+/*
+ * Spacing uses Tailwind's default 4px scale (p-4 = 1rem). Convention for this
+ * project: p-4/p-6 inside components, gap-4/gap-6 between items, py-12/py-16
+ * between page sections. Keep to these so layouts feel consistent.
+ */
+
+:root {
+  color-scheme: light; /* light theme only for now */
+  --focus-ring: var(--color-maroon);
+}
+
+/* Anything with a dark background flips the focus ring to gold so it stays visible. */
+.surface-dark {
+  --focus-ring: var(--color-gold);
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ivory);
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem; /* 17px: a touch larger than default for comfortable reading */
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-maroon);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  /* One consistent, high-contrast keyboard focus style for everything. */
+  :focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background-color: var(--color-gold-tint);
+    color: var(--color-ink);
+  }
+
+  /* Respect users who ask their OS to reduce motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

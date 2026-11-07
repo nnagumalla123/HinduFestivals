@@ -1,0 +1,9 @@
+// Adds helpers like toBeInTheDocument() to Vitest's expect().
+import "@testing-library/jest-dom/vitest";
+import { cleanup } from "@testing-library/react";
+import { afterEach } from "vitest";
+
+// Remove rendered components between tests so they can't affect each other.
+afterEach(() => {
+  cleanup();
+});

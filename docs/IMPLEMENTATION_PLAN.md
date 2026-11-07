@@ -1,4 +1,4 @@
-# Hindu Festival Companion — Implementation Plan
+# Desi Days — Implementation Plan
 
 **Version:** 1.0 | **Date:** 2026-11-07  
 **Working agreement:** One phase, one reviewable milestone at a time. Claude Code must read `docs/PRD.md`, `docs/ARCHITECTURE.md`, and `CLAUDE.md` before changing code.
@@ -47,7 +47,9 @@
 - [ ] Build typed server-side query layer and input validation.
 - [ ] Seed region list and Atlanta reference calendar location.
 - [ ] Research 10 festivals; write reviewed summaries, stories, dietary guidance, regional notes and source records.
-- [ ] Independently verify 2027 Atlanta-reference festival dates with recorded URLs and methodology; leave disputed/missing dates unverified.
+- [ ] Festival discovery: review candidate list https://www.calendarlabs.com/holidays/hindu/2027 for names, aliases, and possible later catalog additions. Launch scope stays the ten festivals. Discovery only: its dates are not verified for Atlanta.
+- [ ] Independently verify 2027 Atlanta-reference festival dates with recorded URLs and methodology, using reliable location-specific Hindu calendar/Panchang sources; cross-check against CalendarLabs where useful; leave disputed/missing dates unverified (no countdown or reminders).
+- [ ] Keep roles separate in records: date sources, discovery sources, and cultural-content sources are stored and cited separately; check each source's terms before reuse; no automated ingestion without approval.
 - [ ] Build editorial validation script: published festival needs summary, guides, sources; verified occurrence needs source and date range.
 - [ ] Replace mock UI queries with database-backed queries; test unpublished records not visible.
 **Gate:** Public site uses Supabase, 10 reviewed guides, only verified dates presented; public cannot write content.

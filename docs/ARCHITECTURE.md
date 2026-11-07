@@ -1,4 +1,4 @@
-# Hindu Festival Companion — Technical Architecture
+# Desi Days — Technical Architecture
 
 **Version:** 1.0 | **Date:** 2026-11-07 | **Status:** Proposed implementation baseline
 
@@ -55,6 +55,7 @@ Use foreign keys, indexes on occurrence `(calendar_location_id,start_date,verifi
 ## 4. Date handling
 - Initial `calendar_locations`: Atlanta, GA, USA, `America/New_York` (reference calendar); coordinates documented in seed metadata, not derived from user geolocation.
 - Seed verified **2027** dates only after editorial verification; no hardcoded dates in component logic.
+- Third-party holiday lists (for example CalendarLabs) are candidate/cross-check sources, never the basis for `verification_status = 'verified'`. A verified occurrence must cite a reliable location-specific calendar source (`festival_sources.source_type = 'calendar'`) and record its method; discovery-only sources must not be attached as proof of a date.
 - The selected calendar reference location determines displayed observance dates. A user's IANA timezone only controls reminder send time.
 - If an occurrence is missing, show 'Date not yet verified' and no countdown/reminder for that occurrence.
 - `date` is a civil calendar date, not UTC midnight. Format as calendar date in reference location; avoid accidental day shifts.
