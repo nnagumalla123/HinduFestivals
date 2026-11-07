@@ -6,6 +6,8 @@
 export const REFERENCE_CALENDAR = {
   label: "Atlanta, GA",
   year: 2027,
+  /** IANA time zone of the reference location (docs/ARCHITECTURE.md section 4). Decides what "today" means for countdowns. */
+  timeZone: "America/New_York",
 } as const;
 
 export const DATE_NOT_VERIFIED_LABEL = "Date not yet verified";

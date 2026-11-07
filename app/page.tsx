@@ -1,21 +1,42 @@
+import { connection } from "next/server";
+import { FeaturedFestivals } from "@/components/home/FeaturedFestivals";
+import { NextFestival } from "@/components/home/NextFestival";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { Card } from "@/components/ui/Card";
 import { ButtonLink } from "@/components/ui/Button";
-import { EmptyState } from "@/components/ui/EmptyState";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Card } from "@/components/ui/Card";
+import { RangoliMotif } from "@/components/ui/RangoliMotif";
+import { buildEntries } from "@/lib/festivals/calendar";
+import { FEATURED_SLUGS } from "@/lib/festivals/featured";
+import { todayInReferenceZone } from "@/lib/festivals/next-festival";
+import { mockOccurrences } from "@/lib/festivals/occurrences";
+import { listPublishedFestivals } from "@/lib/festivals/queries";
 
-// Home placeholder. The real "next festival" countdown and featured cards arrive in Phase 2,
-// once verified dates exist. Until then we show an honest empty state, never an invented date.
-export default function Home() {
+export default async function Home() {
+  // "Today" changes, so this page must be built per visit and never frozen at build time.
+  await connection();
+  const today = todayInReferenceZone(new Date());
+
+  const festivals = await listPublishedFestivals();
+  const entries = buildEntries(mockOccurrences, festivals);
+  const featured = FEATURED_SLUGS.flatMap((slug) => festivals.filter((f) => f.slug === slug));
+
   return (
     <>
-      <section className="bg-gradient-to-b from-gold-tint/60 to-transparent">
-        <PageContainer className="gap-6">
-          <SectionHeading
-            level={1}
-            title="Your traditions, wherever life takes you."
-            description="Learn when Hindu festivals happen, what they mean, and how to celebrate them, whether you are at home or in a dorm room far from family."
-          />
+      <section className="relative overflow-hidden bg-gradient-to-b from-gold-tint to-ivory">
+        <RangoliMotif className="-right-20 -top-20 size-64 sm:-right-8 sm:-top-12 sm:size-96" />
+        <PageContainer className="relative gap-5 pb-8 pt-10 sm:gap-6 sm:pb-10 sm:pt-14">
+          <div className="flex max-w-4xl flex-col gap-3 sm:gap-4">
+            <p className="text-sm font-semibold uppercase tracking-widest text-saffron-deep">Desi Days</p>
+            {/* From `md` up, each half of the sentence gets its own line, so the heading is two balanced lines. */}
+            <h1 className="text-[2rem] font-semibold min-[360px]:text-4xl sm:text-5xl lg:text-6xl">
+              <span className="md:block">Your traditions,</span> <span className="md:block">wherever life takes you.</span>
+            </h1>
+            <div aria-hidden="true" className="h-0.5 w-16 rounded-full bg-gold" />
+            <p className="max-w-4xl text-lg text-ink-muted sm:text-xl">
+              A guide to Hindu festivals for young Indian Americans and the wider diaspora: when they happen, what
+              they mean, and how to celebrate them, whether you are at home or in a dorm room far from family.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
             <ButtonLink href="/explore" size="lg">
               Explore festivals
@@ -27,22 +48,9 @@ export default function Home() {
         </PageContainer>
       </section>
 
-      <PageContainer className="pt-0">
-        <section aria-labelledby="next-festival" className="flex flex-col gap-4">
-          <h2 id="next-festival" className="text-3xl font-semibold">
-            Next festival
-          </h2>
-          <EmptyState
-            headingLevel={3}
-            title="No verified dates yet"
-            description="We show a countdown only after a date has been checked against a reliable calendar source. Until then, you can still explore every festival."
-            action={
-              <ButtonLink href="/explore" variant="secondary">
-                Browse the festivals
-              </ButtonLink>
-            }
-          />
-        </section>
+      <PageContainer className="gap-12 pt-2 sm:pt-4">
+        <NextFestival entries={entries} today={today} />
+        <FeaturedFestivals festivals={featured} />
 
         <section aria-labelledby="what-you-will-find" className="flex flex-col gap-4">
           <h2 id="what-you-will-find" className="text-3xl font-semibold">
@@ -52,8 +60,7 @@ export default function Home() {
             <Card as="li">
               <h3 className="text-xl font-semibold">When</h3>
               <p className="mt-2 text-ink-muted">
-                Verified dates for a clearly stated location, and an honest note when a date is
-                not confirmed.
+                Verified dates for a clearly stated location, and an honest note when a date is not confirmed.
               </p>
             </Card>
             <Card as="li">

@@ -18,8 +18,9 @@ export function NavLinks({ variant }: NavLinksProps) {
     <ul className={cn("flex", variant === "desktop" ? "items-center gap-1" : "w-full")}>
       {primaryNav.map((item) => {
         const active = isNavItemActive(item, pathname);
+        // Mobile tabs use flex-auto (not flex-1): each gets room for its own label first, so "My Festivals" never wraps at 320px.
         return (
-          <li key={item.href} className={variant === "mobile" ? "flex-1" : undefined}>
+          <li key={item.href} className={variant === "mobile" ? "flex-auto" : undefined}>
             <Link
               href={item.href}
               // Tells screen readers which page is current; also drives the styling below.
@@ -27,7 +28,7 @@ export function NavLinks({ variant }: NavLinksProps) {
               className={cn(
                 variant === "desktop"
                   ? "inline-flex min-h-11 items-center rounded-md px-3 font-semibold underline-offset-8 hover:bg-gold-tint"
-                  : "flex min-h-14 flex-col items-center justify-center border-t-4 px-1 text-sm font-semibold",
+                  : "flex min-h-14 flex-col items-center justify-center whitespace-nowrap border-t-4 px-1 text-[0.8125rem] font-semibold min-[360px]:text-sm",
                 active
                   ? variant === "desktop"
                     ? "text-maroon underline decoration-gold decoration-4"

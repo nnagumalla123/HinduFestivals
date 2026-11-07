@@ -2,7 +2,8 @@ import type { MockFestival } from "./types";
 
 /**
  * The ten curated festivals from the PRD. MOCK DATA: names and aliases only, with
- * one-line neutral subtitles. No dates, stories, or practices are invented here;
+ * one-line neutral subtitles and a few widely recognized deity names (used only for
+ * search; see `deities` in types.ts). No dates, stories, or practices are invented here;
  * sourced and reviewed content arrives in Phase 3.
  *
  * Navaratri and Vijayadashami are separate, related guides (PRD section 2).
@@ -14,6 +15,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Diwali",
     aliases: ["Deepavali"],
     subtitle: "The festival of lights",
+    deities: ["Lakshmi", "Rama"],
     dateStatus: "not_verified",
   },
   {
@@ -21,6 +23,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Ugadi",
     aliases: ["Yugadi"],
     subtitle: "A new year festival in parts of southern India",
+    deities: ["Brahma"],
     dateStatus: "not_verified",
   },
   {
@@ -28,6 +31,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Holi",
     aliases: [],
     subtitle: "The festival of colors",
+    deities: ["Krishna", "Vishnu"],
     dateStatus: "not_verified",
   },
   {
@@ -35,6 +39,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Ganesh Chaturthi",
     aliases: ["Vinayaka Chaturthi"],
     subtitle: "A festival honoring Ganesha",
+    deities: ["Ganesha"],
     dateStatus: "not_verified",
   },
   {
@@ -42,6 +47,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Navaratri",
     aliases: ["Navratri"],
     subtitle: "A nine-night festival",
+    deities: ["Durga", "Lakshmi", "Saraswati"],
     dateStatus: "not_verified",
   },
   {
@@ -49,6 +55,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Vijayadashami",
     aliases: ["Dussehra", "Dasara"],
     subtitle: "Celebrated at the close of Navaratri",
+    deities: ["Durga", "Rama"],
     dateStatus: "not_verified",
   },
   {
@@ -56,6 +63,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Krishna Janmashtami",
     aliases: ["Janmashtami", "Gokulashtami"],
     subtitle: "A festival honoring the birth of Krishna",
+    deities: ["Krishna"],
     dateStatus: "not_verified",
   },
   {
@@ -63,6 +71,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Maha Shivaratri",
     aliases: ["Shivaratri"],
     subtitle: "A night dedicated to Shiva",
+    deities: ["Shiva", "Parvati"],
     dateStatus: "not_verified",
   },
   {
@@ -70,6 +79,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Makara Sankranti",
     aliases: ["Sankranti"],
     subtitle: "A solar festival",
+    deities: ["Surya"],
     dateStatus: "not_verified",
   },
   {
@@ -77,6 +87,7 @@ export const mockFestivals: readonly MockFestival[] = [
     name: "Rama Navami",
     aliases: [],
     subtitle: "A festival honoring the birth of Rama",
+    deities: ["Rama"],
     dateStatus: "not_verified",
   },
 ];

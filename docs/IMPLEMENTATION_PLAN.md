@@ -31,14 +31,41 @@
 
 ## Phase 2 — Public festival UX
 **Goal:** Complete anonymous experience with mock, clearly labeled data.
-- [ ] Home: featured upcoming area (safe empty state until verified data), cards, discovery.
-- [ ] Explore: search by name/aliases/deities, filters, empty state, cards.
-- [ ] Calendar: month/list views, month navigation, date selection, verified-only indicators, clear reference location.
-- [ ] Detail: hero, quick facts, summary, expandable stories, deities, rituals, food/fasting, celebration mode, regional differences, sources.
-- [ ] Guest follow/reminder actions show sign-in prompt and preserve intended return URL.
-- [ ] Keyboard and mobile interactions, loading/404/error states.
-- [ ] Unit/component tests for search, calendar rendering, and detail sections.
-**Gate:** A guest completes J1 end to end; all sample dates clearly marked as samples or absent.
+
+**Approved decisions (2026-11-07)**
+- Test fixtures may use clearly synthetic dates **only under `tests/`**. No fabricated dates in `app/`, `components/`, `lib/`, or any user-facing page. No dev-only calendar preview route.
+- Deity search: add only minimal, well-established deity associations, marked "pending editorial review", without oversimplifying festivals that have several traditions or interpretations.
+- Region filters (Explore and Calendar) are deferred to Phase 3, when sourced regional associations exist.
+- Playwright/E2E is deferred to Phase 6. Phase 2 uses Vitest, React Testing Library, and manual browser checks (375px and desktop, keyboard-only).
+- Guest follow is a simple sign-in prompt with a safe return URL. No authentication is built.
+- Avoid ten nearly empty guide pages: plan a small amount of properly sourced, reviewed introductory content per festival (no invented cultural information or dates). Scope and sourcing are agreed with the project owner before P2-03; unreviewed sections show "Not yet available".
+- Keep the three research jobs separate: festival discovery, date verification, cultural content research (PRD section 11). No data ingestion.
+- No new dependencies unless explained and approved. Dates are `YYYY-MM-DD` strings; "today" is always passed in.
+
+**Milestones** (one at a time; stop for review after each)
+- [x] **P2-00 Shared foundations:** `FestivalOccurrence` type and empty `mockOccurrences`; guide-section model; `OccurrenceDate` (date always paired with reference location and year); `safeReturnPath()`; synthetic test fixtures.
+- [x] **P2-01 Explore:** search by name, aliases, deities (URL `?q=`, works without JavaScript), results count, empty state, polished cards.
+- [x] **P2-02 Calendar:** month/list views, Previous/next month navigation limited to the reference year, mutually exclusive grid and list views with a short empty state in each, day selection, verified-only indicators, label beneath the heading. Festival guides stay on Explore (not repeated under the calendar).
+- [x] **P2-03 Detail page:** hero, quick facts, summary, expandable stories, deities, rituals, food/fasting, celebration modes, regional differences, sources; unavailable sections clearly marked; P2-03 built the full section structure with honest "Not yet available" placeholders, a typographic hero, "On this page" navigation, and support for reviewed content, sources and expandable stories (empty until Phase 3). The small reviewed intro content is deferred to Phase 3 (see the editorial approach below). The detail-page hero countdown is also deferred: it needs the current date and a verified occurrence.
+- [x] **P2-04 Home, guest follow, gate:** next-festival selection (empty state until verified data), featured cards (the homepage has no search box; Explore is the search entry); follow/reminder actions send guests to sign-in with a safe return URL; loading/404/error sweep; J1 walkthrough. Built: welcoming hero, "Next festival" (verified occurrences only; `today` is measured in the reference time zone; the page renders per request so it never freezes at build time), six featured festivals from the ten (editorial placeholder list in `lib/festivals/featured.ts`), and a Follow link to `/login?next=<validated path>`. The login page only keeps and re-validates `next` for Phase 4 and says nothing has been followed. Reminders show as "not available yet". Festival routes use `dynamicParams = false`, so unknown or wrong-case slugs are a deterministic 404.
+- [x] Keyboard and mobile interactions, loading/404/error states throughout.
+- [x] Unit/component tests for search, calendar rendering, detail sections, next-festival selection, and return-URL safety.
+
+**Editorial approach for the intro content (proposed in P2-03; confirm before Phase 3 content work starts)**
+- Per festival, three small pieces: a "Why celebrate?" summary of 80-150 words; a short list of broadly common customs, each labelled by region or tradition and by how optional it is; and a short dorm-safe celebration list (practical guidance, not cultural claims).
+- Every claim cites a primary text or a reputable temple, academic or cultural-institution source, attributed by tradition. Holiday-list websites (for example CalendarLabs) are never sources for cultural or religious claims. Dates follow the separate date-verification process.
+- Process: draft in our own words and record source URLs, titles and access dates; the owner reviews (ideally with a culturally knowledgeable reviewer); only reviewed text enters `mock-guides.ts` or the database with `reviewedAt` set. Where sources disagree, say "varies by tradition" or omit the point.
+- Rollout: start with two or three festivals (Navaratri and Makara Sankranti are good stress tests for multiple traditions) before writing all ten.
+
+**Deferred from Phase 2**
+- Region filters on Explore and Calendar (need sourced regional associations): Phase 3.
+- Reviewed intro content, sources and `reviewedAt` on guide pages: Phase 3.
+- Detail-page hero countdown and a populated "Next festival" card in a real browser: need verified occurrences (Phase 3).
+- Follow, reminders and real sign-in (`/login?next=` is validated and kept for it): Phases 4 and 5.
+- Playwright end-to-end tests: Phase 6.
+- Editorial placeholders to revisit: the featured-festival list (`lib/festivals/featured.ts`) and the search-only deity names ("pending editorial review").
+
+**Gate:** A guest completes J1 end to end; all sample dates clearly marked as samples or absent; production data contains no dates. **Verified at the end of Phase 2** (lint, typecheck, tests, production build; J1 clicked through in a browser; no dates, countdowns, review stamps or synthetic text in any served page).
 
 ## Phase 3 — Database and curated editorial data
 **Goal:** Real published content from Supabase.
@@ -94,9 +121,11 @@
 | P1-01 | 1 | Initialize app/tooling |
 | P1-02 | 1 | Theme + reusable components |
 | P1-03 | 1 | Navigation and route skeleton |
+| P2-00 | 2 | Shared foundations: occurrence type, date display, safe return URL |
 | P2-01 | 2 | Festival cards/library/search |
 | P2-02 | 2 | Calendar views |
 | P2-03 | 2 | Detail page and responsive behavior |
+| P2-04 | 2 | Home, guest follow prompt, Phase 2 gate |
 | P3-01 | 3 | Schema and public RLS |
 | P3-02 | 3 | Typed data access and seed validation |
 | P3-03 | 3 | Reviewed content + verified dates |

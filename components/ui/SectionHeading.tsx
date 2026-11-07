@@ -9,6 +9,8 @@ export interface SectionHeadingProps {
   /** Which heading tag to use. Pick by page outline, not by size: one h1 per page. */
   level?: 1 | 2 | 3;
   className?: string;
+  /** Extra classes for the description line (e.g. to keep a short label on one line). */
+  descriptionClassName?: string;
 }
 
 const sizes = {
@@ -23,6 +25,7 @@ export function SectionHeading({
   description,
   level = 2,
   className,
+  descriptionClassName,
 }: SectionHeadingProps) {
   const Heading = `h${level}` as const;
 
@@ -37,7 +40,7 @@ export function SectionHeading({
       {/* Subtle gold rule: purely decorative, hidden from screen readers. */}
       <div aria-hidden="true" className="h-0.5 w-16 rounded-full bg-gold" />
       {description && (
-        <p className="max-w-prose text-lg text-ink-muted">{description}</p>
+        <p className={cn("max-w-prose text-lg text-ink-muted", descriptionClassName)}>{description}</p>
       )}
     </div>
   );

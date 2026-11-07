@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import type { ReactElement } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import CalendarPage from "@/app/calendar/page";
 import ExplorePage from "@/app/explore/page";
 import FestivalPage, { generateMetadata, generateStaticParams } from "@/app/festivals/[slug]/page";
@@ -12,15 +12,15 @@ import SettingsPage from "@/app/settings/page";
 import SignupPage from "@/app/signup/page";
 import { mockFestivals } from "@/lib/festivals/mock-data";
 
+// `connection()` only works inside a real request; in unit tests there is none, so it becomes a no-op.
+vi.mock("next/server", () => ({ connection: async () => {} }));
+
 const slugProps = (slug: string) => ({ params: Promise.resolve({ slug }) });
 
 describe("static pages render without login", () => {
   // Server components are plain functions, so we can call them and render the result.
   it.each([
-    ["/", () => <Home />, /your traditions, wherever life takes you/i],
-    ["/calendar", () => <CalendarPage />, /festival calendar/i],
     ["/my-festivals", () => <MyFestivalsPage />, /my festivals/i],
-    ["/login", () => <LoginPage />, /sign in/i],
     ["/signup", () => <SignupPage />, /create an account/i],
     ["/onboarding", () => <OnboardingPage />, /welcome/i],
     ["/settings", () => <SettingsPage />, /settings/i],
@@ -30,8 +30,23 @@ describe("static pages render without login", () => {
     expect(screen.getByRole("heading", { level: 1, name: heading })).toBeInTheDocument();
   });
 
+  it.each([
+    ["/", async () => Home(), /your traditions, wherever life takes you/i],
+    ["/login", async () => LoginPage({ searchParams: Promise.resolve({}) }), /sign in/i],
+  ] as Array<[string, () => Promise<ReactElement>, RegExp]>)("%s has one h1", async (_path, element, heading) => {
+    render(await element());
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    expect(screen.getByRole("heading", { level: 1, name: heading })).toBeInTheDocument();
+  });
+
+  it("/calendar has one h1", async () => {
+    render(await CalendarPage({ searchParams: Promise.resolve({}) }));
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    expect(screen.getByRole("heading", { level: 1, name: /festival calendar/i })).toBeInTheDocument();
+  });
+
   it("/explore lists all ten festivals, each linking to its page", async () => {
-    render(await ExplorePage());
+    render(await ExplorePage({ searchParams: Promise.resolve({}) }));
     expect(screen.getByRole("heading", { level: 1, name: /explore festivals/i })).toBeInTheDocument();
     expect(screen.getAllByRole("listitem")).toHaveLength(10);
     mockFestivals.forEach((f) => {
@@ -40,19 +55,19 @@ describe("static pages render without login", () => {
   });
 
   it("/explore marks every festival's date as not verified", async () => {
-    render(await ExplorePage());
+    render(await ExplorePage({ searchParams: Promise.resolve({}) }));
     expect(screen.getAllByText("Date not yet verified")).toHaveLength(10);
   });
 });
 
 describe("home and calendar never show invented dates", () => {
-  it("home shows an honest empty state instead of a countdown", () => {
-    render(<Home />);
+  it("home shows an honest empty state instead of a countdown", async () => {
+    render(await Home());
     expect(screen.getByRole("heading", { name: "No verified dates yet" })).toBeInTheDocument();
   });
 
-  it("calendar names its reference location directly beneath the page heading", () => {
-    const { container } = render(<CalendarPage />);
+  it("calendar names its reference location directly beneath the page heading", async () => {
+    const { container } = render(await CalendarPage({ searchParams: Promise.resolve({}) }));
     const heading = screen.getByRole("heading", { level: 1, name: "Festival calendar" });
     const label = screen.getByText(/Reference calendar: Atlanta, GA · 2027/);
     // DOCUMENT_POSITION_FOLLOWING (4) means the label comes after the heading in the page.
@@ -63,7 +78,7 @@ describe("home and calendar never show invented dates", () => {
   });
 
   it("the location label appears only on the calendar page", async () => {
-    const { container: home } = render(<Home />);
+    const { container: home } = render(await Home());
     expect(home).not.toHaveTextContent(/Atlanta|Reference calendar/);
     const { container: festival } = render(await FestivalPage(slugProps("diwali")));
     expect(festival).not.toHaveTextContent(/Atlanta|Reference calendar/);
@@ -75,6 +90,15 @@ describe("/festivals/[slug]", () => {
     render(await FestivalPage(slugProps(slug)));
     expect(screen.getByRole("heading", { level: 1, name })).toBeInTheDocument();
     expect(screen.getByText("Date not yet verified")).toBeInTheDocument();
+  });
+
+  it.each(mockFestivals.map((f) => [f.slug]))("%s shows all sections, with placeholders and no dates", async (slug) => {
+    const { container } = render(await FestivalPage(slugProps(slug)));
+    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(9);
+    expect(screen.getAllByText("Not yet available.").length).toBeGreaterThan(0);
+    expect(container.querySelector("time")).toBeNull();
+    expect(container).not.toHaveTextContent(/Atlanta|Reference calendar/);
+    expect(screen.getByRole("link", { name: "All festivals" })).toHaveAttribute("href", "/explore");
   });
 
   it("shows aliases when a festival has them", async () => {

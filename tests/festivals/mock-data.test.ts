@@ -40,9 +40,17 @@ describe("mock festival data", () => {
     expect(text).not.toMatch(/mid-(january|february|march|april|may|june|july|august|september|october|november|december)/i);
   });
 
+  it("gives every festival at least one deity name, with no blanks or duplicates", () => {
+    mockFestivals.forEach((f) => {
+      expect(f.deities.length).toBeGreaterThan(0);
+      expect(f.deities.every((d) => d.trim() === d && d !== "")).toBe(true);
+      expect(new Set(f.deities).size).toBe(f.deities.length);
+    });
+  });
+
   it("only has the allowed fields (so a date field can't sneak in unnoticed)", () => {
     mockFestivals.forEach((f) => {
-      expect(Object.keys(f).sort()).toEqual(["aliases", "dateStatus", "name", "slug", "subtitle"]);
+      expect(Object.keys(f).sort()).toEqual(["aliases", "dateStatus", "deities", "name", "slug", "subtitle"]);
     });
   });
 });
