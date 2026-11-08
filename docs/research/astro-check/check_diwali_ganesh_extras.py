@@ -1,0 +1,6 @@
+import sys; sys.path.insert(0,'.')
+exec(open('check_rules_atlanta.py').read().split("report(\"Diwali")[0])
+report("Anant Chaturdashi (Shukla Chaturdashi at sunrise/madhyahna)",[(2027,9,13),(2027,9,14)],[SR,MD])
+report("Dhanteras (Trayodashi at Pradosh)",[(2027,10,25),(2027,10,26),(2027,10,27)],[SR,PR,PRM])
+report("Govardhan/Bhai Dooj",[(2027,10,29),(2027,10,30),(2027,10,31)],[SR,PR,AP])
+report("Maha Navami / Navaratri 9th day (Shukla 9 at sunrise)",[(2027,10,7),(2027,10,8),(2027,10,9)],[SR,MD])

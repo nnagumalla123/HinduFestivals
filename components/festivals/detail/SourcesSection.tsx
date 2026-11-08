@@ -1,5 +1,5 @@
 import { formatCivilDate } from "@/lib/festivals/occurrences";
-import type { FestivalSource, GuideSection, SourceRole } from "@/lib/festivals/types";
+import type { FestivalSource, GuideSection, PublicDeity, PublicQuickFact, SourceRole } from "@/lib/festivals/types";
 import { isHttpUrl } from "@/lib/utils/url";
 
 const GROUPS: { role: SourceRole; title: string; empty: string }[] = [
@@ -7,16 +7,29 @@ const GROUPS: { role: SourceRole; title: string; empty: string }[] = [
   { role: "cultural", title: "Cultural content sources", empty: "No cultural content source has been recorded yet." },
 ];
 
-/** Date sources and cultural-content sources are listed separately (PRD section 11), plus the latest review date. */
+/**
+ * Date sources and cultural-content sources are listed separately (PRD section 11), plus the latest
+ * review date. Each source is numbered by its position in the guide's source list, so the "[n]"
+ * citations in the sections above link here (`#source-<id>`).
+ */
 export function SourcesSection({
   sources,
   sections,
+  quickFacts = [],
+  deities = [],
 }: {
   sources: readonly FestivalSource[];
   sections: readonly GuideSection[];
+  quickFacts?: readonly PublicQuickFact[];
+  deities?: readonly PublicDeity[];
 }) {
-  const reviewDates = sections.flatMap((s) => (s.status === "published" ? [s.reviewedAt] : []));
+  const reviewDates = [
+    ...sections.flatMap((s) => (s.status === "published" ? [s.reviewedAt] : [])),
+    ...quickFacts.map((f) => f.reviewedAt),
+    ...deities.map((d) => d.reviewedAt),
+  ];
   const lastReviewed = reviewDates.length > 0 ? formatCivilDate([...reviewDates].sort().at(-1)!) : null;
+  const numbered = sources.map((source, index) => ({ source, n: index + 1 }));
 
   return (
     <section id="sources" aria-labelledby="sources-heading" className="scroll-mt-24">
@@ -25,18 +38,18 @@ export function SourcesSection({
       </h2>
       <div className="flex flex-col gap-4">
         {GROUPS.map((group) => {
-          const items = sources.filter((s) => s.role === group.role);
+          const items = numbered.filter(({ source }) => source.role === group.role);
           return (
             <div key={group.role}>
               <h3 className="text-xl font-semibold">{group.title}</h3>
               {items.length === 0 ? (
                 <p className="mt-1 text-ink-muted">{group.empty}</p>
               ) : (
-                <ul className="mt-1 flex list-disc flex-col gap-1 pl-5">
-                  {items.map((source) => {
+                <ol className="mt-1 flex list-decimal flex-col gap-1.5 pl-6">
+                  {items.map(({ source, n }) => {
                     const accessed = formatCivilDate(source.accessedAt);
                     return (
-                      <li key={source.url}>
+                      <li key={source.id} value={n} id={`source-${source.id}`} className="scroll-mt-24">
                         {/* Only http(s) URLs become links; anything else is shown as plain text. */}
                         {isHttpUrl(source.url) ? (
                           <a
@@ -56,7 +69,7 @@ export function SourcesSection({
                       </li>
                     );
                   })}
-                </ul>
+                </ol>
               )}
             </div>
           );

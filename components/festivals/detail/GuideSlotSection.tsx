@@ -1,6 +1,7 @@
 import { formatCivilDate } from "@/lib/festivals/occurrences";
 import type { GuideSlot } from "@/lib/festivals/guide";
-import type { GuideSection } from "@/lib/festivals/types";
+import type { FestivalSource, GuideSection } from "@/lib/festivals/types";
+import { Citations } from "./Citations";
 import { NotAvailable } from "./NotAvailable";
 
 type PublishedSection = Extract<GuideSection, { status: "published" }>;
@@ -32,7 +33,15 @@ function Meta({ section }: { section: PublishedSection }) {
  * One section of the guide. Shows reviewed content when there is some, otherwise the honest
  * placeholder. Stories are expandable (native <details>: keyboard accessible with no JavaScript).
  */
-export function GuideSlotSection({ slot, sections }: { slot: GuideSlot; sections: readonly GuideSection[] }) {
+export function GuideSlotSection({
+  slot,
+  sections,
+  sources = [],
+}: {
+  slot: GuideSlot;
+  sections: readonly GuideSection[];
+  sources?: readonly FestivalSource[];
+}) {
   const published = sections.filter(
     (s): s is PublishedSection => s.status === "published" && slot.kinds.includes(s.kind),
   );
@@ -55,6 +64,7 @@ export function GuideSlotSection({ slot, sections }: { slot: GuideSlot; sections
                 <div className="mt-3 flex flex-col gap-3">
                   <Meta section={section} />
                   <Body text={section.body} />
+                  <Citations ids={section.sourceIds} sources={sources} />
                 </div>
               </details>
             ) : (
@@ -62,6 +72,7 @@ export function GuideSlotSection({ slot, sections }: { slot: GuideSlot; sections
                 <h3 className="text-xl font-semibold">{section.title}</h3>
                 <Meta section={section} />
                 <Body text={section.body} />
+                <Citations ids={section.sourceIds} sources={sources} />
               </article>
             ),
           )}

@@ -3,6 +3,7 @@ import {
   buildMonthGrid,
   calendarHref,
   entriesByDay,
+  entryLabel,
   MONTH_NAMES,
   monthLabel,
   type CalendarEntry,
@@ -69,22 +70,22 @@ export function MonthGrid({
                     <Link
                       href={`${calendarHref({ view: "grid", month, day })}#${DAY_DETAILS_ID}`}
                       aria-current={selected ? "true" : undefined}
-                      aria-label={`${MONTH_NAMES[month.month - 1]} ${dayNumber}, ${month.year}: ${dayEntries.map((e) => e.name).join(", ")}`}
+                      aria-label={`${MONTH_NAMES[month.month - 1]} ${dayNumber}, ${month.year}: ${dayEntries.map(entryLabel).join(", ")}`}
                       className={cn(cell, "hover:bg-gold-tint")}
                     >
                       <span className="font-semibold text-maroon">{dayNumber}</span>
                       <span aria-hidden="true" className="mt-1 flex gap-1 sm:hidden">
                         {dayEntries.slice(0, 3).map((e) => (
-                          <span key={e.slug + e.occurrence.startDate} className="size-2 rounded-full bg-green" />
+                          <span key={e.slug + e.occurrence.startDate + (e.occurrence.traditionLabel ?? "")} className="size-2 rounded-full bg-green" />
                         ))}
                       </span>
                       <span aria-hidden="true" className="mt-1 hidden flex-col gap-0.5 sm:flex">
                         {dayEntries.slice(0, 2).map((e) => (
                           <span
-                            key={e.slug + e.occurrence.startDate}
+                            key={e.slug + e.occurrence.startDate + (e.occurrence.traditionLabel ?? "")}
                             className="truncate rounded-sm bg-green px-1 text-xs font-semibold text-ivory"
                           >
-                            {e.name}
+                            {entryLabel(e)}
                           </span>
                         ))}
                         {dayEntries.length > 2 && (

@@ -2,13 +2,13 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { FestivalDetail } from "@/components/festivals/detail/FestivalDetail";
 import { GUIDE_SLOTS, SECTION_NAV } from "@/lib/festivals/guide";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { contentFestivals, withReviewedBasics } from "../fixtures/festivals";
 import type { FestivalGuide, FestivalOccurrence } from "@/lib/festivals/types";
 import { syntheticGuide } from "../fixtures/guide";
 import { syntheticDisputed, syntheticDraft, syntheticVerifiedMultiDay, syntheticVerifiedSingleDay } from "../fixtures/occurrences";
 
-const diwali = mockFestivals[0];
-const emptyGuide: FestivalGuide = { sections: [], sources: [] };
+const diwali = contentFestivals[0];
+const emptyGuide: FestivalGuide = { sections: [], quickFacts: [], deities: [], sources: [] };
 
 const renderDetail = (occurrences: readonly FestivalOccurrence[] = [], guide: FestivalGuide = emptyGuide, festival = diwali) =>
   render(<FestivalDetail festival={festival} occurrences={occurrences} guide={guide} />);
@@ -32,18 +32,26 @@ describe("festival detail: structure (PRD section 4)", () => {
     ]);
   });
 
-  it("has a typographic hero with the name, subtitle and aliases, and no image", () => {
-    const { container } = renderDetail();
+  it("has a typographic hero with the name, approved subtitle and aliases, and no image", () => {
+    const reviewed = withReviewedBasics("diwali");
+    const { container } = renderDetail([], emptyGuide, reviewed);
     expect(screen.getByRole("heading", { level: 1, name: "Diwali" })).toBeInTheDocument();
-    expect(screen.getByText(diwali.subtitle)).toBeInTheDocument();
+    expect(screen.getByText(reviewed.subtitle!)).toBeInTheDocument();
     expect(screen.getByText("Also known as Deepavali")).toBeInTheDocument();
     expect(container.querySelector("img")).toBeNull();
     // The decorative motif is hidden from assistive technology.
     expect(container.querySelector("header svg")).toHaveAttribute("aria-hidden", "true");
   });
 
+  it("shows only the name while the festival's basics are unreviewed", () => {
+    const { container } = renderDetail();
+    expect(screen.getByRole("heading", { level: 1, name: "Diwali" })).toBeInTheDocument();
+    expect(container.querySelector("header")).not.toHaveTextContent(/Also known as|Deepavali|festival of lights/);
+    expect(container.querySelector("header p:not(:has(*))")?.textContent).toBe("Festival guide");
+  });
+
   it("omits the aliases line for a festival without aliases", () => {
-    renderDetail([], emptyGuide, mockFestivals.find((f) => f.slug === "holi")!);
+    renderDetail([], emptyGuide, withReviewedBasics("holi"));
     expect(screen.queryByText(/Also known as/)).not.toBeInTheDocument();
   });
 });
@@ -62,7 +70,7 @@ describe("festival detail: honest placeholders", () => {
     const { container } = renderDetail();
     GUIDE_SLOTS.forEach((slot) => expect(container).toHaveTextContent(slot.purpose));
     // No deity names or festival-specific content leaks onto the page from the search-only data.
-    diwali.deities.forEach((deity) => expect(container).not.toHaveTextContent(deity));
+    diwali.provisional.deities.forEach((deity) => expect(container).not.toHaveTextContent(deity));
   });
 
   it("shows 'Not yet editorially reviewed' and empty source lists", () => {
@@ -185,7 +193,7 @@ describe("festival detail: reviewed content (synthetic)", () => {
 
   it("opens source links safely, and never makes a link from a non-http URL", () => {
     renderDetail([], syntheticGuide);
-    const link = screen.getByRole("link", { name: /Test date source/ });
+    const link = screen.getByRole("link", { name: /^Test date source/ });
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveTextContent("(opens in a new tab)");

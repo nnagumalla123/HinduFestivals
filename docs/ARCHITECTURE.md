@@ -26,6 +26,8 @@ Scheduled cron → protected server route → due reminder query/atomic claim
 Public pages can be server-rendered; interactive calendar, filters, and follow buttons are client components. Use server-side reads for privileged operations. Keep service-role keys server-only and narrowly scoped.
 
 ## 3. Domain model
+> **Phase 3 decision (2026-11-07):** public festival content is stored in typed, version-controlled content files (`content/festivals/<slug>.ts`) validated by `lib/festivals/content/`, not in Supabase. The relational model below is the **target shape** for that content and the migration path: each content file maps to these tables (slug is the stable key). Supabase is introduced in Phase 4 for the user-owned tables; a `festivals` table seeded from the content files by a reviewed script gives `user_festivals` its foreign key without changing how public pages read content. The query layer (`lib/festivals/queries.ts`) is the only place pages read content, so the data source can change later without touching pages.
+
 ### Published content
 - `festivals`: `id uuid PK`, `slug text UNIQUE`, `name text`, `subtitle text`, `summary text`, `hero_image_url text NULL`, `hero_alt text NULL`, `status enum(draft,published)`, `reviewed_at timestamptz NULL`, `created_at`, `updated_at`.
 - `festival_aliases`: `id uuid PK`, `festival_id FK`, `alias text`, `language_code text NULL`; unique `(festival_id, lower(alias))` via expression index.
@@ -54,7 +56,10 @@ Use foreign keys, indexes on occurrence `(calendar_location_id,start_date,verifi
 
 ## 4. Date handling
 - Initial `calendar_locations`: Atlanta, GA, USA, `America/New_York` (reference calendar); coordinates documented in seed metadata, not derived from user geolocation.
-- Seed verified **2027** dates only after editorial verification; no hardcoded dates in component logic.
+- Add verified **2027** dates to the content files only after editorial verification; no hardcoded dates in component logic.
+- **Source roles:** every source is `date`, `cultural` or `discovery`. Only `cultural` sources may back a guide section; only `date` sources may back an occurrence; `discovery` sources are never cited publicly. A holiday-list source (flag `holidayList`) may only be a cross-check and never counts as the primary source or as the independent check.
+- **Independence rule:** a `verified` occurrence needs (1) a primary `date` source that is location-specific for the reference location and states its method, and (2) a second `date` source in a different `independenceGroup` (sources sharing underlying calendar data share a group) that is not a holiday-list source. The loader re-checks this and silently withholds any item that fails, so a mistake fails closed.
+- **Tradition-specific observances:** several occurrences may exist for one festival, year and location only if each has a distinct `traditionKey` and a public `traditionLabel`; they are never merged.
 - Third-party holiday lists (for example CalendarLabs) are candidate/cross-check sources, never the basis for `verification_status = 'verified'`. A verified occurrence must cite a reliable location-specific calendar source (`festival_sources.source_type = 'calendar'`) and record its method; discovery-only sources must not be attached as proof of a date.
 - The selected calendar reference location determines displayed observance dates. A user's IANA timezone only controls reminder send time.
 - If an occurrence is missing, show 'Date not yet verified' and no countdown/reminder for that occurrence.
@@ -113,7 +118,8 @@ lib/
   reminders/    # eligibility, time calculation, sender, worker
   validation/   # schemas
 supabase/migrations/
-data/            # reviewed seed content, not fabricated dates
+content/         # typed festival content files (Phase 3); drafts allowed, only reviewed items publish
+docs/research/   # date ledgers and source notes (never shipped)
 types/
 tests/
 docs/
@@ -143,5 +149,7 @@ Use this as a guide; do not create empty directories prematurely.
 - ADR-004: Explicit follow + opt-in mail (privacy and relevance).
 - ADR-005: Typed relational content rather than large opaque festival JSON (maintainability and search).
 - ADR-006: Reviewed seed files instead of admin CMS (smaller MVP).
+- ADR-007 (2026-11-07): Public festival content lives in typed, version-controlled content files through Phase 3; Supabase arrives in Phase 4 for user data. Reason: ten festivals, one editor, review by pull request, compile-time checks, no RLS risk for drafts. Trade-off: a content change needs a redeploy and there is no editing UI. Migration path: files already follow the section 3 relational shape; a seed script loads them into tables when a database-backed read path is needed. Supersedes ADR-005's implication that content is stored in tables from the start.
+- ADR-008 (2026-11-07): Publication is fail-closed. Content carries a review state (`draft`, `in_review`, `reviewed`); only `reviewed` items that also pass validation reach public pages. Reviewer identity is internal and never passed to public types.
 
 Revisit decisions only with a documented reason and updated PRD/implementation plan.

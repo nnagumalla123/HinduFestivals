@@ -3,10 +3,10 @@ import { describe, expect, it } from "vitest";
 import CalendarPage from "@/app/calendar/page";
 import { CalendarView } from "@/components/calendar/CalendarView";
 import { buildEntries, type CalendarEntry } from "@/lib/festivals/calendar";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { contentFestivals } from "../fixtures/festivals";
 import { syntheticDraft, syntheticVerifiedMultiDay, syntheticVerifiedSingleDay } from "../fixtures/occurrences";
 
-const festivals = mockFestivals.map(({ slug, name }) => ({ slug, name }));
+const festivals = contentFestivals.map(({ slug, name }) => ({ slug, name }));
 // Synthetic dates attached to a real festival name only so links resolve; the dates are invented.
 const holiSingle = { ...syntheticVerifiedSingleDay, festivalSlug: "holi" };
 const ugadiMulti = { ...syntheticVerifiedMultiDay, festivalSlug: "ugadi" };

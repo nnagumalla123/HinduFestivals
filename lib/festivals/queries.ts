@@ -1,29 +1,41 @@
-import { mockFestivals } from "./mock-data";
-import { mockGuides } from "./mock-guides";
-import { mockOccurrences } from "./occurrences";
-import type { FestivalGuide, FestivalOccurrence, MockFestival } from "./types";
+import { FESTIVAL_RECORDS } from "@/content";
+import { publishAll } from "./content/load";
+import { todayInReferenceZone } from "./next-festival";
+import { EMPTY_GUIDE, type Festival, type FestivalGuide, type FestivalOccurrence } from "./types";
 
 /*
- * Data-access functions. They are `async` even though the mock data is instant,
- * because the real Supabase versions in Phase 3 will be async. Keeping the same
- * signatures means pages won't need to change when the data source does.
- * (Names follow docs/ARCHITECTURE.md section 6.)
+ * Data-access functions: the only place pages read festival content (names follow
+ * docs/ARCHITECTURE.md section 6). They are `async` so that swapping the source later
+ * (for example a database) does not change any caller.
+ *
+ * Content comes from typed files in /content through the fail-closed loader, which hands
+ * out only reviewed sections and verified occurrences. It is rebuilt on each call (ten small
+ * records, so it is cheap) because validation depends on today's date.
  */
 
-export async function listPublishedFestivals(): Promise<readonly MockFestival[]> {
-  return mockFestivals;
+function publicContent() {
+  return publishAll(FESTIVAL_RECORDS, todayInReferenceZone(new Date()));
 }
 
-export async function getFestivalBySlug(slug: string): Promise<MockFestival | undefined> {
-  return mockFestivals.find((festival) => festival.slug === slug);
+export async function listPublishedFestivals(): Promise<readonly Festival[]> {
+  return publicContent().map((item) => item.festival);
 }
 
-/** Every occurrence recorded for a festival (the UI decides which are verified enough to show). */
+export async function getFestivalBySlug(slug: string): Promise<Festival | undefined> {
+  return publicContent().find((item) => item.festival.slug === slug)?.festival;
+}
+
+/** Every published (verified) occurrence for every festival. */
+export async function listVerifiedOccurrences(): Promise<readonly FestivalOccurrence[]> {
+  return publicContent().flatMap((item) => item.occurrences);
+}
+
+/** Verified occurrences for one festival (the UI still re-checks `isVerified`). */
 export async function getOccurrencesForFestival(slug: string): Promise<readonly FestivalOccurrence[]> {
-  return mockOccurrences.filter((occurrence) => occurrence.festivalSlug === slug);
+  return publicContent().find((item) => item.festival.slug === slug)?.occurrences ?? [];
 }
 
 /** Reviewed written content for a festival; an empty guide when none exists yet. */
 export async function getFestivalGuide(slug: string): Promise<FestivalGuide> {
-  return mockGuides[slug] ?? { sections: [], sources: [] };
+  return publicContent().find((item) => item.festival.slug === slug)?.guide ?? EMPTY_GUIDE;
 }

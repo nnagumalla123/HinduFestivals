@@ -1,5 +1,6 @@
 import { REFERENCE_CALENDAR } from "./constants";
-import { parseIsoDate } from "./occurrences";
+import { isVerified, parseIsoDate } from "./occurrences";
+import type { FestivalOccurrence } from "./types";
 import { usableEntries, type CalendarEntry } from "./calendar";
 
 /*
@@ -66,4 +67,16 @@ export function countdownLabel({ status, daysUntilStart }: Pick<NextFestival, "s
   if (daysUntilStart === 0) return "Starts today";
   if (daysUntilStart === 1) return "Starts tomorrow";
   return `Starts in ${daysUntilStart} days`;
+}
+
+/**
+ * A countdown for one occurrence, or null when there must not be one: the date is not verified, is
+ * malformed, or has already passed. Never invents a date.
+ */
+export function occurrenceCountdown(occurrence: FestivalOccurrence, today: string): string | null {
+  if (!isVerified(occurrence) || !parseIsoDate(today)) return null;
+  if (!parseIsoDate(occurrence.startDate) || !parseIsoDate(occurrence.endDate)) return null;
+  if (occurrence.startDate > occurrence.endDate || occurrence.endDate < today) return null;
+  const daysUntilStart = daysBetween(today, occurrence.startDate) ?? 0;
+  return countdownLabel({ status: occurrence.startDate < today ? "ongoing" : "upcoming", daysUntilStart });
 }

@@ -5,12 +5,12 @@ import { FeaturedFestivals } from "@/components/home/FeaturedFestivals";
 import { NextFestival } from "@/components/home/NextFestival";
 import { FEATURED_SLUGS } from "@/lib/festivals/featured";
 import { buildEntries } from "@/lib/festivals/calendar";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { contentFestivals } from "../fixtures/festivals";
 import { syntheticDraft, syntheticVerifiedMultiDay, syntheticVerifiedSingleDay } from "../fixtures/occurrences";
 
 vi.mock("next/server", () => ({ connection: async () => {} }));
 
-const festivals = mockFestivals.map(({ slug, name }) => ({ slug, name }));
+const festivals = contentFestivals.map(({ slug, name }) => ({ slug, name }));
 const holi = { ...syntheticVerifiedSingleDay, festivalSlug: "holi" };
 
 describe("home page (production data)", () => {
@@ -52,7 +52,7 @@ describe("home page (production data)", () => {
     const section = screen.getByRole("region", { name: "Featured festivals" });
     expect(within(section).getAllByRole("listitem")).toHaveLength(6);
     FEATURED_SLUGS.forEach((slug) => {
-      expect(within(section).getByRole("link", { name: mockFestivals.find((f) => f.slug === slug)!.name })).toHaveAttribute("href", `/festivals/${slug}`);
+      expect(within(section).getByRole("link", { name: contentFestivals.find((f) => f.slug === slug)!.name })).toHaveAttribute("href", `/festivals/${slug}`);
     });
     expect(within(section).getAllByText("Date not yet verified")).toHaveLength(6);
     expect(within(section).getByRole("link", { name: "See all ten festivals" })).toHaveAttribute("href", "/explore");
@@ -61,14 +61,14 @@ describe("home page (production data)", () => {
 
 describe("featured festival list", () => {
   it("only names festivals from the ten, once each", () => {
-    const known = new Set(mockFestivals.map((f) => f.slug));
+    const known = new Set(contentFestivals.map((f) => f.slug));
     expect(new Set(FEATURED_SLUGS).size).toBe(FEATURED_SLUGS.length);
     FEATURED_SLUGS.forEach((slug) => expect(known.has(slug), slug).toBe(true));
-    expect(FEATURED_SLUGS.length).toBeLessThan(mockFestivals.length);
+    expect(FEATURED_SLUGS.length).toBeLessThan(contentFestivals.length);
   });
 
   it("uses h3 card headings so they sit under the section's h2", () => {
-    render(<FeaturedFestivals festivals={mockFestivals.slice(0, 2)} />);
+    render(<FeaturedFestivals festivals={contentFestivals.slice(0, 2)} />);
     expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(2);
   });
 });

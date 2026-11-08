@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { contentFestivals, withReviewedBasics } from "../fixtures/festivals";
 import { normalizeSearchText, searchFestivals } from "@/lib/festivals/search";
 
-const names = (query: string) => searchFestivals(mockFestivals, query).map((r) => r.festival.name);
+const names = (query: string) => searchFestivals(contentFestivals, query).map((r) => r.festival.name);
 
 describe("normalizeSearchText", () => {
   it("lowercases, strips accents and punctuation, and collapses spaces", () => {
@@ -15,7 +15,7 @@ describe("normalizeSearchText", () => {
 
 describe("searchFestivals", () => {
   it("returns every festival, in order, for an empty or punctuation-only query", () => {
-    expect(names("")).toEqual(mockFestivals.map((f) => f.name));
+    expect(names("")).toEqual(contentFestivals.map((f) => f.name));
     expect(names("   ")).toHaveLength(10);
     expect(names("?!")).toHaveLength(10);
   });
@@ -27,21 +27,27 @@ describe("searchFestivals", () => {
   });
 
   it("finds by alias and explains the match", () => {
-    const [result] = searchFestivals(mockFestivals, "dussehra");
+    const [result] = searchFestivals(contentFestivals, "dussehra");
     expect(result.festival.name).toBe("Vijayadashami");
-    expect(result.matchedOn).toEqual({ kind: "alias", text: "Dussehra" });
+    // Unreviewed wording: found, but flagged so the page never displays it.
+    expect(result.matchedOn).toEqual({ kind: "alias", text: "Dussehra", provisional: true });
     expect(names("Navratri")).toEqual(["Navaratri"]);
   });
 
   it("finds by deity and explains the match", () => {
-    const [result] = searchFestivals(mockFestivals, "ganesha");
+    const [result] = searchFestivals(contentFestivals, "ganesha");
     expect(result.festival.name).toBe("Ganesh Chaturthi");
-    expect(result.matchedOn).toEqual({ kind: "deity", text: "Ganesha" });
+    expect(result.matchedOn).toEqual({ kind: "deity", text: "Ganesha", provisional: true });
     expect(names("lakshmi")).toEqual(expect.arrayContaining(["Diwali", "Navaratri"]));
   });
 
+  it("reports an explainable match without the flag once the basics are reviewed", () => {
+    const [result] = searchFestivals([withReviewedBasics("vijayadashami")], "dussehra");
+    expect(result.matchedOn).toEqual({ kind: "alias", text: "Dussehra" });
+  });
+
   it("does not add a match note when the name itself matches", () => {
-    expect(searchFestivals(mockFestivals, "diwali")[0].matchedOn).toBeUndefined();
+    expect(searchFestivals(contentFestivals, "diwali")[0].matchedOn).toBeUndefined();
   });
 
   it("requires every word to match, in any order", () => {

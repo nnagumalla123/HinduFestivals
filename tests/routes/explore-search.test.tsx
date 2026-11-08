@@ -31,16 +31,26 @@ describe("/explore search", () => {
     expect(screen.getByRole("link", { name: "Clear search" })).toHaveAttribute("href", "/explore");
   });
 
-  it("finds Vijayadashami by its alias and says why", async () => {
-    await renderExplore({ q: "dussehra" });
+  it("finds Vijayadashami by an unreviewed alias without displaying that alias", async () => {
+    const { container } = await renderExplore({ q: "dussehra" });
     expect(screen.getByRole("link", { name: "Vijayadashami" })).toBeInTheDocument();
-    expect(screen.getByText("Matched other name: Dussehra")).toBeInTheDocument();
+    expect(screen.getByText("Matched your search")).toBeInTheDocument();
+    expect(container).not.toHaveTextContent("Dussehra"); // search box value is an input, not text
   });
 
-  it("labels a deity match neutrally until deity associations are reviewed", async () => {
+  it("finds a festival by an unreviewed deity name without displaying it or calling it a deity match", async () => {
     const { container } = await renderExplore({ q: "ganesha" });
-    expect(screen.getByText("Matched search term: Ganesha")).toBeInTheDocument();
-    expect(container).not.toHaveTextContent(/matched deity/i);
+    expect(screen.getByRole("link", { name: "Ganesh Chaturthi" })).toBeInTheDocument();
+    expect(screen.getByText("Matched your search")).toBeInTheDocument();
+    expect(container).not.toHaveTextContent(/matched deity|Matched search term: Ganesha/i);
+  });
+
+  it("hints at searching with canonical festival names only (no unreviewed alias or deity wording)", async () => {
+    await renderExplore({});
+    const placeholder = screen.getByLabelText(/search by festival/i).getAttribute("placeholder") ?? "";
+    const names = ["Ugadi", "Holi", "Diwali"];
+    names.forEach((name) => expect(placeholder).toContain(name));
+    expect(placeholder).not.toMatch(/Dussehra|Ganesha|Lakshmi|Deepavali/i);
   });
 
   it("shows an empty state with a way back when nothing matches", async () => {

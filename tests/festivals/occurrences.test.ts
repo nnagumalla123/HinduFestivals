@@ -1,12 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { formatCivilDay, isVerified, mockOccurrences, parseIsoDate } from "@/lib/festivals/occurrences";
+import { formatCivilDay, isVerified, parseIsoDate } from "@/lib/festivals/occurrences";
 import { syntheticDisputed, syntheticDraft, syntheticVerifiedSingleDay } from "../fixtures/occurrences";
-
-describe("production occurrence data", () => {
-  it("is empty until Phase 3 verifies real dates", () => {
-    expect(mockOccurrences).toHaveLength(0);
-  });
-});
 
 describe("isVerified", () => {
   it("is true only for verified occurrences", () => {

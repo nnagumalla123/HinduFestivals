@@ -1,10 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import LoginPage from "@/app/login/page";
 import FestivalPage from "@/app/festivals/[slug]/page";
 import { FollowAction } from "@/components/festivals/detail/FollowAction";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { contentFestivals } from "../fixtures/festivals";
 import { safeReturnPath, signInHref } from "@/lib/utils/return-path";
+
+// `connection()` only works inside a real request; in unit tests there is none, so it becomes a no-op.
+vi.mock("next/server", () => ({ connection: async () => {} }));
 
 const login = (params: Record<string, string | string[] | undefined> = {}) =>
   LoginPage({ searchParams: Promise.resolve(params) });
@@ -43,7 +46,7 @@ describe("Follow action on festival pages", () => {
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
   });
 
-  it.each(mockFestivals.map((f) => [f.slug]))("%s page has the follow link with its own return URL", async (slug) => {
+  it.each(contentFestivals.map((f) => [f.slug]))("%s page has the follow link with its own return URL", async (slug) => {
     render(await FestivalPage({ params: Promise.resolve({ slug }) }));
     expect(screen.getByRole("link", { name: /^Follow / })).toHaveAttribute("href", `/login?next=${encodeURIComponent(`/festivals/${slug}`)}`);
   });

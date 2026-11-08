@@ -4,8 +4,7 @@ import { PageContainer } from "@/components/layout/PageContainer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buildEntries, parseDay, parseMonth, parseView } from "@/lib/festivals/calendar";
 import { REFERENCE_CALENDAR } from "@/lib/festivals/constants";
-import { mockOccurrences } from "@/lib/festivals/occurrences";
-import { listPublishedFestivals } from "@/lib/festivals/queries";
+import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
 
 export const metadata: Metadata = { title: "Calendar" };
 
@@ -20,8 +19,8 @@ export default async function CalendarPage({ searchParams }: Props) {
   const month = parseMonth(first(params.month));
   const day = parseDay(first(params.day), month);
 
-  const festivals = await listPublishedFestivals();
-  const entries = buildEntries(mockOccurrences, festivals);
+  const [festivals, occurrences] = await Promise.all([listPublishedFestivals(), listVerifiedOccurrences()]);
+  const entries = buildEntries(occurrences, festivals);
 
   return (
     <PageContainer>

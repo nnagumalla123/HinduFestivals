@@ -10,7 +10,7 @@ import MyFestivalsPage from "@/app/my-festivals/page";
 import OnboardingPage from "@/app/onboarding/page";
 import SettingsPage from "@/app/settings/page";
 import SignupPage from "@/app/signup/page";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { contentFestivals } from "../fixtures/festivals";
 
 // `connection()` only works inside a real request; in unit tests there is none, so it becomes a no-op.
 vi.mock("next/server", () => ({ connection: async () => {} }));
@@ -49,7 +49,7 @@ describe("static pages render without login", () => {
     render(await ExplorePage({ searchParams: Promise.resolve({}) }));
     expect(screen.getByRole("heading", { level: 1, name: /explore festivals/i })).toBeInTheDocument();
     expect(screen.getAllByRole("listitem")).toHaveLength(10);
-    mockFestivals.forEach((f) => {
+    contentFestivals.forEach((f) => {
       expect(screen.getByRole("link", { name: f.name })).toHaveAttribute("href", `/festivals/${f.slug}`);
     });
   });
@@ -86,13 +86,13 @@ describe("home and calendar never show invented dates", () => {
 });
 
 describe("/festivals/[slug]", () => {
-  it.each(mockFestivals.map((f) => [f.slug, f.name]))("renders %s", async (slug, name) => {
+  it.each(contentFestivals.map((f) => [f.slug, f.name]))("renders %s", async (slug, name) => {
     render(await FestivalPage(slugProps(slug)));
     expect(screen.getByRole("heading", { level: 1, name })).toBeInTheDocument();
     expect(screen.getByText("Date not yet verified")).toBeInTheDocument();
   });
 
-  it.each(mockFestivals.map((f) => [f.slug]))("%s shows all sections, with placeholders and no dates", async (slug) => {
+  it.each(contentFestivals.map((f) => [f.slug]))("%s shows all sections, with placeholders and no dates", async (slug) => {
     const { container } = render(await FestivalPage(slugProps(slug)));
     expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(9);
     expect(screen.getAllByText("Not yet available.").length).toBeGreaterThan(0);
@@ -101,9 +101,9 @@ describe("/festivals/[slug]", () => {
     expect(screen.getByRole("link", { name: "All festivals" })).toHaveAttribute("href", "/explore");
   });
 
-  it("shows aliases when a festival has them", async () => {
-    render(await FestivalPage(slugProps("diwali")));
-    expect(screen.getByText(/Also known as Deepavali/)).toBeInTheDocument();
+  it("does not show unreviewed aliases or subtitles as approved content", async () => {
+    const { container } = render(await FestivalPage(slugProps("diwali")));
+    expect(container).not.toHaveTextContent(/Also known as|Deepavali|festival of lights/);
   });
 
   it("triggers Next.js's 404 for an unknown slug", async () => {
@@ -119,8 +119,8 @@ describe("/festivals/[slug]", () => {
     });
   });
 
-  it("pre-builds one page per festival", () => {
-    expect(generateStaticParams()).toHaveLength(10);
+  it("pre-builds one page per festival", async () => {
+    expect(await generateStaticParams()).toHaveLength(10);
   });
 
   it("sets a page title from the festival name", async () => {

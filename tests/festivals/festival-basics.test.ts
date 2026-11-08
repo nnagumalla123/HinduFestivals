@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getFestivalBySlug, listPublishedFestivals } from "@/lib/festivals/queries";
-import { mockFestivals } from "@/lib/festivals/mock-data";
+import { FESTIVAL_RECORDS } from "@/content";
+import { contentFestivals, withReviewedBasics } from "../fixtures/festivals";
 
-describe("mock festival data", () => {
+describe("festival basics (public names, aliases, subtitles, deities)", () => {
   it("contains exactly the ten curated festivals from the PRD", () => {
-    expect(mockFestivals.map((f) => f.name).sort()).toEqual(
+    expect(contentFestivals.map((f) => f.name).sort()).toEqual(
       [
         "Diwali",
         "Ugadi",
@@ -21,17 +22,13 @@ describe("mock festival data", () => {
   });
 
   it("has unique, URL-safe slugs", () => {
-    const slugs = mockFestivals.map((f) => f.slug);
+    const slugs = contentFestivals.map((f) => f.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
     slugs.forEach((s) => expect(s).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/));
   });
 
-  it("marks every festival's date as not verified", () => {
-    mockFestivals.forEach((f) => expect(f.dateStatus).toBe("not_verified"));
-  });
-
   it("contains no date-like values anywhere (no fabricated dates)", () => {
-    const text = JSON.stringify(mockFestivals);
+    const text = JSON.stringify(contentFestivals);
     expect(text).not.toMatch(/\d{4}-\d{2}-\d{2}/); // 2027-11-05
     expect(text).not.toMatch(/\b(19|20)\d{2}\b/); // any bare year
     expect(text).not.toMatch(
@@ -40,8 +37,8 @@ describe("mock festival data", () => {
     expect(text).not.toMatch(/mid-(january|february|march|april|may|june|july|august|september|october|november|december)/i);
   });
 
-  it("gives every festival at least one deity name, with no blanks or duplicates", () => {
-    mockFestivals.forEach((f) => {
+  it("gives every record at least one deity name, with no blanks or duplicates", () => {
+    FESTIVAL_RECORDS.forEach((f) => {
       expect(f.deities.length).toBeGreaterThan(0);
       expect(f.deities.every((d) => d.trim() === d && d !== "")).toBe(true);
       expect(new Set(f.deities).size).toBe(f.deities.length);
@@ -49,9 +46,36 @@ describe("mock festival data", () => {
   });
 
   it("only has the allowed fields (so a date field can't sneak in unnoticed)", () => {
-    mockFestivals.forEach((f) => {
-      expect(Object.keys(f).sort()).toEqual(["aliases", "dateStatus", "deities", "name", "slug", "subtitle"]);
+    contentFestivals.forEach((f) => {
+      expect(Object.keys(f).sort()).toEqual(["aliases", "deities", "name", "provisional", "slug"]);
     });
+  });
+});
+
+describe("festival basics review state", () => {
+  it("records every festival's provisional basics as not yet reviewed", () => {
+    FESTIVAL_RECORDS.forEach((r) => expect(r.basics.status, r.slug).toBe("draft"));
+  });
+});
+
+describe("unreviewed basics are not published as approved content", () => {
+  it("expose only the name and slug for display, and keep the wording as search-only terms", () => {
+    contentFestivals.forEach((f) => {
+      expect(f.subtitle, f.slug).toBeUndefined();
+      expect(f.aliases, f.slug).toEqual([]);
+      expect(f.deities, f.slug).toEqual([]);
+    });
+    const diwali = contentFestivals.find((f) => f.slug === "diwali")!;
+    expect(diwali.provisional.aliases).toEqual(["Deepavali"]);
+    expect(diwali.provisional.deities).toContain("Lakshmi");
+  });
+
+  it("publish subtitle, aliases and deities once the basics are reviewed", () => {
+    const f = withReviewedBasics("diwali");
+    expect(f.subtitle).toBeTruthy();
+    expect(f.aliases).toEqual(["Deepavali"]);
+    expect(f.deities.length).toBeGreaterThan(0);
+    expect(f.provisional).toEqual({ aliases: [], deities: [] });
   });
 });
 

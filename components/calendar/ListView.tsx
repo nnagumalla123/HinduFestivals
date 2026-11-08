@@ -8,13 +8,13 @@ export function ListView({ entries }: { entries: readonly CalendarEntry[] }) {
   return (
     <ol className="flex flex-col gap-3">
       {entries.map((entry) => (
-        <Card as="li" key={entry.slug + entry.occurrence.startDate} className="flex flex-col gap-1">
+        <Card as="li" key={entry.slug + entry.occurrence.startDate + (entry.occurrence.traditionLabel ?? "")} className="flex flex-col gap-1">
           <h3 className="text-xl font-semibold">
             <Link href={`/festivals/${entry.slug}`} className="hover:underline">
               {entry.name}
             </Link>
           </h3>
-          <OccurrenceDate occurrence={entry.occurrence} />
+          <OccurrenceDate occurrence={entry.occurrence} showKeyDays />
         </Card>
       ))}
     </ol>

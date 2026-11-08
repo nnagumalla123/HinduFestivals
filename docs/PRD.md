@@ -29,8 +29,8 @@ A responsive, guest-first cultural companion for young Indian Americans and the 
 ### MVP (P0)
 - Public responsive home, festival library, calendar, festival detail pages.
 - Curated catalog of 10 festivals; sourced summaries, narratives, deity associations where relevant, rituals, foods, fasting and vegetarian practices, regional differences, traditional and college-friendly celebration guidance.
-- 2027 **verified** occurrence data for a documented US reference calendar location (initially Atlanta, GA). Date coverage must be clearly labeled. No algorithmic Panchang computation or automatic worldwide date claims.
-- Search by festival name, aliases, and associated deity names; month/list calendar, month navigation, upcoming events, region filters.
+- 2027 **verified** occurrence data for a documented US reference calendar location (initially Atlanta, GA). Date coverage must be clearly labeled. No algorithmic Panchang computation or automatic worldwide date claims. Where legitimate traditions observe a festival on different dates, each is a separately sourced, clearly labeled observance; conflicting dates are never collapsed into one supposedly universal date.
+- Search by festival name, aliases, and associated deity names; month/list calendar, month navigation, upcoming events. (Region filters on Explore and Calendar arrive in Phase 4 with regional preferences and onboarding.)
 - Supabase email/password authentication with email verification; optional onboarding; multi-region preferences; follow/unfollow; My Festivals; settings.
 - Opt-in email reminders for followed festivals at 7, 3, 1, and/or 0 days before occurrence start, at 9:00 AM user's IANA time zone; opt-out/unsubscribe.
 - Server-side authorization, RLS, logging, automated tests, Vercel deployment, README.
@@ -134,7 +134,7 @@ Palette: maroon `#7B1E2B`, saffron `#C46B26`, gold `#D6A545`, ivory `#F8EEDB`, g
 ## 10. Quality, privacy, and operations
 - Never store plaintext passwords; use managed auth. Minimal PII: email, user ID, preferences, timezone. Public content read-only to guests.
 - Apply RLS, input validation, parameterized queries, secure cookies, and server-only secrets.
-- No public content editing APIs in MVP; editorial updates via reviewed migrations/seed data.
+- No public content editing APIs in MVP. Public festival content (guides, sources, occurrences) lives in version-controlled, typed content files in the repository (Phase 3 decision, 2026-11-07); editorial updates are reviewed code changes. Supabase holds user accounts, follows and preferences from Phase 4. Only explicitly reviewed content is published; reviewer details are recorded internally and only the review date is shown publicly.
 - Provide privacy notice, email consent, unsubscribe, and a documented account deletion flow before public launch.
 - Handle loading, empty, missing date, offline/network failure, 404, and unauthorized states.
 - Tests: unit (date/reminder logic), integration (RLS and data queries), E2E (guest, signup, follow, settings, unsubscribe), responsive/accessibility smoke tests.
@@ -146,6 +146,9 @@ Palette: maroon `#7B1E2B`, saffron `#C46B26`, gold `#D6A545`, ivory `#F8EEDB`, g
   - **Festival discovery** (which festivals and observances exist, their names and aliases, ideas for expanding the catalog): candidate source *CalendarLabs, 2027 Hindu holidays*, https://www.calendarlabs.com/holidays/hindu/2027. The launch catalog stays the ten festivals in section 2; the catalog may expand after launch.
   - **Date verification** (the dates users see, count down to, or receive reminders for): requires reliable, location-specific Hindu calendar/Panchang sources for the reference location (Atlanta, GA), with the source URL and method recorded. CalendarLabs dates are **not** verified for Atlanta: it is unknown what location or method they assume until confirmed. They may be used only as a cross-check, and any disagreement means the occurrence stays draft or disputed ('Date not yet verified').
   - **Cultural content research** (stories, rituals, food, fasting, regional customs): primary texts and reputable cultural, temple, or academic sources, attributed by tradition. A holiday-list website is not a source for cultural or religious claims.
+  - **Source roles are enforced, not just documented.** A holiday-list site such as CalendarLabs may be recorded as a discovery or cross-check source. It can never, on its own or as the independent check, qualify a date as verified, and it can never support a cultural or religious claim.
+  - **Independence:** verifying a date needs a reliable Atlanta-specific calendar source with a documented calculation or observance method, plus an independent cross-check. Two sites built on the same underlying calendar data do not count as independent confirmation. Disagreements are investigated before a status is set.
+  - **Reviewer privacy:** reviewer identity is recorded internally; the public page shows the review date only.
   - Before any use, check each source's terms of use and copyright; summarize in our own words, do not copy its text or tables. No automated data ingestion from any source without explicit approval.
 - Research and review 10 festival guides with culturally knowledgeable reviewers where possible.
 - Select a licensed image set and attribution format.

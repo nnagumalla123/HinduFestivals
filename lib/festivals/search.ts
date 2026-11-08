@@ -1,4 +1,4 @@
-import type { MockFestival } from "./types";
+import type { Festival } from "./types";
 
 export const MAX_QUERY_LENGTH = 100;
 
@@ -16,9 +16,13 @@ export function normalizeSearchText(text: string): string {
 }
 
 export interface SearchResult {
-  festival: MockFestival;
+  festival: Festival;
   /** Set when the festival was found through an alias or deity rather than its own name. */
-  matchedOn?: { kind: "alias" | "deity"; text: string };
+  /**
+   * Why the festival matched. `provisional` marks a match on unreviewed wording: the text must NOT be
+   * shown (it is not approved content), only the fact that a search term matched.
+   */
+  matchedOn?: { kind: "alias" | "deity"; text: string; provisional?: boolean };
 }
 
 /**
@@ -26,7 +30,7 @@ export interface SearchResult {
  * An empty (or punctuation-only) query returns everything, in the original order.
  */
 export function searchFestivals(
-  festivals: readonly MockFestival[],
+  festivals: readonly Festival[],
   rawQuery: string,
 ): SearchResult[] {
   const query = normalizeSearchText(rawQuery.slice(0, MAX_QUERY_LENGTH));
@@ -37,8 +41,9 @@ export function searchFestivals(
 
   for (const festival of festivals) {
     const name = normalizeSearchText(festival.name);
-    const aliases = festival.aliases.map((text) => ({ text, norm: normalizeSearchText(text) }));
-    const deities = festival.deities.map((text) => ({ text, norm: normalizeSearchText(text) }));
+    const entry = (provisional: boolean) => (text: string) => ({ text, provisional, norm: normalizeSearchText(text) });
+    const aliases = [...festival.aliases.map(entry(false)), ...festival.provisional.aliases.map(entry(true))];
+    const deities = [...festival.deities.map(entry(false)), ...festival.provisional.deities.map(entry(true))];
 
     // Every word must appear somewhere in the festival's searchable text.
     const haystack = [name, ...aliases.map((a) => a.norm), ...deities.map((d) => d.norm)].join(" ");
@@ -49,8 +54,8 @@ export function searchFestivals(
     if (!name.includes(query)) {
       const alias = aliases.find((a) => a.norm.includes(query));
       const deity = deities.find((d) => d.norm.includes(query));
-      if (alias) matchedOn = { kind: "alias", text: alias.text };
-      else if (deity) matchedOn = { kind: "deity", text: deity.text };
+      if (alias) matchedOn = { kind: "alias", text: alias.text, ...(alias.provisional ? { provisional: true } : {}) };
+      else if (deity) matchedOn = { kind: "deity", text: deity.text, ...(deity.provisional ? { provisional: true } : {}) };
     }
     results.push({ festival, matchedOn });
   }

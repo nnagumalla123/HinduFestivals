@@ -1,18 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { GUIDE_SLOTS, SECTION_NAV } from "@/lib/festivals/guide";
-import { mockGuides } from "@/lib/festivals/mock-guides";
 import { getFestivalGuide, getOccurrencesForFestival } from "@/lib/festivals/queries";
 import { formatCivilDate } from "@/lib/festivals/occurrences";
 import { isHttpUrl } from "@/lib/utils/url";
 
 describe("production guide data", () => {
-  it("is empty until Phase 3 adds researched, reviewed content", () => {
-    expect(Object.keys(mockGuides)).toHaveLength(0);
-  });
-
-  it("gives every festival an empty guide and no occurrences for now", async () => {
-    expect(await getFestivalGuide("diwali")).toEqual({ sections: [], sources: [] });
-    expect(await getFestivalGuide("not-a-festival")).toEqual({ sections: [], sources: [] });
+  // Until a pilot guide or a date is reviewed and approved, the public guide is empty (see content-gating.test.ts for the rules).
+  it("currently publishes no guide sections, sources or occurrences for any festival", async () => {
+    expect(await getFestivalGuide("diwali")).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
+    expect(await getFestivalGuide("not-a-festival")).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
     expect(await getOccurrencesForFestival("diwali")).toEqual([]);
   });
 });

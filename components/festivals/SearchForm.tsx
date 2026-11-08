@@ -26,7 +26,8 @@ export function SearchForm({ defaultValue = "" }: { defaultValue?: string }) {
             type="search"
             defaultValue={defaultValue}
             maxLength={MAX_QUERY_LENGTH}
-            placeholder="Try Ugadi, Dussehra, or Ganesha"
+            // Hint uses canonical festival names only: no alias or deity wording until it has been editorially reviewed.
+            placeholder="Try Ugadi, Holi, or Diwali"
             autoComplete="off"
           />
         </div>

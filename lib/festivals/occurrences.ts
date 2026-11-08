@@ -1,10 +1,4 @@
-import type { FestivalOccurrence } from "./types";
-
-/**
- * Verified festival dates. EMPTY ON PURPOSE: real, sourced Atlanta 2027 dates arrive in
- * Phase 3 (PRD section 7). tests/festivals/occurrences.test.ts fails if this is filled in early.
- */
-export const mockOccurrences: readonly FestivalOccurrence[] = [];
+import type { FestivalOccurrence, KeyDay } from "./types";
 
 /** Only verified occurrences may be shown as dates, counted down to, or scheduled. */
 export function isVerified(occurrence: FestivalOccurrence): boolean {
@@ -49,4 +43,22 @@ const FULL_DATE_FORMAT = new Intl.DateTimeFormat("en-US", {
 export function formatCivilDate(iso: string): string | null {
   const date = parseIsoDate(iso);
   return date ? FULL_DATE_FORMAT.format(date) : null;
+}
+
+/** Key days with a real date inside the occurrence, earliest first. Anything malformed is ignored, never guessed. */
+export function validKeyDays(occurrence: FestivalOccurrence): KeyDay[] {
+  return (occurrence.keyDays ?? [])
+    .filter(
+      (d) =>
+        d.label.trim() !== "" &&
+        parseIsoDate(d.date) !== null &&
+        d.date >= occurrence.startDate &&
+        d.date <= occurrence.endDate,
+    )
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** The key days that fall on one calendar day. */
+export function keyDaysOn(occurrence: FestivalOccurrence, day: string): KeyDay[] {
+  return validKeyDays(occurrence).filter((d) => d.date === day);
 }

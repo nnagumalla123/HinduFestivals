@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
-import type { MockFestival } from "@/lib/festivals/types";
+import { isVerified } from "@/lib/festivals/occurrences";
+import type { Festival, FestivalOccurrence } from "@/lib/festivals/types";
 import type { SearchResult } from "@/lib/festivals/search";
 import { OccurrenceDate } from "./OccurrenceDate";
 
@@ -12,14 +13,18 @@ import { OccurrenceDate } from "./OccurrenceDate";
 export function FestivalCard({
   festival,
   matchedOn,
+  occurrences = [],
   headingLevel = 2,
 }: {
-  festival: MockFestival;
+  festival: Festival;
+  /** This festival's occurrences. Only verified ones are shown, each with its location, year and tradition label. */
+  occurrences?: readonly FestivalOccurrence[];
   matchedOn?: SearchResult["matchedOn"];
   /** Heading level for the festival name, to fit the page outline (h2 on Explore, h3 under a section on Home). */
   headingLevel?: 2 | 3;
 }) {
   const Heading = `h${headingLevel}` as const;
+  const verified = occurrences.filter(isVerified).sort((a, b) => a.startDate.localeCompare(b.startDate));
   return (
     <Card
       as="li"
@@ -33,19 +38,29 @@ export function FestivalCard({
           {festival.name}
         </Link>
       </Heading>
-      <p className="text-ink-muted">{festival.subtitle}</p>
+      {festival.subtitle && <p className="text-ink-muted">{festival.subtitle}</p>}
       {festival.aliases.length > 0 && (
         <p className="text-sm text-ink-muted">Also known as {festival.aliases.join(", ")}</p>
       )}
       {matchedOn && (
         <p className="text-sm font-semibold text-saffron-deep">
-          {/* Deity wording stays neutral ("search term") until those associations are editorially reviewed. */}
-          {matchedOn.kind === "alias" ? "Matched other name" : "Matched search term"}: {matchedOn.text}
+          {/* Unreviewed wording is never displayed: say only that a search term matched. */}
+          {matchedOn.provisional
+            ? "Matched your search"
+            : `${matchedOn.kind === "alias" ? "Matched other name" : "Matched search term"}: ${matchedOn.text}`}
         </p>
       )}
-      <div className="mt-1">
-        {/* No verified dates exist yet, so this resolves to "Date not yet verified". */}
-        <OccurrenceDate />
+      <div className="mt-1 flex flex-col gap-1">
+        {/* With no verified occurrence this resolves to "Date not yet verified". */}
+        {verified.length > 0 ? (
+          verified.map((occurrence) => (
+            <OccurrenceDate key={occurrence.startDate + (occurrence.traditionLabel ?? "")} occurrence={occurrence} />
+          ))
+        ) : (
+          <div>
+            <OccurrenceDate />
+          </div>
+        )}
       </div>
     </Card>
   );

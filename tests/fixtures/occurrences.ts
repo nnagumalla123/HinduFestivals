@@ -28,3 +28,38 @@ export const syntheticDisputed: FestivalOccurrence = {
   ...syntheticVerifiedSingleDay,
   verificationStatus: "disputed",
 };
+
+/**
+ * SYNTHETIC multi-day observance with labelled key days (shape of a Diwali-like festival). The dates and
+ * labels are invented for tests and are NOT real festival dates.
+ */
+export const syntheticMultiDayWithKeyDays: FestivalOccurrence = {
+  festivalSlug: "diwali",
+  year: 2027,
+  startDate: "2027-10-26",
+  endDate: "2027-10-30",
+  locationLabel: "Atlanta, GA",
+  verificationStatus: "verified",
+  keyDays: [
+    { date: "2027-10-30", label: "Synthetic closing day" },
+    { date: "2027-10-26", label: "Synthetic opening day" },
+    { date: "2027-10-28", label: "Synthetic main puja", main: true },
+  ],
+};
+
+/** SYNTHETIC tradition-specific observances of one festival on two different invented days. */
+export const syntheticTraditionA: FestivalOccurrence = {
+  festivalSlug: "krishna-janmashtami",
+  year: 2027,
+  startDate: "2027-08-24",
+  endDate: "2027-08-24",
+  locationLabel: "Atlanta, GA",
+  verificationStatus: "verified",
+  traditionLabel: "Synthetic tradition A",
+};
+export const syntheticTraditionB: FestivalOccurrence = {
+  ...syntheticTraditionA,
+  startDate: "2027-08-25",
+  endDate: "2027-08-25",
+  traditionLabel: "Synthetic tradition B",
+};

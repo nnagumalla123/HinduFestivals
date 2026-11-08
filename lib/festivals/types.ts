@@ -1,25 +1,19 @@
 /**
- * Mock-phase festival shape. Phase 3 replaces this with database-backed types.
- *
- * Deliberately there is NO date field here. `dateStatus` can only be "not_verified",
- * so TypeScript itself stops anyone from attaching an unverified date to mock data.
- * Real, sourced occurrences arrive in Phase 3.
+ * A festival as shown on public pages. Only `slug` and `name` are always trustworthy: they are
+ * the canonical name and URL. Everything else is shown only once the festival's basics have been
+ * editorially reviewed (`FestivalRecord.basics`, content/festivals/*):
+ *   - `subtitle`, `aliases`, `deities` are APPROVED display content, empty/absent until review;
+ *   - `provisional` holds the unreviewed wording. It exists ONLY so search can still find the
+ *     festival (e.g. "Dussehra" or "Lakshmi"); it must never be displayed as a fact.
+ * Dates are not here at all: they live on `FestivalOccurrence`, handed out only when verified.
  */
-export interface MockFestival {
+export interface Festival {
   slug: string;
   name: string;
   aliases: readonly string[];
-  /** One neutral line. Placeholder wording, pending editorial review. */
-  subtitle: string;
-  /**
-   * Deity names that people commonly associate with the festival, used ONLY so search
-   * can find it (e.g. "Lakshmi" finds Diwali). PENDING EDITORIAL REVIEW: these are not
-   * claims about how any tradition or family observes the festival, and many festivals
-   * are celebrated differently across traditions. Phase 3 replaces this with the
-   * attributed `festival_deities` relation.
-   */
+  subtitle?: string;
   deities: readonly string[];
-  dateStatus: "not_verified";
+  provisional: { aliases: readonly string[]; deities: readonly string[] };
 }
 
 /** Editorial state of a date (docs/ARCHITECTURE.md section 3). Only "verified" is ever shown as a date. */
@@ -30,7 +24,8 @@ export type VerificationStatus = "draft" | "verified" | "disputed";
  * future `festival_occurrences` table). Dates are civil calendar dates written as
  * "YYYY-MM-DD" strings, never JavaScript Dates, so no time zone can shift the day.
  *
- * Production data (`mockOccurrences`) is empty until Phase 3 verifies real dates.
+ * Production data comes from the content loader, which only hands out occurrences that are
+ * `verified` AND pass validation (lib/festivals/content/validate.ts).
  */
 export interface FestivalOccurrence {
   festivalSlug: string;
@@ -40,6 +35,21 @@ export interface FestivalOccurrence {
   /** Reference calendar location, e.g. "Atlanta, GA". Required so a date can never lose its location. */
   locationLabel: string;
   verificationStatus: VerificationStatus;
+  /** Set for a tradition-specific observance (e.g. "Smarta"); absent for a general one. Shown with the date. */
+  traditionLabel?: string;
+  /** How the date was determined (shown as date methodology). */
+  method?: string;
+  /** ISO date the date was verified. */
+  verifiedAt?: string;
+  /** Labelled days inside a multi-day observance (e.g. the main puja day). Dates are inside start and end. */
+  keyDays?: readonly KeyDay[];
+}
+
+export interface KeyDay {
+  date: string;
+  label: string;
+  /** True for the one most widely observed day, when the festival has one. */
+  main?: boolean;
 }
 
 /** The section kinds from the festival detail contract (docs/ARCHITECTURE.md section 3). */
@@ -69,6 +79,8 @@ export type GuideSection =
       tradition?: string;
       /** ISO date the section was editorially reviewed. */
       reviewedAt: string;
+      /** Ids (FestivalSource.id) of the sources behind this section, for numbered citations. */
+      sourceIds: readonly string[];
     };
 
 /**
@@ -79,6 +91,8 @@ export type GuideSection =
 export type SourceRole = "date" | "cultural";
 
 export interface FestivalSource {
+  /** Stable id that sections, quick facts and deities cite. */
+  id: string;
   role: SourceRole;
   title: string;
   url: string;
@@ -87,9 +101,45 @@ export interface FestivalSource {
   accessedAt: string;
 }
 
+/** The at-a-glance facts on the detail page, in display order. */
+export const QUICK_FACT_LABELS = [
+  "Meaning",
+  "Length of observance",
+  "Associated deities",
+  "Common customs",
+  "Dietary practices",
+] as const;
+export type QuickFactLabel = (typeof QUICK_FACT_LABELS)[number];
+
+/** A reviewed quick fact. Drafts and internal notes never reach this shape. */
+export interface PublicQuickFact {
+  label: QuickFactLabel;
+  text: string;
+  /** Tradition or region the fact is attributed to, when it is not general. */
+  tradition?: string;
+  /** ISO review date. */
+  reviewedAt: string;
+  sourceIds: readonly string[];
+}
+
+/** A reviewed deity association; the tradition that makes it is always stated. */
+export interface PublicDeity {
+  name: string;
+  role: string;
+  tradition: string;
+  reviewedAt: string;
+  sourceIds: readonly string[];
+}
+
 /** Reviewed written content for one festival. Anything not in here is shown as "Not yet available". */
 export interface FestivalGuide {
   /** Only `status: "published"` sections are ever shown. */
   sections: readonly GuideSection[];
+  quickFacts: readonly PublicQuickFact[];
+  deities: readonly PublicDeity[];
+  /** Every source cited by the reviewed content above (never discovery sources, never holiday-list sources). */
   sources: readonly FestivalSource[];
 }
+
+/** A guide with nothing reviewed yet. */
+export const EMPTY_GUIDE: FestivalGuide = { sections: [], quickFacts: [], deities: [], sources: [] };

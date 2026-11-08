@@ -156,3 +156,9 @@ export function buildEntries(
     return festival ? [{ occurrence, name: festival.name, slug: festival.slug }] : [];
   });
 }
+
+/** "Name" or "Name (Tradition)" so tradition-specific observances are never mistaken for each other. */
+export function entryLabel(entry: CalendarEntry): string {
+  const tradition = entry.occurrence.traditionLabel?.trim();
+  return tradition ? `${entry.name} (${tradition})` : entry.name;
+}

@@ -5,7 +5,7 @@ import { PageContainer } from "@/components/layout/PageContainer";
 import { ButtonLink } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { listPublishedFestivals } from "@/lib/festivals/queries";
+import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
 import { MAX_QUERY_LENGTH, searchFestivals } from "@/lib/festivals/search";
 
 export const metadata: Metadata = { title: "Explore festivals" };
@@ -18,7 +18,7 @@ export default async function ExplorePage({ searchParams }: Props) {
   // ?q=a&q=b arrives as an array; use the first value. Cap the length of untrusted input.
   const query = (Array.isArray(q) ? q[0] : q)?.slice(0, MAX_QUERY_LENGTH).trim() ?? "";
 
-  const festivals = await listPublishedFestivals();
+  const [festivals, occurrences] = await Promise.all([listPublishedFestivals(), listVerifiedOccurrences()]);
   const results = searchFestivals(festivals, query);
   const isSearching = query !== "";
 
@@ -41,7 +41,12 @@ export default async function ExplorePage({ searchParams }: Props) {
       {results.length > 0 ? (
         <ul className="grid gap-4 sm:grid-cols-2">
           {results.map(({ festival, matchedOn }) => (
-            <FestivalCard key={festival.slug} festival={festival} matchedOn={matchedOn} />
+            <FestivalCard
+              key={festival.slug}
+              festival={festival}
+              matchedOn={matchedOn}
+              occurrences={occurrences.filter((o) => o.festivalSlug === festival.slug)}
+            />
           ))}
         </ul>
       ) : (

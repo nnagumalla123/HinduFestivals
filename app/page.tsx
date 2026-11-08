@@ -8,16 +8,15 @@ import { RangoliMotif } from "@/components/ui/RangoliMotif";
 import { buildEntries } from "@/lib/festivals/calendar";
 import { FEATURED_SLUGS } from "@/lib/festivals/featured";
 import { todayInReferenceZone } from "@/lib/festivals/next-festival";
-import { mockOccurrences } from "@/lib/festivals/occurrences";
-import { listPublishedFestivals } from "@/lib/festivals/queries";
+import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
 
 export default async function Home() {
   // "Today" changes, so this page must be built per visit and never frozen at build time.
   await connection();
   const today = todayInReferenceZone(new Date());
 
-  const festivals = await listPublishedFestivals();
-  const entries = buildEntries(mockOccurrences, festivals);
+  const [festivals, occurrences] = await Promise.all([listPublishedFestivals(), listVerifiedOccurrences()]);
+  const entries = buildEntries(occurrences, festivals);
   const featured = FEATURED_SLUGS.flatMap((slug) => festivals.filter((f) => f.slug === slug));
 
   return (
@@ -50,7 +49,7 @@ export default async function Home() {
 
       <PageContainer className="gap-12 pt-2 sm:pt-4">
         <NextFestival entries={entries} today={today} />
-        <FeaturedFestivals festivals={featured} />
+        <FeaturedFestivals festivals={featured} occurrences={occurrences} />
 
         <section aria-labelledby="what-you-will-find" className="flex flex-col gap-4">
           <h2 id="what-you-will-find" className="text-3xl font-semibold">

@@ -35,7 +35,7 @@
 **Approved decisions (2026-11-07)**
 - Test fixtures may use clearly synthetic dates **only under `tests/`**. No fabricated dates in `app/`, `components/`, `lib/`, or any user-facing page. No dev-only calendar preview route.
 - Deity search: add only minimal, well-established deity associations, marked "pending editorial review", without oversimplifying festivals that have several traditions or interpretations.
-- Region filters (Explore and Calendar) are deferred to Phase 3, when sourced regional associations exist.
+- Region filters (Explore and Calendar) are deferred to Phase 3, when sourced regional associations exist (later moved to Phase 4).
 - Playwright/E2E is deferred to Phase 6. Phase 2 uses Vitest, React Testing Library, and manual browser checks (375px and desktop, keyboard-only).
 - Guest follow is a simple sign-in prompt with a safe return URL. No authentication is built.
 - Avoid ten nearly empty guide pages: plan a small amount of properly sourced, reviewed introductory content per festival (no invented cultural information or dates). Scope and sourcing are agreed with the project owner before P2-03; unreviewed sections show "Not yet available".
@@ -51,14 +51,15 @@
 - [x] Keyboard and mobile interactions, loading/404/error states throughout.
 - [x] Unit/component tests for search, calendar rendering, detail sections, next-festival selection, and return-URL safety.
 
-**Editorial approach for the intro content (proposed in P2-03; confirm before Phase 3 content work starts)**
-- Per festival, three small pieces: a "Why celebrate?" summary of 80-150 words; a short list of broadly common customs, each labelled by region or tradition and by how optional it is; and a short dorm-safe celebration list (practical guidance, not cultural claims).
-- Every claim cites a primary text or a reputable temple, academic or cultural-institution source, attributed by tradition. Holiday-list websites (for example CalendarLabs) are never sources for cultural or religious claims. Dates follow the separate date-verification process.
-- Process: draft in our own words and record source URLs, titles and access dates; the owner reviews (ideally with a culturally knowledgeable reviewer); only reviewed text enters `mock-guides.ts` or the database with `reviewedAt` set. Where sources disagree, say "varies by tradition" or omit the point.
-- Rollout: start with two or three festivals (Navaratri and Makara Sankranti are good stress tests for multiple traditions) before writing all ten.
+**Editorial approach for cultural content (APPROVED 2026-11-07; supersedes the P2-03 proposal)**
+- Each guide explains why the festival is celebrated, its significance, major traditions, and relevant regional variations. Food and fasting practices are included where applicable, distinguishing traditions from optional observances. Each guide also gives practical, dorm-friendly ways for young Indian Americans to celebrate away from home (practical guidance, not cultural claims; no unsafe suggestions such as open flames in dorm rooms).
+- Every tradition-specific claim cites a reputable cultural, temple, academic or relevant primary source, attributed to its tradition; no regional practice is presented as universal. Holiday-list websites (for example CalendarLabs) are never sources for cultural or religious claims. Dates follow the separate date-verification process (cultural-content research and date verification stay separate).
+- Process: draft in original wording (no copied text) and record source URLs, titles and access dates; the owner reviews (ideally with a culturally knowledgeable reviewer); only reviewed text is published, with `reviewedAt` set. Where sources disagree, say "varies by tradition" or omit the point.
+- Introductory summaries use 80-150 words as a flexible guideline, not a strict limit.
+- Rollout: pilot with **Diwali, Ugadi and Navaratri**, review the pilot, then expand to the remaining seven festivals.
 
 **Deferred from Phase 2**
-- Region filters on Explore and Calendar (need sourced regional associations): Phase 3.
+- Region filters on Explore and Calendar (need sourced regional associations): Phase 4 (approved 2026-11-07, with regional preferences and onboarding).
 - Reviewed intro content, sources and `reviewedAt` on guide pages: Phase 3.
 - Detail-page hero countdown and a populated "Next festival" card in a real browser: need verified occurrences (Phase 3).
 - Follow, reminders and real sign-in (`/login?next=` is validated and kept for it): Phases 4 and 5.
@@ -67,25 +68,51 @@
 
 **Gate:** A guest completes J1 end to end; all sample dates clearly marked as samples or absent; production data contains no dates. **Verified at the end of Phase 2** (lint, typecheck, tests, production build; J1 clicked through in a browser; no dates, countdowns, review stamps or synthetic text in any served page).
 
-## Phase 3 — Database and curated editorial data
-**Goal:** Real published content from Supabase.
-- [ ] Set up Supabase project and environment placeholders; do not commit secrets.
-- [ ] Write SQL migrations for public domain tables, constraints, indexes, RLS read policies.
-- [ ] Build typed server-side query layer and input validation.
-- [ ] Seed region list and Atlanta reference calendar location.
-- [ ] Research 10 festivals; write reviewed summaries, stories, dietary guidance, regional notes and source records.
-- [ ] Festival discovery: review candidate list https://www.calendarlabs.com/holidays/hindu/2027 for names, aliases, and possible later catalog additions. Launch scope stays the ten festivals. Discovery only: its dates are not verified for Atlanta.
-- [ ] Independently verify 2027 Atlanta-reference festival dates with recorded URLs and methodology, using reliable location-specific Hindu calendar/Panchang sources; cross-check against CalendarLabs where useful; leave disputed/missing dates unverified (no countdown or reminders).
-- [ ] Keep roles separate in records: date sources, discovery sources, and cultural-content sources are stored and cited separately; check each source's terms before reuse; no automated ingestion without approval.
-- [ ] Build editorial validation script: published festival needs summary, guides, sources; verified occurrence needs source and date range.
-- [ ] Replace mock UI queries with database-backed queries; test unpublished records not visible.
-**Gate:** Public site uses Supabase, 10 reviewed guides, only verified dates presented; public cannot write content.
+## Phase 3 — Genuine Festival Data & Cultural Content
+**Goal:** Real, sourced, reviewed festival content and verified Atlanta 2027 dates, published from typed content files.
+
+**Approved decisions (2026-11-07)**
+- **A. Storage:** version-controlled typed content files (`content/festivals/<slug>.ts`) for public content; Supabase moves to Phase 4 (accounts, follows, personalization). Migration path is in ARCHITECTURE ADR-007. Superseded: the original Phase 3 items "set up Supabase", "SQL migrations/RLS for public tables" and "database-backed queries". Cross-user RLS tests stay in Phase 4.
+- **B. Date verification:** a reliable Atlanta-specific Hindu calendar source with a documented calculation/observance method, plus an independent cross-check. Disagreements are investigated before a status is set. Sources built on the same underlying calendar data are not independent confirmation.
+- **C. Tradition-specific dates:** separately sourced, clearly labeled observances; conflicting dates are never collapsed into one.
+- **D. Region filters:** deferred to Phase 4.
+- **E. Review:** reviewer recorded internally, review date shown publicly; only explicitly approved content is published.
+- **F. Research tools:** read-only web search and page fetching allowed. Record URLs, titles, access dates and the claims each source supports. No scraping or automated ingestion.
+- **G. Countdown:** festival detail pages may render per request to show accurate countdowns in the Atlanta reference time zone.
+- CalendarLabs is a discovery/cross-check source only: it may be recorded but can never qualify a date as verified (alone or as the independent check) or support a cultural claim. Source roles are enforced in validation (the domain is not banned).
+- Draft content and research notes may contain working placeholders; no draft, unreviewed or invalid text may reach a public page (fail-closed loader).
+- Cultural research is independent of date verification; the Diwali/Ugadi/Navaratri pilot can proceed even if date verification is slower than expected, without inventing dates.
+- Launch scope stays the ten festivals; all date/location display rules stay as in CLAUDE.md and PRD section 7.
+- Previously public subtitles, aliases and provisional deity associations are marked `draft` and need editorial review before being treated as verified cultural information (they keep appearing as they do today until reviewed).
+- Lightweight: no CMS, no new dependencies, no authentication in Phase 3.
+
+**Milestones** (one at a time; stop for review after each)
+- [x] **P3-00 Data foundations (approved 2026-11-07):** typed content schema (festival record, sections, occurrences, sources, review state), source roles, validators, fail-closed loader, ten content files holding the existing basics (all `draft`), `queries.ts` and pages rewired with no visible change, tests that replace the "data is empty" tripwires with gating tests. No dates, no guides.
+- [x] **P3-01 Date research (all ten; research approved 2026-11-07, no dates approved for publication):** see `docs/research/dates-2027.md`. vet Atlanta-specific calendar sources (terms, stated method); record in `docs/research/dates-2027.md` the rule, each source's date and method, independence, and agreement; investigate disagreements; propose `verified`/`disputed`/`draft` per festival and tradition; the owner approves before anything enters `content/`. Model multi-day festivals and tradition-specific observances.
+- [x] **P3-02 Pilot source packs (Diwali, Ugadi, Navaratri): approved 2026-11-07** (`docs/research/cultural/`). reputable cultural/temple/academic/primary sources with URL, title, access date, and the claims each supports; the owner approves sources before drafting.
+- [~] **P3-03 Pilot drafts and review: drafts written as `draft` in `content/festivals/` (diwali, ugadi, navaratri) with quick facts, attributed deities, sources and review notes; awaiting owner editorial review (see `docs/research/cultural/p3-03-drafts-for-review.md` and `p3-03-verification-list.md`). Nothing is reviewed or published.** original-wording drafts (why celebrated, significance, traditions, regional variations, food/fasting, dorm-friendly guidance, quick facts, attributed deities), reviewed by the owner (ideally with a culturally knowledgeable reviewer); only approved items flip to `reviewed`. Also reviews the pilot festivals' subtitles and aliases.
+- [~] **P3-04 Integration (A and B built, awaiting owner approval of results; unified as one milestone on 2026-11-08):** reviewed content and citations on the detail page (A); occurrence key days, tradition labels, hero countdown (computed in the browser so pages stay static and unknown slugs stay 404), Explore dates, Calendar labels and day details, home cards (B). All proven with synthetic fixtures. Real guides, basics and dates remain draft/unverified, so nothing new is visible.
+- [ ] **P3-05 Expansion:** remaining seven festivals in two batches (Holi, Maha Shivaratri, Ganesh Chaturthi, Rama Navami; then Krishna Janmashtami, Vijayadashami with Navaratri, Makara Sankranti).
+- [ ] **P3-06 Phase gate:** claim-to-source audit, owner spot-check of sources, accessibility and mobile pass, production build with no draft text, final date re-check.
+
+**Phase 2 follow-ups folded into Phase 3**
+- `FestivalCard` shows `<OccurrenceDate />` with no data: pass occurrences (P3-04).
+- `QuickFacts` accepts `facts` but `FestivalDetail` passes none (P3-04).
+- Detail-page countdown and per-request rendering (P3-04).
+- Subtitles, aliases and search-only deities need review (P3-03/P3-05).
+- Sources section lacks date methodology and verification date (P3-04).
+- Occurrence type lacked tradition, method and sources; duplicate occurrences per festival need tradition labels in Calendar and next-festival selection (P3-00 model, P3-04 UI).
+- Featured-festival list is a placeholder: revisit once real dates exist.
+
+**Gate:** Public site shows 10 reviewed guides and only verified dates (each with Atlanta, GA and 2027), drafts and unreviewed text cannot reach any public page, public pages are read-only and guest-accessible. Supabase is not part of this gate.
 
 ## Phase 4 — Authentication and personalization
 **Goal:** Secure accounts and saved preferences.
 - [ ] Implement Supabase email/password signup, verification, login, logout, callback and safe redirect.
 - [ ] Add user-owned tables, RLS, constraints, migrations, tests.
 - [ ] Onboarding: multiple regions, Atlanta reference location, IANA time zone, explicit follows, reminder settings default OFF.
+- [ ] Set up Supabase (project, env placeholders, migrations). Seed a `festivals` table from the Phase 3 content files by a reviewed script so follows have a foreign key; public pages keep reading content through `lib/festivals/queries.ts`.
+- [ ] Region filters on Explore and Calendar, using the sourced regional variations from the reviewed guides (deferred from Phases 2 and 3).
 - [ ] Follow/unfollow and My Festivals with persistence.
 - [ ] Settings edit flows, form validation, unauthorized/expired session states.
 - [ ] Account deletion workflow or clear documented mechanism before public launch.
@@ -126,9 +153,13 @@
 | P2-02 | 2 | Calendar views |
 | P2-03 | 2 | Detail page and responsive behavior |
 | P2-04 | 2 | Home, guest follow prompt, Phase 2 gate |
-| P3-01 | 3 | Schema and public RLS |
-| P3-02 | 3 | Typed data access and seed validation |
-| P3-03 | 3 | Reviewed content + verified dates |
+| P3-00 | 3 | Content schema, validators, loader |
+| P3-01 | 3 | Date research and verification |
+| P3-02 | 3 | Pilot source packs |
+| P3-03 | 3 | Pilot drafts and review |
+| P3-04 | 3 | Integration into pages |
+| P3-05 | 3 | Remaining seven festivals |
+| P3-06 | 3 | Phase gate |
 | P4-01 | 4 | Auth and callbacks |
 | P4-02 | 4 | Profiles/regions/follows |
 | P4-03 | 4 | Settings and RLS tests |

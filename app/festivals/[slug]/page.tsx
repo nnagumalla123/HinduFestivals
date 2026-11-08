@@ -3,8 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FestivalDetail } from "@/components/festivals/detail/FestivalDetail";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { mockFestivals } from "@/lib/festivals/mock-data";
-import { getFestivalBySlug, getFestivalGuide, getOccurrencesForFestival } from "@/lib/festivals/queries";
+import { getFestivalBySlug, getFestivalGuide, getOccurrencesForFestival, listPublishedFestivals } from "@/lib/festivals/queries";
 
 // In Next.js 16 a dynamic route's `params` arrives as a Promise, so we `await` it.
 type Props = { params: Promise<{ slug: string }> };
@@ -14,8 +13,8 @@ type Props = { params: Promise<{ slug: string }> };
 // /festivals/HOLI could get a 200 on its very first visit.
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-  return mockFestivals.map((festival) => ({ slug: festival.slug }));
+export async function generateStaticParams() {
+  return (await listPublishedFestivals()).map((festival) => ({ slug: festival.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -25,6 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function FestivalPage({ params }: Props) {
+  // The page stays statically built (cacheable, and an unknown slug is a real HTTP 404). A date's countdown
+  // is worked out in the browser (see Countdown), so it never freezes at build time. Reviewed content and
+  // verified dates arrive with a deploy, since they live in the repository's content files.
   const { slug } = await params;
   const festival = await getFestivalBySlug(slug);
 
