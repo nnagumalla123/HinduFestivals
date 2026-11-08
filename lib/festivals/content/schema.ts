@@ -99,6 +99,7 @@ export const QUICK_FACT_KEYS = [
   "Associated deities",
   "Common customs",
   "Dietary practices",
+  "Signature foods",
 ] as const;
 export type QuickFactKey = (typeof QUICK_FACT_KEYS)[number];
 

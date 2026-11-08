@@ -9,7 +9,9 @@ export function Footer() {
           Festival dates can differ by location, so we only show a date once it has been
           verified; otherwise you will see “{DATE_NOT_VERIFIED_LABEL}”.
         </p>
-        <p className="text-sm text-ivory/80">Content is still being prepared and reviewed.</p>
+        <p className="text-sm text-ivory/80">
+          Guides appear here only after editorial review. Festivals without a full guide are still being prepared.
+        </p>
       </div>
     </footer>
   );

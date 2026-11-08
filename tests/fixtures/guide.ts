@@ -18,6 +18,7 @@ export const syntheticGuide: FestivalGuide = {
   ],
   quickFacts: [],
   deities: [],
+  pendingReview: true, // it carries an unpublished draft section, so it is only partly reviewed
   sources: [
     { id: "test-date-source", role: "date", title: "Test date source", url: "https://example.test/dates", publisher: "Test Publisher", accessedAt: "2027-02-10" },
     { id: "test-cultural-source", role: "cultural", title: "Test cultural source", url: "https://example.test/culture", accessedAt: "2027-02-11" },

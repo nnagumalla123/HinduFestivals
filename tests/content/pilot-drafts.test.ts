@@ -15,24 +15,30 @@ const bodies = (r: FestivalRecord) => [
   ...(r.deityEntries ?? []).flatMap((d) => [d.role, d.tradition]),
 ];
 
-describe.each(pilots.map((r) => [r.slug, r] as const))("%s pilot draft", (_slug, record) => {
-  it("is entirely draft: nothing is marked reviewed", () => {
-    expect(record.basics.status).toBe("draft");
-    record.sections.forEach((s) => expect(s.status, s.title).toBe("draft"));
-    (record.quickFacts ?? []).forEach((f) => expect(f.status, f.label).toBe("draft"));
-    (record.deityEntries ?? []).forEach((d) => expect(d.status, d.name).toBe("draft"));
-    record.sections.forEach((s) => expect(s.reviewedAt).toBeUndefined());
+describe.each(pilots.map((r) => [r.slug, r] as const))("%s reviewed guide (P3-05B)", (_slug, record) => {
+  it("is reviewed with the recorded metadata, and every occurrence stays empty", () => {
+    const meta = { status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" };
+    expect(record.basics).toMatchObject(meta);
+    record.sections.forEach((s) => expect(s, s.title).toMatchObject(meta));
+    (record.quickFacts ?? []).forEach((f) => expect(f, f.label).toMatchObject(meta));
+    (record.deityEntries ?? []).forEach((d) => expect(d, d.name).toMatchObject(meta));
+    expect(record.occurrences).toEqual([]); // no 2027 date is verified or published
   });
 
-  it("publishes nothing: no sections, sources, occurrences, quick facts or deities reach public data", () => {
+  it("publishes the full guide and the approved basics, and nothing internal or dated", () => {
+    expect(errors(validateRecord(record, TODAY)).map((i) => i.message)).toEqual([]);
     const out = publishRecord(record, TODAY);
-    expect(out.guide).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
+    expect(out.guide.sections).toHaveLength(record.sections.length);
+    expect(out.guide.quickFacts).toHaveLength((record.quickFacts ?? []).length);
+    expect(out.guide.deities).toHaveLength((record.deityEntries ?? []).length);
+    expect(out.guide.sources.length).toBeGreaterThan(5);
+    expect(out.guide.sources.every((src) => src.role === "cultural")).toBe(true);
+    expect(out.festival.subtitle).toBe(record.subtitle);
+    expect(out.festival.aliases).toEqual(record.aliases);
+    expect(out.festival.deities).toEqual(record.deities);
+    expect(out.festival.provisional).toEqual({ aliases: [], deities: [] });
     expect(out.occurrences).toEqual([]);
-    expect(out.guide.quickFacts).toEqual([]);
-    expect(out.guide.deities).toEqual([]);
-    const json = JSON.stringify(out);
-    expect(json).not.toMatch(/deityEntries|reviewNotes/);
-    for (const s of record.sections) expect(json).not.toContain(s.title);
+    expect(JSON.stringify(out)).not.toMatch(/deityEntries|reviewNotes|reviewedBy|desi-days-editorial|termsNote|permissionStatus/);
   });
 
   it("has no validation errors or warnings", () => {
@@ -110,24 +116,6 @@ describe.each(pilots.map((r) => [r.slug, r] as const))("%s pilot draft", (_slug,
       expect(s.termsNote, s.id).toBeTruthy();
       if (s.termsChecked) expect(s.termsNote, s.id).toMatch(/\bread\b|public domain/i);
     }
-  });
-
-  it("would publish cleanly if the owner approved it (a dry run, not a real approval)", () => {
-    // Synthetic approval used only to prove the content is structurally publishable and leak-free.
-    const approved: FestivalRecord = {
-      ...record,
-      // Terms deliberately left as they are: an unread terms page must not block an original paraphrase.
-      sections: record.sections.map((s) => ({ ...s, status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "Dry Run Reviewer" })),
-      quickFacts: (record.quickFacts ?? []).map((f) => ({ ...f, status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "Dry Run Reviewer" })),
-      deityEntries: (record.deityEntries ?? []).map((d) => ({ ...d, status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "Dry Run Reviewer" })),
-    };
-    expect(errors(validateRecord(approved, TODAY)).map((i) => i.message)).toEqual([]);
-    const out = publishRecord(approved, TODAY);
-    expect(out.guide.sections).toHaveLength(record.sections.length);
-    expect(out.guide.quickFacts).toHaveLength((record.quickFacts ?? []).length);
-    expect(out.guide.deities).toHaveLength((record.deityEntries ?? []).length);
-    expect(JSON.stringify(out)).not.toMatch(/Dry Run Reviewer|reviewNotes|reviewedBy|deityEntries|termsNote|permissionStatus/);
-    expect(out.occurrences).toEqual([]);
   });
 });
 
@@ -215,9 +203,9 @@ describe("source-use audit trail on the real content", () => {
   });
 });
 
-describe("proposed basics (still draft)", () => {
+describe("approved basics", () => {
   it.each(pilots.map((r) => [r.slug, r] as const))("%s: search terms are backed by attributed deity entries, and the basics are not approved", (_slug, record) => {
-    expect(record.basics.status).toBe("draft");
+    expect(record.basics.status).toBe("reviewed");
     const entryNames = (record.deityEntries ?? []).map((d) => d.name);
     for (const term of record.deities) expect(entryNames, term).toContain(term);
     expect(record.subtitle.length).toBeGreaterThan(10);

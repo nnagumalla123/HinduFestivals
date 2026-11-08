@@ -1,8 +1,8 @@
 import type { ContentSource, FestivalRecord } from "@/lib/festivals/content/schema";
 
 /**
- * Ugadi: P3-03 DRAFT. Every section below is `draft`: nothing here reaches a public page until the
- * owner reviews it and flips the status (the loader is fail-closed). Source pack:
+ * Ugadi: REVIEWED 2026-11-08 (P3-05B, owner-approved; reviewer recorded internally). The loader publishes only items that stay `reviewed` and valid; `occurrences` stays empty, so no date is shown.
+ * (The loader is fail-closed.) Source pack:
  * docs/research/cultural/ugadi.md, plus additional Telugu sources found in P3-03 (listed below).
  * No dates anywhere in this file. `termsChecked` is false on purpose (owner confirms reuse terms).
  */
@@ -211,11 +211,11 @@ export const ugadi: FestivalRecord = {
   slug: "ugadi",
   name: "Ugadi",
   aliases: ["Yugadi"],
-  // PROPOSED BASICS (P3-04B, still draft): subtitle widened from the Phase 2 placeholder to name the communities
+  // BASICS (proposed in P3-04B, reviewed 2026-11-08; subtitle shortened 2026-11-08 at the owner's direction): the subtitle names the communities
   // (Telugu and Kannada). "Gudi Padwa" is deliberately NOT an alias: it is a separate Maharashtra and Goa festival.
-  subtitle: "The new year for many Telugu and Kannada families",
+  subtitle: "A new year for Telugu and Kannada families",
   deities: ["Brahma"],
-  basics: { status: "draft" },
+  basics: { status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" },
   sources,
   occurrences: [],
 
@@ -225,34 +225,35 @@ export const ugadi: FestivalRecord = {
       text: "“The beginning of an age” (yuga plus adi). The new year for many Telugu and Kannada communities.",
       tradition: "Telugu and Kannada",
       sourceIds: ["ugadi-britannica", "ugadi-sahms"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
     },
     {
       label: "Length of observance",
       text: "One day, on the first day of the lunar month of Chaitra, at the start of spring.",
       sourceIds: ["ugadi-britannica", "ugadi-htcs-temple"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
     },
     {
       label: "Associated deities",
       text: "Brahma, in a traditional belief that the day marks the beginning of creation.",
       tradition: "Traditional belief",
       sourceIds: ["ugadi-britannica", "ugadi-sahms"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
     },
     {
       label: "Common customs",
       text: "An oil bath and new clothes, mango-leaf doorway decorations, muggu (rangoli), temple visits, listening to the year’s almanac (Panchanga Sravanam), and tasting ugadi pachadi.",
       sourceIds: ["ugadi-britannica", "ugadi-telangana-today", "ugadi-hans-india"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
     },
     {
-      label: "Dietary practices",
-      text: "Ugadi pachadi (Telugu) and bevu-bella (Kannada), mixes of sweet and bitter and other tastes whose ingredients vary by family and community.",
+      label: "Signature foods",
+      text: "Ugadi pachadi (Telugu) and bevu-bella (Kannada), mixes of sweet, bitter and other tastes whose ingredients vary by family and community.",
       tradition: "Telugu and Kannada",
       sourceIds: ["ugadi-britannica", "ugadi-hans-india", "ugadi-htcs-temple", "ugadi-karnataka-tourism"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL: Owner direction 2026-11-08. this fact uses the new 'Signature foods' label (added to the shared label list) instead of 'Dietary practices', because it describes characteristic dishes, not dietary rules.",
         "EDITORIAL: no fasting or vegetarian claim is made. SAHMS says feasts are 'satvik' in general terms; not used (over-generalised, single source).",
       ],
     },
@@ -264,7 +265,7 @@ export const ugadi: FestivalRecord = {
       role: "The creator god. A traditional belief links Ugadi to the day he began creating the universe.",
       tradition: "Traditional belief, as Britannica (some Hindu texts) and community sources describe it",
       sourceIds: ["ugadi-britannica", "ugadi-sahms"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: ["EDITORIAL: not traced to a specific text; do not name one without verification (owner decision)."],
     },
   ],
@@ -277,7 +278,7 @@ export const ugadi: FestivalRecord = {
         "Ugadi is the new year for many Telugu and Kannada families, and it arrives with spring, on the first day of the lunar month of Chaitra. The name joins yuga (an age) and adi (a beginning), so it means “the beginning of an age.”\n\n" +
         "The day starts with an oil bath and new clothes. Fresh mango leaves hang over the door, a muggu (rangoli) greets guests, and families head to the temple, listen to the year’s almanac and taste ugadi pachadi, a blend of sweet, bitter, sour and more that stands for everything a year can hold. The idea is to take the sweet and the bitter together. In Maharashtra and Goa, the same day is called Gudi Padwa.",
       sourceIds: ["ugadi-britannica", "ugadi-telangana-today", "ugadi-hans-india", "ugadi-htcs-temple"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "SOURCE NOTE: core summary rests on Britannica plus two Telugu newspapers and a US temple page (separate publishers).",
         "SOURCE NOTE: 'take the sweet and the bitter together' paraphrases The Hans India's reading of the pachadi.",
@@ -289,12 +290,13 @@ export const ugadi: FestivalRecord = {
       tradition: "Telugu and Kannada communities",
       body:
         "Ugadi falls on the first day of Chaitra in the lunar calendar followed in Telugu- and Kannada-speaking regions, where each month ends on the new moon. That makes it the first day of the waxing moon, which is said to symbolize growth.\n\n" +
-        "It is a seasonal turning point too, the start of spring and the planting season. In the Telugu calendar, years run in a cycle of sixty, and every year has its own name, so each Ugadi comes with a new name to learn.\n\n" +
+        "It is a seasonal turning point too, arriving with spring, a time associated with planting. In the Telugu calendar, years run in a cycle of sixty, and every year has its own name, so each Ugadi comes with a new name to learn.\n\n" +
         "Many families also see the day as a good moment for a fresh start.",
       sourceIds: ["ugadi-britannica", "ugadi-telangana-today", "ugadi-hans-india", "ugadi-eb1911", "ugadi-htci-temple", "ugadi-htcs-temple", "ugadi-karnataka-tourism"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "SOURCE NOTE: the sixty-year cycle of named years is now supported by Telangana Today (Telugu context), The Hans India (year names in use) and the 1911 Britannica entry on Hindu chronology (a sixty-year Jupiter cycle with special names such as Prabhava). The mechanism and the count differ between north and south India, so the public text says only that years run in a cycle of sixty with their own names.",
+        "SOURCE NOTE: Rechecked 2026-11-08. Britannica says the new year 'marks the start of spring and the planting season'; softened in the public text because it is a single source and the farming calendar differs by region.",
         "SOURCE NOTE: spring and the planting season are from Britannica. 'A fresh start' is supported by two US temple pages (HTCI, Sri Venkateswara Temple) and Karnataka Tourism. The Hans India's neem-blossom, farmers-awaiting-showers and housewarming details were removed (single source).",
         "OPTIONAL: the popular Narada legend of the sixty names is left out (single newspaper source; needs a Purana check).",
       ],
@@ -306,7 +308,7 @@ export const ugadi: FestivalRecord = {
       body:
         "Many people link Ugadi to the very first morning of creation. According to a traditional belief, this is the day the god Brahma began creating the universe, which fits a festival whose name means “the beginning of an age.”",
       sourceIds: ["ugadi-britannica", "ugadi-sahms", "ugadi-karnataka-tourism"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "EDITORIAL: owner decision: traditional belief with attribution; the historical-record disclaimer was removed from the public text (owner direction) and no specific text is named. Supported by Britannica ('some Hindu texts'), Karnataka Tourism ('many Hindus believe') and SAHMS.",
         "SOURCE NOTE: Britannica says 'according to some Hindu texts'; a popular magazine cites the Brahma Purana without a passage. OPTIONAL: Kane, History of Dharmasastra (candidate, unverified).",
@@ -322,7 +324,7 @@ export const ugadi: FestivalRecord = {
         "Temple and prayer. Many families visit a temple and offer prayers.\n\n" +
         "The year’s almanac. Families often hear the panchangam, the traditional almanac, read aloud at a temple or by a respected elder. This is Panchanga Sravanam, and it includes the year’s forecasts, such as weather, harvests and general fortune.",
       sourceIds: ["ugadi-britannica", "ugadi-telangana-today", "ugadi-hans-india", "ugadi-htcs-temple", "ugadi-htci-temple", "ugadi-karnataka-tourism"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "EDITORIAL: temple-ceremony specifics (Tirumala's Ugadi Asthanam, US temples reading in two languages) were removed as non-essential (owner direction). Source IDs ugadi-deccan-chronicle and the US temple pages are kept for the claims they still support.",
         "SOURCE NOTE: the forecast areas (weather, harvests, general fortune) draw on Karnataka Tourism, The Hans India and a temple page; Britannica says only that people hear the almanac recited.",
@@ -333,10 +335,10 @@ export const ugadi: FestivalRecord = {
       title: "Ugadi pachadi: the taste of a year (Telugu)",
       tradition: "Telugu",
       body:
-        "Ugadi pachadi is the dish most closely tied to the day, and in many Telugu homes it is the first thing eaten. It blends several tastes, and the usual lineup is jaggery (sweet), raw mango (tangy), tamarind (sour), neem flowers (bitter), chili (spicy) and salt. Families make it their own way, though. One temple’s version includes honey and sugar.\n\n" +
+        "Ugadi pachadi is the dish most closely tied to the day, and in many Telugu homes it is the first thing eaten. It blends several tastes, and the usual lineup is jaggery (sweet), raw mango (tangy), tamarind (sour), neem flowers (bitter), chili (spicy) and salt. Families make it their own way, though.\n\n" +
         "The idea is that a year holds all kinds of experiences, and you taste them together. In one popular reading, jaggery stands for joy, neem for hardship, raw mango for surprise, tamarind for disappointment, chili for anger or passion, and salt for balance. Other families read the tastes a little differently. There is also a playful belief that if you get more neem in your bite your year will be bitter, and if you get more jaggery it will be sweet.",
       sourceIds: ["ugadi-britannica", "ugadi-telangana-today", "ugadi-hans-india", "ugadi-htcs-temple", "ugadi-deccan-chronicle"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "SOURCE NOTE: ingredient lists and taste meanings differ across Britannica, Telangana Today, The Hans India, a US temple page and Deccan Chronicle (which lists six flavors without ingredients); the public text says families vary.",
         "OPTIONAL: whether the dish is attested in older sources is unverified (candidate: Achaya, Indian Food: A Historical Companion). No fasting information was found, so no fasting section is drafted.",
@@ -349,7 +351,7 @@ export const ugadi: FestivalRecord = {
       body:
         "In Karnataka, the signature custom is bevu-bella, “neem and jaggery.” Neem flowers stand for the bitter and jaggery for the sweet, and families eat the mixture early in the day as a reminder that life holds both joy and hardship. Ugadi pachadi, the fuller multi-flavored mix, is especially popular in Andhra Pradesh and Telangana, though many Karnataka homes make it too, and some families use the name bevu-bella for that fuller mix as well.",
       sourceIds: ["ugadi-karnataka-tourism", "ugadi-britannica", "ugadi-hans-india"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "SOURCE NOTE: resolved with a Kannada-region source. Karnataka Tourism (Government of Karnataka) describes bevu-bella as a simple neem-and-jaggery mixture and says ugadi pachadi is more popular in Andhra Pradesh and Telangana but also made in many Karnataka households; The Hans India agrees (jaggery-and-neem version more popular with Kannadigas). Britannica uses 'bevu-bella' as the Karnataka name for ugadi pachadi itself, so the public text acknowledges both usages.",
         "OPTIONAL: a Kannada temple source would add further confirmation.",
@@ -361,10 +363,11 @@ export const ugadi: FestivalRecord = {
       tradition: "Telugu, Kannada, Marathi and Konkani communities",
       body:
         "In Maharashtra and Goa, Marathi and Konkani communities celebrate the same day as Gudi Padwa. Their signature custom is the gudi: a cloth tied to a tall stick, topped with an upturned pot, neem and mango leaves and flowers, raised outside the home as a sign of victory and good fortune.\n\n" +
-        "Elsewhere in India, the same lunar day begins Chaitra Navaratri, a spring version of Navaratri whose ninth day is Rama Navami. Because communities begin their year at different times, Ugadi is the new year for Telugu and Kannada families, not for every Hindu.",
+        "Across India, many communities also begin Chaitra Navaratri on the same lunar day, a spring version of Navaratri whose ninth day is Rama Navami. Because communities begin their year at different times, Ugadi is the new year for Telugu and Kannada families, not for every Hindu.",
       sourceIds: ["ugadi-britannica", "ugadi-htci-temple", "ugadi-hans-india"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "SOURCE NOTE: Rechecked 2026-11-08. Britannica says 'in other regions of India' the same day begins Vasanta (Chaitra) Navratri. The owner asked for 'Across India'; the public text says 'Across India, many communities', which matches the source's meaning without implying Telugu and Kannada families are excluded or that every community observes it. Recheck if you want the stronger 'Across India' without 'many'.",
         "OPTIONAL: no cultural source read covers Tamil Puthandu, Vishu or Baisakhi, so they are not mentioned.",
         "SOURCE NOTE: the flag's 'victory' meaning is Britannica's; a popular magazine adds a Maratha link, omitted (single source).",
       ],
@@ -381,7 +384,7 @@ export const ugadi: FestivalRecord = {
         "Call home. Ask a relative to read out the year’s panchangam, or just call and hear how everyone is celebrating.\n\n" +
         "If you want to light a lamp or incense, check your housing rules first. Many residence halls ban open flames, and a battery-powered lamp is a safer choice.",
       sourceIds: ["dorm-appstate", "dorm-uga", "ugadi-hans-india", "ugadi-htcs-temple"],
-      status: "draft",
+      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
       reviewNotes: [
         "EDITORIAL: practical suggestions, not cultural claims; no college is named. Mango-leaf and neem-flower availability is common knowledge, not sourced.",
         "OPTIONAL: no Atlanta-area Telugu or Kannada organization has been verified, so none is named.",

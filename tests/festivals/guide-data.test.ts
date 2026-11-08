@@ -5,11 +5,31 @@ import { formatCivilDate } from "@/lib/festivals/occurrences";
 import { isHttpUrl } from "@/lib/utils/url";
 
 describe("production guide data", () => {
-  // Until a pilot guide or a date is reviewed and approved, the public guide is empty (see content-gating.test.ts for the rules).
-  it("currently publishes no guide sections, sources or occurrences for any festival", async () => {
-    expect(await getFestivalGuide("diwali")).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
+  // Three guides are reviewed (P3-05B); the other seven and every date are not (see content-gating.test.ts for the rules).
+  const empty = { sections: [], quickFacts: [], deities: [], sources: [], pendingReview: false };
+
+  it("publishes the reviewed Diwali, Ugadi and Navaratri guides with citations", async () => {
+    for (const slug of ["diwali", "ugadi", "navaratri"]) {
+      const guide = await getFestivalGuide(slug);
+      expect(guide.sections.length, slug).toBeGreaterThan(5);
+      expect(guide.quickFacts.length, slug).toBeGreaterThan(3);
+      expect(guide.deities.length, slug).toBeGreaterThan(0);
+      expect(guide.sources.length, slug).toBeGreaterThan(5);
+      guide.sections.forEach((s) => expect(s.status === "published" && s.reviewedAt, s.title).toBe("2026-11-08"));
+    }
+  });
+
+  it("publishes nothing for the seven draft festivals or an unknown slug", async () => {
+    for (const slug of ["holi", "ganesh-chaturthi", "vijayadashami", "krishna-janmashtami", "maha-shivaratri", "makara-sankranti", "rama-navami"]) {
+      expect(await getFestivalGuide(slug), slug).toEqual(empty);
+    }
     expect(await getFestivalGuide("not-a-festival")).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
-    expect(await getOccurrencesForFestival("diwali")).toEqual([]);
+  });
+
+  it("publishes no occurrence (no verified 2027 date) for any festival", async () => {
+    for (const slug of ["diwali", "ugadi", "navaratri", "holi", "ganesh-chaturthi", "vijayadashami", "krishna-janmashtami", "maha-shivaratri", "makara-sankranti", "rama-navami"]) {
+      expect(await getOccurrencesForFestival(slug), slug).toEqual([]);
+    }
   });
 });
 

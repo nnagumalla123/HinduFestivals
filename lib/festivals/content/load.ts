@@ -145,7 +145,17 @@ export function publishRecord(record: FestivalRecord, today: string): PublicFest
           provisional: { aliases: record.aliases, deities: record.deities },
         },
     occurrences,
-    guide: { sections, quickFacts, deities, sources: [...usedSources.values()] },
+    guide: {
+      sections,
+      quickFacts,
+      deities,
+      sources: [...usedSources.values()],
+      // Drafted items that did not publish. Absent (never drafted) content does not count.
+      pendingReview:
+        sections.length < record.sections.length ||
+        quickFacts.length < (record.quickFacts ?? []).length ||
+        deities.length < (record.deityEntries ?? []).length,
+    },
   };
 }
 

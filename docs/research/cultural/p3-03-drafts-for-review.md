@@ -1,23 +1,29 @@
-# P3-03 pilot drafts for editorial review (revision 2)
+# Cultural guides: Diwali, Ugadi, Navaratri (revision 4, reviewed 2026-11-08)
 
-**STATUS: DRAFT. Nothing here is reviewed, published, or visible on the site.** This file is a readable export of the three content files in `content/festivals/` (generated from them; edit the `.ts` files, not this file). Bracketed source IDs show which sources back each passage; "Review notes" are internal and never published. No dates appear in any guide.
+**STATUS: REVIEWED locally 2026-11-08 (P3-05B, reviewer recorded internally) and published by the loader. The other seven festivals are still draft. No 2027 date is verified.** Readable export of the three content files in `content/festivals/` (generated from them; edit the `.ts` files, not this file). Bracketed source IDs show which sources back each passage; "Research notes" are internal and never published. No dates appear in any guide. Basics (subtitle, aliases, deity search terms) are shown at the top of each guide and are reviewed.
 
 ---
 
 # Diwali
 
-## Quick facts (draft)
+## Basics (reviewed)
+
+- **Subtitle:** The festival of lights
+- **Aliases:** Deepavali
+- **Deity search terms:** Lakshmi, Rama, Krishna, Kali
+
+## Quick facts (reviewed)
 
 - **Meaning:** “Row of lights” (from the Sanskrit dipavali), widely understood as light over darkness.  
   Sources: diwali-britannica, diwali-princeton
 - **Length of observance:** Often described as five days. Lakshmi Puja, on the new-moon night, is a central observance for many communities. Counts and customs vary by region and family.  
   Sources: diwali-britannica, diwali-haf
-- **Associated deities:** Lakshmi (widely); Rama (northern India); Krishna (southern India and Govardhan Puja); Kali (Bengal). _(Varies by region)_  
+- **Associated deities:** Lakshmi (widely); Rama (northern India); Krishna (southern India and Govardhan Puja); Kali (Bengal, where the new-moon night is celebrated as Kali Puja). _(Varies by region)_  
   Sources: diwali-britannica, diwali-birmingham-kali
 - **Common customs:** Lighting diyas, drawing rangoli, praying to Lakshmi, wearing new clothes, visiting family and friends, exchanging gifts, sharing sweets, and giving to those in need.  
   Sources: diwali-britannica, diwali-princeton, diwali-haf
 
-## Deities (draft)
+## Deities (reviewed)
 
 - **Lakshmi** (Widespread across Hindu traditions): Goddess of good fortune and wealth. Lamps are lit and doors left open to welcome her, and Lakshmi Puja is a central evening for many families.  
   Sources: diwali-britannica, diwali-princeton
@@ -25,7 +31,7 @@
   Sources: diwali-britannica, diwali-brandeis
 - **Krishna** (Southern India; Vaishnava traditions): Remembered for defeating the demon Narakasura (a southern Diwali story) and for lifting Govardhana Hill (Govardhan Puja).  
   Sources: diwali-britannica, diwali-bhagavata-naraka, diwali-bhagavata-govardhana
-- **Kali** (Bengal): The goddess worshipped at this time in Bengal.  
+- **Kali** (Bengal): Worshipped in Bengal on the new-moon night of Diwali, a celebration known there as Kali Puja.  
   Sources: diwali-britannica, diwali-birmingham-kali
 
 ## Why celebrate?
@@ -38,7 +44,7 @@ Why people celebrate depends on the family. In much of northern India it is Rama
 
 **Sources:** `diwali-britannica`, `diwali-princeton`, `diwali-brandeis`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: core summary rests on Britannica plus Princeton and Brandeis, which largely echo the general account (not independent confirmation).
 
 ## Stories & mythology
@@ -53,7 +59,7 @@ Dussehra, earlier in the autumn, celebrates the victory over Ravana. Diwali is t
 
 **Sources:** `diwali-britannica`, `diwali-britannica-difference`, `diwali-britannica-diya`, `diwali-valmiki`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: the Valmiki chapters on the return (sargas 127 and 128 in the Murthy prose translation, valmikiramayan.net) describe flags, flowers, scented water, a procession and a coronation, and no festival of lights. The lamp-lit homecoming is a tradition ('said to' in Britannica; stated without hedging by Princeton, Brandeis and HAF). Public text therefore says 'the tradition says' and does not cite Valmiki.
 - OPTIONAL: check a critical edition and other recensions (sarga numbering differs).
 - OPTIONAL: HAF also says Sita is an incarnation of Lakshmi; not used (single source, not in the chapters read).
@@ -66,7 +72,7 @@ In many parts of southern India, the hero of Diwali is Krishna. The demon Naraka
 
 **Sources:** `diwali-britannica`, `diwali-princeton`, `diwali-bhagavata-naraka`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: the Bhagavata Purana chapter (10.59, Bhaktivedanta Book Trust translation) tells the story without mentioning lamps or a festival; the link to the day is traditional (Britannica, Princeton, HAF).
 - OPTIONAL: Britannica notes some scholars link this day to an older custom of lighting lamps for Yama; left out of public text (single source).
 
@@ -78,7 +84,7 @@ For many families, Diwali is Lakshmi’s night. She is the goddess of fortune an
 
 **Sources:** `diwali-britannica`, `diwali-princeton`, `diwali-bhagavata-lakshmi`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - OPTIONAL: Britannica also describes a Purana in which women, at midnight on the new-moon night, drive out misfortune and welcome Lakshmi. Removed from public text because no second source was found (owner direction).
 - SOURCE NOTE: Bhagavata Purana 8.8 tells of Lakshmi rising from the churning of the ocean and choosing Vishnu but makes no Diwali link; the link is traditional. Not stated publicly.
 
@@ -86,13 +92,14 @@ For many families, Diwali is Lakshmi’s night. She is the goddess of fortune an
 
 _Tradition: Vaishnava traditions; the fourth day_
 
-On the fourth day, many families remember Krishna lifting Govardhana Hill. When a furious storm sent by the god Indra threatened the cowherds of Vraja, Krishna held the hill up with one hand so that everyone could shelter beneath it for seven days. The day is also called Annakut and Bali Pratipada.
+On the fourth day, many families remember Krishna lifting Govardhana Hill. When a furious storm sent by the god Indra threatened the cowherds of Vraja, Krishna held the hill up with one hand so that everyone could shelter beneath it for seven days. This fourth day is known as Govardhan Puja, after the hill.
 
 **Sources:** `diwali-britannica`, `diwali-bhagavata-govardhana`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: the Bhagavata chapters (10.24 and 10.25) do not mention lamps, Annakut or a festival; the link to the day is traditional.
-- OPTIONAL: no source read tells the Bali (Vamana) story as part of Diwali, so it is left out; no source explains the word 'Annakut'.
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica lists Govardhan Puja, Balipratipada and Annakut as names of the fourth day and links the day to Krishna lifting the hill. Only 'Govardhan Puja' is explained by that story, so it is the only name in the public text (owner direction 2026-11-08).
+- OPTIONAL: Annakut and Bali Pratipada are omitted because no source read explains them or tells the Bali (Vamana) story as part of Diwali. Restore only with a source that explains each name.
 
 ## Traditions
 
@@ -106,26 +113,16 @@ Day two, Naraka Chaturdashi (also called Choti Diwali): it remembers Krishna’s
 
 Day three, Lakshmi Puja: for many communities, the heart of the festival. On the new-moon night, families pray to Lakshmi, light lamps and candles, and visit temples.
 
-Day four, Govardhan Puja: it recalls Krishna and the hill. In the Vikrama calendar it is also the first day of the new year, and merchants traditionally open fresh account books.
+Day four, Govardhan Puja: it recalls Krishna and the hill. In some regions, following the Vikrama calendar, it is also the first day of the new year, and merchants traditionally open fresh account books.
 
 Day five, Bhai Dooj: a day to celebrate siblings, when sisters pray for their brothers’ well-being.
 
 **Sources:** `diwali-britannica`, `diwali-haf`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: day names and order follow Britannica; HAF's list adds a sixth day (Govatsa Dvadashi) at the start. Other regional counts are not sourced.
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica states the Vikrama new year on day four without limiting it by region; HAF says 'some regions' and the Malaiya page names Gujarat. The public text now says 'in some regions' in both this section and Many Diwalis across India.
 - EDITORIAL: owner asked that Lakshmi Puja not be presented as a universally designated main day; wording is 'for many communities'.
-
-## Food & fasting
-
-### Sweets and sharing
-
-Sharing sweets and festive meals with family and friends is a big part of the celebration.
-
-**Sources:** `diwali-britannica`, `diwali-princeton`, `diwali-brandeis`
-
-**Review notes (internal):**
-- EDITORIAL: deliberately minimal. No reputable source read names dishes, regional foods or fasting for Diwali; none are invented. No vegetarian claim is made.
 
 ## How to celebrate
 
@@ -137,21 +134,22 @@ Rangoli. Patterns made of colored rice, sand or flower petals decorate floors an
 
 Open doors. Doors and windows are left open so Lakshmi can find her way in.
 
-New clothes and togetherness. Families dress up, visit one another, exchange gifts and share meals. Giving is part of the spirit too, from feeding people in need to quiet acts of charity.
+New clothes and togetherness. Families dress up, visit one another and exchange gifts. Sharing sweets and festive meals with family and friends is a big part of the celebration. Giving is part of the spirit too, from feeding people in need to quiet acts of charity.
 
 Fireworks. Fireworks are part of the festivities in many places, though practices vary by community and region, and in some places they are limited or avoided. If you take part, public displays and local safety rules are the best guide.
 
-**Sources:** `diwali-britannica`, `diwali-britannica-diya`, `diwali-princeton`, `diwali-haf`
+**Sources:** `diwali-britannica`, `diwali-britannica-diya`, `diwali-princeton`, `diwali-brandeis`, `diwali-haf`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - EDITORIAL: card games are intentionally omitted (owner decision). Fireworks wording is neutral and acknowledges that practices vary, with a simple safety pointer and no instructions (owner direction). Basis: Britannica notes displays are now restricted in some places for noise and pollution.
 - OPTIONAL: Britannica's reading of the oil and wick as human flaws and the soul is left out.
+- EDITORIAL: Owner direction 2026-11-08. the former one-sentence 'Sweets and sharing' section was merged into 'New clothes and togetherness'. No reputable source read names dishes, regional foods or fasting for Diwali; none are invented and no vegetarian claim is made.
 
 ### Celebrating Diwali away from home
 
-You can have a real Diwali in a small room with a few smart choices.
+You can celebrate meaningfully in a small room with a few smart choices.
 
-Check your housing rules first. Many U.S. residence halls ban open flames, which can include candles, oil lamps and incense, and some limit decorations like string lights too. Read your housing contract or ask your residence life office before you light or hang anything. Some schools have a process for requesting an exception for religious observance, so ask rather than assume.
+Check your housing rules first. Many U.S. residence halls ban open flames, which can include candles, oil lamps and incense, and some limit decorations like string lights too. Read your housing contract or ask your residence life office before you light or hang anything. If you have questions about religious accommodations, ask your residence life office.
 
 Get the glow without the flame. If your housing allows them, battery-powered LED diyas or tea lights give you the same warm light. Keep cords tidy, don’t chain extension cords together, and never cover a light with paper or cloth.
 
@@ -167,8 +165,9 @@ If fireworks are part of your family’s celebration, a public display is the si
 
 **Sources:** `dorm-appstate`, `dorm-dartmouth`, `dorm-louisville`, `dorm-uga`, `diwali-bath-reslife`, `diwali-haf`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - EDITORIAL: practical guidance, not cultural claims; no college is named. The pattern claims come from five US policies read (App State, Dartmouth, Louisville, UGA and a partly read Georgia Tech).
+- EDITORIAL: Owner direction 2026-11-08. the housing-exception sentence was replaced with a neutral pointer ('If you have questions about religious accommodations, ask your residence life office.'). Background: only Dartmouth's policy, of those read, describes a religious-exception request form (approved in advance, with conditions); the public text no longer claims anything about other schools.
 - OPTIONAL: Georgia Tech section XIII and Emory still need a browser read.
 - EDITORIAL: rangoli-on-paper, video-call and volunteering ideas are editorial suggestions, partly from the Bath (UK) page; confirm they feel authentic.
 
@@ -178,19 +177,19 @@ If fireworks are part of your family’s celebration, a public display is the si
 
 _Tradition: Regional; varies by community_
 
-There is no single Diwali, and the story you grew up with probably depends on your region and family. In Bengal, the festival is closely tied to the worship of the goddess Kali. In some regions, such as Gujarat, Diwali opens the new year in the Vikrama calendar, while other communities begin their year at other times, so it is not the Hindu new year for everyone.
+There is no single Diwali, and the story you grew up with probably depends on your region and family. In Bengal, the same new-moon night is celebrated as Kali Puja, when the goddess Kali is worshipped. In some regions, such as Gujarat, Diwali opens the new year in the Vikrama calendar, while other communities begin their year at other times, so it is not the Hindu new year for everyone.
 
 **Sources:** `diwali-britannica`, `diwali-haf`, `diwali-malaiya`, `diwali-birmingham-kali`
 
-**Review notes (internal):**
-- SOURCE NOTE: Kali in Bengal: Britannica plus a University of Birmingham student blog by a Bengali community member (see the Kali deity entry).
+**Research notes (internal, not published):**
+- SOURCE NOTE: Kali in Bengal: Britannica plus a University of Birmingham student blog by a Bengali community member, which supplies the name Kali Puja and the shared new-moon night (see the Kali deity entry).
 - SOURCE NOTE: HAF says 'some regions' mark Diwali as the new year without naming them; Britannica ties it to the Vikrama calendar; the Malaiya page says the Vikrama year begins at Diwali in Gujarat (the region named in the public text).
 
 ### Jain and Sikh meanings
 
 _Tradition: Jain; Sikh_
 
-Diwali is not only a Hindu festival, and other communities light lamps for their own reasons.
+Hindus are not the only ones who light lamps at this time of year. Jain and Sikh communities mark these days with their own meanings.
 
 For Jains, Diwali remembers the night Mahavira, the last of the Tirthankaras, attained nirvana. Jain tradition recalls kings lighting lamps that night, since the light of his wisdom had left the world.
 
@@ -200,7 +199,7 @@ Each of these traditions tells its own story in its own terms.
 
 **Sources:** `diwali-britannica`, `diwali-princeton`, `diwali-brandeis`, `diwali-malaiya`, `diwali-sikhnet`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: Jain paragraph verified against a Jain scholar's page (Malaiya, Colorado State University), which cites an early Jain text for the kings' lamps, plus Britannica, Princeton and Brandeis. Sikh paragraph verified against SikhNet (Bandi Chhor Divas) plus Britannica and Brandeis. The Sikh release year differs across sources and is omitted.
 - EDITORIAL: the Newar Buddhist sentence was removed (owner direction): searches found only Wikipedia, news and blog pages, no reputable Newar Buddhist-specific source (candidate scholarship, not read: Robert Levy, Mesocosm, 1990; Bal Gopal Shrestha on the Svanti festival, 2006). Britannica and Princeton disagree on the details, so none are used. Restore only with a verified source.
 - OPTIONAL: SikhNet describes today's observance with gurdwara gatherings and langar; fireworks and candles mentioned there are left out.
@@ -232,7 +231,13 @@ Each of these traditions tells its own story in its own terms.
 
 # Ugadi
 
-## Quick facts (draft)
+## Basics (reviewed)
+
+- **Subtitle:** A new year for Telugu and Kannada families
+- **Aliases:** Yugadi
+- **Deity search terms:** Brahma
+
+## Quick facts (reviewed)
 
 - **Meaning:** “The beginning of an age” (yuga plus adi). The new year for many Telugu and Kannada communities. _(Telugu and Kannada)_  
   Sources: ugadi-britannica, ugadi-sahms
@@ -242,10 +247,10 @@ Each of these traditions tells its own story in its own terms.
   Sources: ugadi-britannica, ugadi-sahms
 - **Common customs:** An oil bath and new clothes, mango-leaf doorway decorations, muggu (rangoli), temple visits, listening to the year’s almanac (Panchanga Sravanam), and tasting ugadi pachadi.  
   Sources: ugadi-britannica, ugadi-telangana-today, ugadi-hans-india
-- **Dietary practices:** Ugadi pachadi (Telugu) and bevu-bella (Kannada), mixes of sweet and bitter and other tastes whose ingredients vary by family and community. _(Telugu and Kannada)_  
+- **Signature foods:** Ugadi pachadi (Telugu) and bevu-bella (Kannada), mixes of sweet, bitter and other tastes whose ingredients vary by family and community. _(Telugu and Kannada)_  
   Sources: ugadi-britannica, ugadi-hans-india, ugadi-htcs-temple, ugadi-karnataka-tourism
 
-## Deities (draft)
+## Deities (reviewed)
 
 - **Brahma** (Traditional belief, as Britannica (some Hindu texts) and community sources describe it): The creator god. A traditional belief links Ugadi to the day he began creating the universe.  
   Sources: ugadi-britannica, ugadi-sahms
@@ -260,7 +265,7 @@ The day starts with an oil bath and new clothes. Fresh mango leaves hang over th
 
 **Sources:** `ugadi-britannica`, `ugadi-telangana-today`, `ugadi-hans-india`, `ugadi-htcs-temple`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: core summary rests on Britannica plus two Telugu newspapers and a US temple page (separate publishers).
 - SOURCE NOTE: 'take the sweet and the bitter together' paraphrases The Hans India's reading of the pachadi.
 
@@ -270,14 +275,15 @@ _Tradition: Telugu and Kannada communities_
 
 Ugadi falls on the first day of Chaitra in the lunar calendar followed in Telugu- and Kannada-speaking regions, where each month ends on the new moon. That makes it the first day of the waxing moon, which is said to symbolize growth.
 
-It is a seasonal turning point too, the start of spring and the planting season. In the Telugu calendar, years run in a cycle of sixty, and every year has its own name, so each Ugadi comes with a new name to learn.
+It is a seasonal turning point too, arriving with spring, a time associated with planting. In the Telugu calendar, years run in a cycle of sixty, and every year has its own name, so each Ugadi comes with a new name to learn.
 
 Many families also see the day as a good moment for a fresh start.
 
 **Sources:** `ugadi-britannica`, `ugadi-telangana-today`, `ugadi-hans-india`, `ugadi-eb1911`, `ugadi-htci-temple`, `ugadi-htcs-temple`, `ugadi-karnataka-tourism`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: the sixty-year cycle of named years is now supported by Telangana Today (Telugu context), The Hans India (year names in use) and the 1911 Britannica entry on Hindu chronology (a sixty-year Jupiter cycle with special names such as Prabhava). The mechanism and the count differ between north and south India, so the public text says only that years run in a cycle of sixty with their own names.
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica says the new year 'marks the start of spring and the planting season'; softened in the public text because it is a single source and the farming calendar differs by region.
 - SOURCE NOTE: spring and the planting season are from Britannica. 'A fresh start' is supported by two US temple pages (HTCI, Sri Venkateswara Temple) and Karnataka Tourism. The Hans India's neem-blossom, farmers-awaiting-showers and housewarming details were removed (single source).
 - OPTIONAL: the popular Narada legend of the sixty names is left out (single newspaper source; needs a Purana check).
 
@@ -291,7 +297,7 @@ Many people link Ugadi to the very first morning of creation. According to a tra
 
 **Sources:** `ugadi-britannica`, `ugadi-sahms`, `ugadi-karnataka-tourism`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - EDITORIAL: owner decision: traditional belief with attribution; the historical-record disclaimer was removed from the public text (owner direction) and no specific text is named. Supported by Britannica ('some Hindu texts'), Karnataka Tourism ('many Hindus believe') and SAHMS.
 - SOURCE NOTE: Britannica says 'according to some Hindu texts'; a popular magazine cites the Brahma Purana without a passage. OPTIONAL: Kane, History of Dharmasastra (candidate, unverified).
 
@@ -311,7 +317,7 @@ The year’s almanac. Families often hear the panchangam, the traditional almana
 
 **Sources:** `ugadi-britannica`, `ugadi-telangana-today`, `ugadi-hans-india`, `ugadi-htcs-temple`, `ugadi-htci-temple`, `ugadi-karnataka-tourism`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - EDITORIAL: temple-ceremony specifics (Tirumala's Ugadi Asthanam, US temples reading in two languages) were removed as non-essential (owner direction). Source IDs ugadi-deccan-chronicle and the US temple pages are kept for the claims they still support.
 - SOURCE NOTE: the forecast areas (weather, harvests, general fortune) draw on Karnataka Tourism, The Hans India and a temple page; Britannica says only that people hear the almanac recited.
 
@@ -321,13 +327,13 @@ The year’s almanac. Families often hear the panchangam, the traditional almana
 
 _Tradition: Telugu_
 
-Ugadi pachadi is the dish most closely tied to the day, and in many Telugu homes it is the first thing eaten. It blends several tastes, and the usual lineup is jaggery (sweet), raw mango (tangy), tamarind (sour), neem flowers (bitter), chili (spicy) and salt. Families make it their own way, though. One temple’s version includes honey and sugar.
+Ugadi pachadi is the dish most closely tied to the day, and in many Telugu homes it is the first thing eaten. It blends several tastes, and the usual lineup is jaggery (sweet), raw mango (tangy), tamarind (sour), neem flowers (bitter), chili (spicy) and salt. Families make it their own way, though.
 
 The idea is that a year holds all kinds of experiences, and you taste them together. In one popular reading, jaggery stands for joy, neem for hardship, raw mango for surprise, tamarind for disappointment, chili for anger or passion, and salt for balance. Other families read the tastes a little differently. There is also a playful belief that if you get more neem in your bite your year will be bitter, and if you get more jaggery it will be sweet.
 
 **Sources:** `ugadi-britannica`, `ugadi-telangana-today`, `ugadi-hans-india`, `ugadi-htcs-temple`, `ugadi-deccan-chronicle`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: ingredient lists and taste meanings differ across Britannica, Telangana Today, The Hans India, a US temple page and Deccan Chronicle (which lists six flavors without ingredients); the public text says families vary.
 - OPTIONAL: whether the dish is attested in older sources is unverified (candidate: Achaya, Indian Food: A Historical Companion). No fasting information was found, so no fasting section is drafted.
 
@@ -339,7 +345,7 @@ In Karnataka, the signature custom is bevu-bella, “neem and jaggery.” Neem f
 
 **Sources:** `ugadi-karnataka-tourism`, `ugadi-britannica`, `ugadi-hans-india`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: resolved with a Kannada-region source. Karnataka Tourism (Government of Karnataka) describes bevu-bella as a simple neem-and-jaggery mixture and says ugadi pachadi is more popular in Andhra Pradesh and Telangana but also made in many Karnataka households; The Hans India agrees (jaggery-and-neem version more popular with Kannadigas). Britannica uses 'bevu-bella' as the Karnataka name for ugadi pachadi itself, so the public text acknowledges both usages.
 - OPTIONAL: a Kannada temple source would add further confirmation.
 
@@ -363,7 +369,7 @@ If you want to light a lamp or incense, check your housing rules first. Many res
 
 **Sources:** `dorm-appstate`, `dorm-uga`, `ugadi-hans-india`, `ugadi-htcs-temple`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - EDITORIAL: practical suggestions, not cultural claims; no college is named. Mango-leaf and neem-flower availability is common knowledge, not sourced.
 - OPTIONAL: no Atlanta-area Telugu or Kannada organization has been verified, so none is named.
 
@@ -375,11 +381,12 @@ _Tradition: Telugu, Kannada, Marathi and Konkani communities_
 
 In Maharashtra and Goa, Marathi and Konkani communities celebrate the same day as Gudi Padwa. Their signature custom is the gudi: a cloth tied to a tall stick, topped with an upturned pot, neem and mango leaves and flowers, raised outside the home as a sign of victory and good fortune.
 
-Elsewhere in India, the same lunar day begins Chaitra Navaratri, a spring version of Navaratri whose ninth day is Rama Navami. Because communities begin their year at different times, Ugadi is the new year for Telugu and Kannada families, not for every Hindu.
+Across India, many communities also begin Chaitra Navaratri on the same lunar day, a spring version of Navaratri whose ninth day is Rama Navami. Because communities begin their year at different times, Ugadi is the new year for Telugu and Kannada families, not for every Hindu.
 
 **Sources:** `ugadi-britannica`, `ugadi-htci-temple`, `ugadi-hans-india`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica says 'in other regions of India' the same day begins Vasanta (Chaitra) Navratri. The owner asked for 'Across India'; the public text says 'Across India, many communities', which matches the source's meaning without implying Telugu and Kannada families are excluded or that every community observes it. Recheck if you want the stronger 'Across India' without 'many'.
 - OPTIONAL: no cultural source read covers Tamil Puthandu, Vishu or Baisakhi, so they are not mentioned.
 - SOURCE NOTE: the flag's 'victory' meaning is Britannica's; a popular magazine adds a Maratha link, omitted (single source).
 
@@ -403,7 +410,13 @@ Elsewhere in India, the same lunar day begins Chaitra Navaratri, a spring versio
 
 # Navaratri
 
-## Quick facts (draft)
+## Basics (reviewed)
+
+- **Subtitle:** Nine nights honoring the goddess
+- **Aliases:** Navratri
+- **Deity search terms:** Durga, Lakshmi, Saraswati
+
+## Quick facts (reviewed)
 
 - **Meaning:** “Nine nights” (nava plus ratri), a festival honoring the divine feminine, centered on the goddess Durga.  
   Sources: navaratri-britannica, navaratri-pluralism
@@ -413,10 +426,10 @@ Elsewhere in India, the same lunar day begins Chaitra Navaratri, a spring versio
   Sources: navaratri-britannica, navaratri-hpi
 - **Common customs:** Worship of the goddess, garba and dandiya dancing, Durga Puja pavilions, Golu doll displays, honoring young girls (Kanya Puja), and for some, fasting.  
   Sources: navaratri-britannica, navaratri-hpi
-- **Dietary practices:** Many devotees eat simple vegetarian, sattvic food, and some fast. Fasting is optional and varies by region, family and person. _(Varies)_  
+- **Dietary practices:** Some devotees choose simple vegetarian (sattvic) meals, and some fast. Fasting is optional and varies by region, family and person. _(Varies)_  
   Sources: navaratri-britannica, navaratri-hpi, navaratri-hinduism-today-tamil
 
-## Deities (draft)
+## Deities (reviewed)
 
 - **Durga** (Shakta and wider Hindu traditions): The warrior goddess at the center of the festival, remembered for defeating the buffalo demon Mahishasura.  
   Sources: navaratri-britannica, navaratri-britannica-durga, navaratri-devi-mahatmya
@@ -429,14 +442,15 @@ Elsewhere in India, the same lunar day begins Chaitra Navaratri, a spring versio
 
 ### Why celebrate Navaratri?
 
-Navaratri, “nine nights,” is a festival of the divine feminine, centered on the goddess Durga and her many forms. It is a season of devotion, music and dance, and, for some families, fasting. It ends with Vijayadashami on the tenth day.
+Navaratri, “nine nights,” is a festival of the divine feminine, centered on the goddess Durga and her many forms. It is a season of devotion, music and dance, and, for some families, fasting. It ends with Vijayadashami on the tenth day. This guide covers Sharad Navaratri, the autumn one; a spring Chaitra Navaratri also exists.
 
 At its heart is the story of the goddess defeating the buffalo demon Mahishasura, remembered as the victory of good over evil. How people celebrate depends on where their family is from: Gujarat dances garba, Bengal builds grand Durga Puja pavilions, many South Indian families arrange dolls on stepped displays, and many homes honor young girls as the goddess herself. In many traditions the nights are shared among Durga, Lakshmi and Saraswati, for power, prosperity and wisdom.
 
 **Sources:** `navaratri-britannica`, `navaratri-britannica-durga`, `navaratri-hpi`, `navaratri-pluralism`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: Britannica plus the HPI digest (Hinduism Today family, a short excerpt of a news article) and the Pluralism Project: separate publishers, but HPI adds little independent detail.
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica says Navratri is observed four times a year (Chaitra, Ashadha, Ashvina, Magha), that Ashvina's Sharad Navratri is the most widely observed, and that Chaitra is the spring one. Single publisher; the other Navaratris (the two 'Gupt' ones) are deliberately not described.
 
 ## Stories & mythology
 
@@ -450,7 +464,7 @@ Many people connect that victory with the festival, and with Vijayadashami, the 
 
 **Sources:** `navaratri-britannica-durga`, `navaratri-devi-mahatmya`, `navaratri-hpi`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - OPTIONAL: verify Devi Mahatmya cantos 83 to 90 (where the killing is told; not read) before restoring any detail about the battle's length. The nine-day versus ten-day claim was removed from public text until then (owner direction). Sources disagree: Britannica (nine days of shape-shifting, victory on the tenth), Hinduism Today and BiblioAsia (ten-day battle), HPI (nine-day battle).
 - SOURCE NOTE: cantos 82, 91, 92 and 93 (Pargiter translation) were read; they do not mention nine nights, Navaratri or Vijayadashami, though canto 92 mentions a great annual worship of the goddess in autumn. Siddha Yoga's claim that the text 'recounts the tradition of Navaratri' is not supported by the cantos read and is not used.
 - OPTIONAL: 'ancient text' deliberately replaces Britannica's fifth or sixth century CE dating, which is single-source; add a second source before giving a century.
@@ -463,59 +477,47 @@ Many families divide the nights into three phases of three: the first for Durga,
 
 A much-loved custom is Kanya Puja, or Kanjak, on the eighth or ninth day. Young girls are honored as forms of the goddess: invited into the home, their feet washed, an arti performed, and gifts given.
 
+There is no single right way to do Navaratri: some people follow three goddesses, others nine forms of Durga, and some visit a temple, dance garba or set up a Golu.
+
 **Sources:** `navaratri-britannica`, `navaratri-hpi`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - OPTIONAL: Kanya Puja's regional attribution could not be verified: Britannica names no region, the HPI digest says North India, and a Tamil-family account also describes honoring girls and women. The public text therefore gives no region ('a much-loved custom'). Indian news and lifestyle pages describe the custom without a regional breakdown and were not used.
 - EDITORIAL: Ayudha Puja moved to the Golu section and Ramlila pointers removed to cut repetition across sections.
+- EDITORIAL: Owner direction 2026-11-08. the former one-paragraph 'Joining in' section was removed; its 'no single right way' sentence is here and its 'pick the thread closest to your family' advice moved to the away-from-home intro.
 
 ## Food & fasting
 
-### Fasting: optional, and different for everyone
+### Fasting and food
 
 _Tradition: Varies by region, family and person_
 
-Fasting is part of Navaratri for many people, but it is optional and takes many forms. Many devotees eat simple vegetarian (sattvic) meals and skip alcohol and strong spices, and some keep a daytime fast. In parts of North India many people fast. Many other families celebrate without fasting at all, and what any family does is shaped by its own tradition.
+Fasting is part of Navaratri for many people, but it is optional and takes many forms. Some devotees choose simple vegetarian (sattvic) meals, and some keep a daytime fast. In parts of North India many people fast. Many other families celebrate without fasting at all, and what any family does is shaped by its own tradition.
+
+Food is part of the worship as well. At home, many devotees offer bhog, food prepared for the goddess, to her image. At Kanya Puja, the girls are traditionally served puri, semolina halva and black chickpeas.
 
 **Sources:** `navaratri-britannica`, `navaratri-hpi`, `navaratri-hinduism-today-tamil`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - OPTIONAL: specific fasting foods (sabudana, buckwheat or amaranth flour, rock salt) and the regional split (first-and-last-day fasts, southern feasts) were removed because they rested on one temple blog (Radha Krishna Temple), which also stated its avoided-food list as universal and made health claims. A second reputable source (university, temple board or museum) would allow a short list to return.
 - SOURCE NOTE: Britannica supports sattvic eating and daytime fasts; the HPI digest says 'many' in the north fast; a young Tamil-family writer says fasting is 'not how everybody observes' the festival.
 - EDITORIAL: no medical advice is given.
-
-### What is on the table
-
-Food is part of the worship as well as the fasting. At home, many devotees offer bhog, food prepared for the goddess, to her image. At Kanya Puja, the girls are traditionally served puri, semolina halva and black chickpeas.
-
-**Sources:** `navaratri-britannica`
-
-**Review notes (internal):**
-- EDITORIAL: kept short and limited to what Britannica names (bhog; the Kanya Puja meal). Tamil-home prasadam and betel-leaf details were removed (they rested on two Tamil-family accounts, one of them BiblioAsia, which is dropped; see the source-use notes).
-- OPTIONAL: a second source for the bhog and Kanya Puja meal would help. No vegetarian rule is stated for everyone.
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica does say many devotees follow a vegetarian diet 'abstaining from alcohol and pungent spices' and eat satvik food (vegetarian, without onion, garlic or processed ingredients). It is a single source and the phrasing reads as a general rule, so at the owner's direction the alcohol and spice restriction was removed and the vegetarian wording softened to 'some devotees choose'. Restorable with a second source.
+- EDITORIAL: Owner direction 2026-11-08. merged with the former 'What is on the table' section (bhog and the Kanya Puja meal, Britannica only). No vegetarian rule is stated for everyone.
 
 ## How to celebrate
 
-### Joining in
-
-There is no single right way to do Navaratri. Some people follow three goddesses over three phases and others the nine forms of Durga, some visit a temple and others dance garba, and some honor young girls at Kanya Puja or set up a Golu. A good way to start is to pick the thread that feels closest to your family and follow it for a night or two.
-
-**Sources:** `navaratri-britannica`, `navaratri-hpi`
-
-**Review notes (internal):**
-- EDITORIAL: deliberately short; it points back to the sections above instead of repeating them. Consider merging into the first Traditions section.
-
 ### Celebrating Navaratri away from home
 
-Navaratri travels well, because so much of it is community and so much is up to you.
+Navaratri travels well, because so much of it is community and so much is up to you. A good way to start is to pick the thread that feels closest to your family, whether that is garba, a mini Golu or a small puja, and follow it for a night or two.
 
 Find the dancing. Many cities and campuses hold garba and dandiya nights. Ask your Indian or Hindu student association, or look for a local temple or community event.
 
 Build a mini Golu. A small display on a shelf, with a few figures or pictures, works. Invite friends over to see it, as families traditionally invite neighbors, and use a battery-powered lamp for light.
 
-Check your housing rules. Many residence halls ban open flames, including candles, oil lamps and incense, and some limit decorations like string lights. Ask your residence life office before lighting or hanging anything, and ask rather than assume if you want to request an exception for religious observance.
+Check your housing rules. Many residence halls ban open flames, including candles, oil lamps and incense, and some limit decorations like string lights. Read your housing contract before lighting or hanging anything. If you have questions about religious accommodations, ask your residence life office.
 
-Honor your tools. On the ninth day, you might tidy your desk, wipe down your laptop and place a flower by your books or instrument, in the spirit of Ayudha Puja and Saraswati worship.
+Honor your tools. This is a modern adaptation, not a traditional rule. In South India, Ayudha Puja honors tools, instruments and books as means of work and learning, and many students clean and decorate their pens, instruments or books. If you like, on the ninth day you could tidy your desk, wipe down your laptop and place a flower by your books or instrument in that spirit.
 
 If you choose to fast. Some people keep a full fast, some choose simple vegetarian meals, and many celebrate without fasting, so do whatever fits your family’s tradition and your own life. If you do change what you eat, your dining hall or a nearby Indian grocery can help with ingredients, and in-room cooking is often restricted.
 
@@ -523,8 +525,9 @@ Stay connected. A video call with family, or sharing a meal over a call, keeps y
 
 **Sources:** `dorm-appstate`, `dorm-dartmouth`, `dorm-uga`, `navaratri-pluralism`, `navaratri-britannica`
 
-**Review notes (internal):**
-- EDITORIAL: practical suggestions, not cultural claims; no college is named. 'Honor your tools' adapts Britannica's description of Ayudha Puja and is an editorial suggestion.
+**Research notes (internal, not published):**
+- EDITORIAL: practical suggestions, not cultural claims; no college is named. 'Honor your tools' adapts Britannica's description of Ayudha Puja (rechecked 2026-11-08: Britannica says artisans, professionals and students clean and decorate tools such as pens, pencils and instruments) and is now labelled a modern adaptation. Laptops are our own addition.
+- EDITORIAL: Owner direction 2026-11-08. the housing-accommodation sentence uses the same neutral pointer as Diwali ('If you have questions about religious accommodations, ask your residence life office.'); no claim is made about any school's exception process.
 - OPTIONAL: no specific campus event is promised.
 
 ## Regional variations
@@ -537,38 +540,40 @@ In West Bengal, Assam and other eastern states, Navaratri takes the form of Durg
 
 Vijayadashami brings the farewell. A mirror ritual marks the goddess’s presence leaving the image, married women apply vermilion to the goddess and to one another, and the images are carried in processions and immersed in water.
 
-Many Bengalis cherish the belief that Durga comes home for these days to visit her family and then returns to her husband, Shiva. It is a beloved cultural tradition rather than something found in scripture.
+A popular belief holds that Durga comes home for these days to visit her family, and the immersion at the end is understood as her return to her husband, Shiva, in the Himalayas.
 
 **Sources:** `navaratri-britannica`, `navaratri-britannica-durga-puja`, `navaratri-britannica-vijayadashami`, `navaratri-pluralism`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: the ten-day span, Mahalaya as day one, worship beginning on Shashthi and the last five days as the primary period of veneration are stated in Britannica's Durga Puja article (a separate page from the Navratri and Vijayadashami articles, but the same publisher, so not independent confirmation).
 - OPTIONAL: a Bengali cultural or religious source was not found. A MandirOnline page echoes the five-day pattern but appears derived from encyclopedia text and was not used. A Bengali association or cultural-institution page would give independent support.
 - EDITORIAL: the clay-soil custom is intentionally omitted (owner decision).
+- SOURCE NOTE: Rechecked 2026-11-08. the 'rather than found in scripture' sentence was removed because no source read says it. Britannica says the festive period is 'popularly supposed' to be the goddess visiting her parents' home, and that the immersion is symbolic of her departure to her home and to her husband Shiva in the Himalayas. The public text now says 'a popular belief' and drops the 'Many Bengalis cherish' phrasing, which was also unsourced.
 
 ### Garba and dandiya in Gujarat
 
 _Tradition: Gujarat and the Gujarati diaspora_
 
-In Gujarat, Navaratri is closely tied to garba and dandiya raas, circle dances done in vibrant clothes, often around a lamp. Fairs and feasts bring neighborhoods together. In the United States, communities hold large public garba celebrations, and for many young people it is the easiest way to join in.
+In Gujarat, Navaratri is closely tied to garba and dandiya raas, circle dances done in vibrant clothes, often around a lamp. Fairs and feasts bring neighborhoods together. In the United States, communities hold large public garba celebrations, and for many young people, garba nights are a lively way to take part.
 
 **Sources:** `navaratri-britannica`, `navaratri-hpi`, `navaratri-pluralism`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
 - SOURCE NOTE: 'around a lamp' is from the HPI digest; Britannica says only that the dances are popular in Gujarat. Pluralism notes large public garba celebrations among American Hindus.
-- EDITORIAL: 'the easiest way to join in' is editorial voice; soften if it feels like a claim.
+- EDITORIAL: Owner direction 2026-11-08. 'the easiest way to join in' softened to 'a lively way to take part'. Still editorial voice, not a sourced claim.
 
 ### Golu in South India
 
 _Tradition: Tamil Nadu, Andhra Pradesh, Telangana and Karnataka_
 
-In parts of South India, families arrange dolls and figures on stepped platforms, usually in an odd number of tiers. The displays show deities and scenes from the Ramayana, and families invite friends and neighbors over to see them, exchange offerings and sing devotional songs. In Tamil it is called Bommai Golu.
+In parts of South India, families arrange dolls and figures on stepped platforms, usually in an odd number of tiers. The displays show deities and scenes from the Ramayana, and families invite friends and neighbors over to see them, exchange offerings and sing devotional songs. The display is also called Bommai Golu.
 
 The ninth day brings Ayudha Puja, when the goddesses Lakshmi, Saraswati and Parvati are worshipped and tools, instruments and books are cleaned, decorated and honored as the means of work and learning.
 
 **Sources:** `navaratri-britannica`, `navaratri-hpi`
 
-**Review notes (internal):**
+**Research notes (internal, not published):**
+- SOURCE NOTE: Rechecked 2026-11-08. Britannica names the display 'Navratri (or Bommai) Golu' in southern India, so 'Bommai Golu' is now sourced. Britannica does not say it is the Tamil name, so the public text no longer attributes the name to a language.
 - SOURCE NOTE: rewritten to rely on Britannica (stepped platforms, odd tiers, Ramayana scenes, neighbors and offerings, Ayudha Puja) and the HPI digest (Golu in some southern states). Marapachi dolls, the kalasam position and 'every family does it differently' came from the Tamil-family accounts (Hinduism Today, BiblioAsia) and are removed.
 - OPTIONAL: Telugu and Kannada names for the display (Bommala Koluvu, Gombe Habba) came only from a secondary page and are omitted.
 
@@ -583,9 +588,9 @@ The ninth day brings Ayudha Puja, when the goddesses Lakshmi, Saraswati and Parv
 | `navaratri-pluralism` | Navaratri | The Pluralism Project, Harvard University | https://pluralism.org/navaratri |
 | `navaratri-hpi` | What Is Navaratri, the Hindu Festival of Nine Nights? | Hindu Press International (Hinduism Today) | https://www.hinduismtoday.com/hpi/2025/09/26/what-is-navaratri-the-hindu-festival-of-nine-nights/ |
 | `navaratri-hinduism-today-tamil` | Celebrating Navaratri, Tamil Style | Hinduism Today (a family account by a young writer in Texas) | https://www.hinduismtoday.com/magazine/apr-may-jun-2023/celebrating-navaratri-tamil-style/ |
-| `navaratri-rkt-temple` | Navratri Fasting: Significance, Allowed Foods and Vrat Recipes | Radha Krishna Temple (temple blog) | https://www.radhakrishnatemple.net/blog/navaratri-fasting-2025/ |
 | `navaratri-devi-mahatmya` | Markandeya Purana, Devi-Mahatmya (Pargiter translation), cantos 82, 91, 92 and 93 | Wisdomlib (public-domain Pargiter translation) | https://www.wisdomlib.org/hinduism/book/the-markandeya-purana |
 | `dorm-appstate` | Open Flame Policy (residence halls) | Appalachian State University | https://appsafety.appstate.edu/safety/fire-and-life-safety/open-flame-policy |
 | `dorm-dartmouth` | Open Flame in Residence Halls | Dartmouth College | https://campus-services.dartmouth.edu/policy/open-flame-residence-halls |
 | `dorm-uga` | Community Guide 2026-2027 (residence halls) | University of Georgia Housing | https://housing.uga.edu/community-guide/ |
 
+---

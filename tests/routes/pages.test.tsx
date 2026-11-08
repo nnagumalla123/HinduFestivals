@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import type { ReactElement } from "react";
 import { describe, expect, it, vi } from "vitest";
 import CalendarPage from "@/app/calendar/page";
@@ -10,7 +10,7 @@ import MyFestivalsPage from "@/app/my-festivals/page";
 import OnboardingPage from "@/app/onboarding/page";
 import SettingsPage from "@/app/settings/page";
 import SignupPage from "@/app/signup/page";
-import { contentFestivals } from "../fixtures/festivals";
+import { contentFestivals, draftFestivals } from "../fixtures/festivals";
 
 // `connection()` only works inside a real request; in unit tests there is none, so it becomes a no-op.
 vi.mock("next/server", () => ({ connection: async () => {} }));
@@ -92,18 +92,47 @@ describe("/festivals/[slug]", () => {
     expect(screen.getByText("Date not yet verified")).toBeInTheDocument();
   });
 
-  it.each(contentFestivals.map((f) => [f.slug]))("%s shows all sections, with placeholders and no dates", async (slug) => {
+  it.each(draftFestivals.map((f) => [f.slug]))("%s (draft) shows all sections as placeholders, with no dates", async (slug) => {
     const { container } = render(await FestivalPage(slugProps(slug)));
     expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(9);
     expect(screen.getAllByText("Not yet available.").length).toBeGreaterThan(0);
+    expect(screen.getByText(/work in progress/i)).toBeInTheDocument();
     expect(container.querySelector("time")).toBeNull();
     expect(container).not.toHaveTextContent(/Atlanta|Reference calendar/);
     expect(screen.getByRole("link", { name: "All festivals" })).toHaveAttribute("href", "/explore");
   });
 
-  it("does not show unreviewed aliases or subtitles as approved content", async () => {
+  it.each([["diwali", 8], ["ugadi", 9], ["navaratri", 9]])("%s (reviewed) shows its guide, citations and review date, and still no date or countdown", async (slug, h2s) => {
+    const { container } = render(await FestivalPage(slugProps(slug)));
+    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(h2s);
+    // Complete reviewed guides carry no placeholders and no partly-reviewed notice.
+    expect(container).not.toHaveTextContent(/Not yet available|Parts of this guide are complete|work in progress/i);
+    expect(screen.getByText("Date not yet verified")).toBeInTheDocument();
+    expect(screen.getByText(/Last reviewed November 8, 2026/)).toBeInTheDocument();
+    expect(container.querySelectorAll("a[aria-label^='Source ']").length).toBeGreaterThan(10);
+    expect(container.querySelector("time")).toBeNull();
+    expect(container).not.toHaveTextContent(/Atlanta|Reference calendar|days? (to go|left|until)/i);
+    expect(container).not.toHaveTextContent(/desi-days-editorial|SOURCE NOTE|OPTIONAL:|EDITORIAL:/);
+  });
+
+  it("Diwali hides its empty optional content instead of showing placeholders, and invents nothing", async () => {
     const { container } = render(await FestivalPage(slugProps("diwali")));
-    expect(container).not.toHaveTextContent(/Also known as|Deepavali|festival of lights/);
+    expect(screen.queryByRole("heading", { level: 2, name: "Food & fasting" })).not.toBeInTheDocument();
+    expect(within(screen.getByRole("navigation", { name: "On this page" })).queryByRole("link", { name: "Food & fasting" })).not.toBeInTheDocument();
+    const facts = document.getElementById("quick-facts")!;
+    expect(within(facts).getAllByRole("term").map((t) => t.textContent)).toEqual(["Meaning", "Length of observance", "Associated deities", "Common customs"]);
+    expect(container).not.toHaveTextContent(/Dietary practices|Signature foods/);
+  });
+
+  it("does not show unreviewed aliases or subtitles as approved content", async () => {
+    const { container } = render(await FestivalPage(slugProps("holi")));
+    expect(container).not.toHaveTextContent(/Also known as/);
+  });
+
+  it("shows the approved subtitle and aliases for a reviewed festival", async () => {
+    render(await FestivalPage(slugProps("diwali")));
+    expect(screen.getByText("The festival of lights")).toBeInTheDocument();
+    expect(screen.getByText("Also known as Deepavali")).toBeInTheDocument();
   });
 
   it("triggers Next.js's 404 for an unknown slug", async () => {

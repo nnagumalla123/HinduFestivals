@@ -26,7 +26,7 @@ How Desi Days uses third-party sources. This is a working editorial policy, not 
 
 1. Whether to request permission (for example through Britannica's syndication form) for certainty, or rely on paraphrase and links.
 2. Whether any source with no terms page found should be replaced or kept.
-3. Before publication, `termsChecked` must be true on every cited source, which the validator enforces. Today that is true only for the Britannica pages, Karnataka Tourism, SikhNet and the 1911 Britannica entry.
+3. `termsChecked` records whether the terms page was actually read. The validator does **not** require it to be true (corrected 2026-11-08; an earlier version of this line said it did). What the validator does enforce is listed in the table below: reproduction without granted permission, permission needed but not granted or unresolved, and a missing audit note (`termsNote`) all block publication. Today `termsChecked` is true only for the Britannica pages, Karnataka Tourism, SikhNet and the 1911 Britannica entry; the owner decided (2026-11-08) to publish on paraphrase plus links without requesting permission.
 
 ## How the validator models this (P3-04A refinement)
 

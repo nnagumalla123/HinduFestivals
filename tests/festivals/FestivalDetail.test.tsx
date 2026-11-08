@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { FestivalDetail } from "@/components/festivals/detail/FestivalDetail";
 import { GUIDE_SLOTS, SECTION_NAV } from "@/lib/festivals/guide";
-import { contentFestivals, withReviewedBasics } from "../fixtures/festivals";
+import { contentFestivals, draftFestivals, withReviewedBasics } from "../fixtures/festivals";
 import type { FestivalGuide, FestivalOccurrence } from "@/lib/festivals/types";
 import { syntheticGuide } from "../fixtures/guide";
 import { syntheticDisputed, syntheticDraft, syntheticVerifiedMultiDay, syntheticVerifiedSingleDay } from "../fixtures/occurrences";
@@ -44,8 +44,9 @@ describe("festival detail: structure (PRD section 4)", () => {
   });
 
   it("shows only the name while the festival's basics are unreviewed", () => {
-    const { container } = renderDetail();
-    expect(screen.getByRole("heading", { level: 1, name: "Diwali" })).toBeInTheDocument();
+    const holi = draftFestivals.find((f) => f.slug === "holi")!;
+    const { container } = renderDetail([], emptyGuide, holi);
+    expect(screen.getByRole("heading", { level: 1, name: "Holi" })).toBeInTheDocument();
     expect(container.querySelector("header")).not.toHaveTextContent(/Also known as|Deepavali|festival of lights/);
     expect(container.querySelector("header p:not(:has(*))")?.textContent).toBe("Festival guide");
   });

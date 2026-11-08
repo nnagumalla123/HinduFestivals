@@ -101,15 +101,30 @@ export interface FestivalSource {
   accessedAt: string;
 }
 
-/** The at-a-glance facts on the detail page, in display order. */
+/** Every label a quick fact may carry (kept in step with QUICK_FACT_KEYS in content/schema.ts; a test checks this). */
 export const QUICK_FACT_LABELS = [
   "Meaning",
   "Length of observance",
   "Associated deities",
   "Common customs",
   "Dietary practices",
+  "Signature foods",
 ] as const;
 export type QuickFactLabel = (typeof QUICK_FACT_LABELS)[number];
+
+/**
+ * The five at-a-glance slots on the detail page, in display order. The last slot takes either
+ * "Dietary practices" (for example a fasting or diet note) or "Signature foods" (a festival's
+ * characteristic dishes, where calling it a dietary rule would mislead). An empty slot shows
+ * "Not yet available" under its first label.
+ */
+export const QUICK_FACT_SLOTS: readonly (readonly QuickFactLabel[])[] = [
+  ["Meaning"],
+  ["Length of observance"],
+  ["Associated deities"],
+  ["Common customs"],
+  ["Dietary practices", "Signature foods"],
+];
 
 /** A reviewed quick fact. Drafts and internal notes never reach this shape. */
 export interface PublicQuickFact {
@@ -139,6 +154,12 @@ export interface FestivalGuide {
   deities: readonly PublicDeity[];
   /** Every source cited by the reviewed content above (never discovery sources, never holiday-list sources). */
   sources: readonly FestivalSource[];
+  /**
+   * True only when drafted guide content exists that is NOT yet published (a draft or in-review item, or a
+   * reviewed item withheld by validation). It carries no content, only the fact. The page uses it to show the
+   * "partly reviewed" notice: a guide that simply has no optional section is not partly reviewed.
+   */
+  pendingReview?: boolean;
 }
 
 /** A guide with nothing reviewed yet. */

@@ -34,6 +34,36 @@ describe("reviewed content on the detail page (synthetic fixtures)", () => {
     expect(within(facts).getAllByRole("link", { name: /^Source \d+:/ }).length).toBeGreaterThan(0);
   });
 
+  it("accepts the 'Signature foods' label in place of 'Dietary practices' without adding a sixth slot", () => {
+    const guide: FestivalGuide = {
+      ...syntheticFullGuide,
+      quickFacts: syntheticFullGuide.quickFacts.map((f) =>
+        f.label === "Dietary practices" ? { ...f, label: "Signature foods" as const, text: "Synthetic signature dish." } : f,
+      ),
+    };
+    renderGuide(guide);
+    const facts = document.getElementById("quick-facts")!;
+    expect(within(facts).getByText("Signature foods")).toBeInTheDocument();
+    expect(within(facts).getByText("Synthetic signature dish.")).toBeInTheDocument();
+    expect(within(facts).queryByText("Dietary practices")).not.toBeInTheDocument();
+    expect(within(facts).getAllByRole("term")).toHaveLength(5);
+    expect(screen.queryByText(/Parts of this guide are complete/i)).not.toBeInTheDocument();
+  });
+
+  it("shows 'Not yet available' under 'Dietary practices' only while drafted content is still pending", () => {
+    const guide: FestivalGuide = {
+      ...syntheticFullGuide,
+      quickFacts: syntheticFullGuide.quickFacts.filter((f) => f.label !== "Dietary practices"),
+      pendingReview: true,
+    };
+    renderGuide(guide);
+    const facts = document.getElementById("quick-facts")!;
+    expect(within(facts).getByText("Dietary practices")).toBeInTheDocument();
+    expect(within(facts).getAllByRole("term")).toHaveLength(5);
+    expect(within(facts).getByText("Not yet available.")).toBeInTheDocument();
+    expect(screen.getByText(/Parts of this guide are complete/i)).toBeInTheDocument();
+  });
+
   it("lists deities with the tradition that makes each association", () => {
     renderGuide(syntheticFullGuide);
     const deities = document.getElementById("deities")!;
@@ -87,6 +117,7 @@ describe("partly reviewed and missing content", () => {
     sections: syntheticFullGuide.sections.filter((s) => s.kind === "overview" || s.kind === "story"),
     quickFacts: syntheticFullGuide.quickFacts.slice(0, 2),
     sources: syntheticFullGuide.sources,
+    pendingReview: true, // drafted content exists that is not reviewed yet
   };
 
   it("says the guide is partly complete and marks each missing section", () => {
@@ -104,6 +135,61 @@ describe("partly reviewed and missing content", () => {
     expect(screen.getByText(/This guide is a work in progress/i)).toBeInTheDocument();
     expect(screen.queryByText(/Parts of this guide are complete/i)).not.toBeInTheDocument();
     expect(document.getElementById("sources")).toHaveTextContent("Not yet editorially reviewed.");
+  });
+});
+
+describe("a reviewed guide whose optional content was never written (nothing pending)", () => {
+  // Models Diwali: four quick facts (no fifth) and no Food & fasting section, with no drafted content left.
+  const noFoodGuide: FestivalGuide = {
+    ...syntheticFullGuide,
+    sections: syntheticFullGuide.sections.filter((s) => s.kind !== "food" && s.kind !== "fasting"),
+    quickFacts: syntheticFullGuide.quickFacts.filter((f) => f.label !== "Dietary practices"),
+    pendingReview: false,
+  };
+
+  it("leaves out the missing quick fact and the empty section: no placeholders, no partly-reviewed notice", () => {
+    const { container } = renderGuide(noFoodGuide);
+    const facts = document.getElementById("quick-facts")!;
+    expect(within(facts).getAllByRole("term")).toHaveLength(4);
+    expect(within(facts).queryByText("Dietary practices")).not.toBeInTheDocument();
+    expect(container).not.toHaveTextContent(/Not yet available/);
+    expect(screen.queryByText(/Parts of this guide are complete/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/This guide is a work in progress/i)).not.toBeInTheDocument();
+    expect(document.getElementById("food-and-fasting")).toBeNull();
+    expect(screen.queryByRole("heading", { level: 2, name: "Food & fasting" })).not.toBeInTheDocument();
+  });
+
+  it("keeps the page navigation in step: no link to a hidden section, and no dead anchors", () => {
+    renderGuide(noFoodGuide);
+    const nav = screen.getByRole("navigation", { name: "On this page" });
+    expect(within(nav).queryByRole("link", { name: "Food & fasting" })).not.toBeInTheDocument();
+    expect(within(nav).getByRole("link", { name: "Quick facts" })).toBeInTheDocument();
+    expect(within(nav).getByRole("link", { name: "Sources & review" })).toBeInTheDocument();
+    within(nav).getAllByRole("link").forEach((a) => expect(document.getElementById(a.getAttribute("href")!.slice(1)), a.textContent ?? "").not.toBeNull());
+  });
+
+  it("hides the whole quick-facts section, and its link, when no fact exists", () => {
+    renderGuide({ ...noFoodGuide, quickFacts: [] });
+    expect(document.getElementById("quick-facts")).toBeNull();
+    expect(within(screen.getByRole("navigation", { name: "On this page" })).queryByRole("link", { name: "Quick facts" })).not.toBeInTheDocument();
+  });
+
+  it("invents nothing: the remaining sections and facts are exactly the reviewed ones", () => {
+    renderGuide(noFoodGuide);
+    expect(screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent)).toEqual([
+      "Quick facts", "Why celebrate?", "Stories & mythology", "Deities", "Traditions", "How to celebrate", "Regional variations", "Sources & review",
+    ]);
+  });
+
+  it("a draft festival (no reviewed content) keeps the work-in-progress state and every placeholder", () => {
+    // pendingReview is irrelevant when nothing is reviewed: the guide is simply not published yet.
+    [EMPTY_GUIDE, { ...EMPTY_GUIDE, pendingReview: false }, { ...EMPTY_GUIDE, pendingReview: true }].forEach((guide) => {
+      const { unmount } = renderGuide(guide);
+      expect(screen.getByText(/This guide is a work in progress/i)).toBeInTheDocument();
+      expect(screen.getAllByText("Not yet available.")).toHaveLength(12);
+      expect(document.getElementById("food-and-fasting")).not.toBeNull();
+      unmount();
+    });
   });
 });
 
@@ -161,5 +247,33 @@ describe("the loader publishes reviewed quick facts and deities, and only those"
     const ids = out.guide.sources.map((s) => s.id);
     expect(ids.filter((id) => id === "test-cultural")).toHaveLength(1);
     expect(out.guide.sources.every((s) => s.role !== undefined && s.id)).toBe(true);
+  });
+});
+
+describe("the loader reports pendingReview only when drafted content stays unpublished", () => {
+  const reviewed = { status: "reviewed" as const, reviewedAt: "2027-05-10", reviewedBy: "Secret Reviewer Name" };
+  const goodSection = { ...reviewedSection };
+  const guideOf = (r: ReturnType<typeof makeRecord>) => publishRecord(r, TODAY).guide;
+
+  it("is false when everything drafted is published, even if optional content was never written", () => {
+    const g = guideOf(makeRecord({ sections: [goodSection], quickFacts: [{ label: "Meaning", text: "Reviewed meaning.", sourceIds: ["test-cultural"], ...reviewed }] }));
+    expect(g.pendingReview).toBe(false);
+    expect(g.sections).toHaveLength(1);
+  });
+
+  it("is true when a section, quick fact or deity entry is still draft", () => {
+    expect(guideOf(makeRecord({ sections: [goodSection, { ...goodSection, title: "Other", status: "draft", reviewedAt: undefined, reviewedBy: undefined }] })).pendingReview).toBe(true);
+    expect(guideOf(makeRecord({ sections: [goodSection], quickFacts: [{ label: "Meaning", text: "Draft.", sourceIds: ["test-cultural"], status: "draft" }] })).pendingReview).toBe(true);
+    expect(guideOf(makeRecord({ sections: [goodSection], deityEntries: [{ name: "Draft Deity", role: "Draft.", tradition: "T", sourceIds: ["test-cultural"], status: "draft" }] })).pendingReview).toBe(true);
+  });
+
+  it("is true when a reviewed item is withheld because it fails validation", () => {
+    const g = guideOf(makeRecord({ sections: [goodSection, { ...goodSection, title: "Broken", body: "Reviewed but TODO unfinished" }] }));
+    expect(g.sections).toHaveLength(1);
+    expect(g.pendingReview).toBe(true);
+  });
+
+  it("is false for a festival with no drafted guide content at all", () => {
+    expect(guideOf(makeRecord({})).pendingReview).toBe(false);
   });
 });
