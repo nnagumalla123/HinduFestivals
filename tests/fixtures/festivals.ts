@@ -4,7 +4,7 @@ import type { Festival } from "@/lib/festivals/types";
 
 /**
  * The ten real festivals as public pages see them today (synchronous, for tests). The three reviewed pilots
- * (Diwali, Ugadi, Navaratri) show their approved basics; the other seven are unreviewed, so name and slug only.
+ * (Diwali, Ugadi, Navaratri) and the four Batch A guides show their approved basics; the other three (Batch B) are unreviewed, so name and slug only.
  */
 export const contentFestivals: readonly Festival[] = publishAll(FESTIVAL_RECORDS, "2027-01-01").map((p) => p.festival);
 
@@ -18,6 +18,10 @@ export function withReviewedBasics(slug: string): Festival {
   return publishRecord(reviewed, "2027-01-02").festival;
 }
 
-/** Slugs whose basics and guides were reviewed in P3-05B. Every other festival is still draft. */
+/** Slugs whose basics and guides were reviewed in P3-05B (the three pilots). */
 export const REVIEWED_PILOT_SLUGS = ["diwali", "ugadi", "navaratri"] as const;
-export const draftFestivals: readonly Festival[] = contentFestivals.filter((f) => !(REVIEWED_PILOT_SLUGS as readonly string[]).includes(f.slug));
+/** Batch A, reviewed in P3-05 on 2026-11-08. */
+export const REVIEWED_BATCH_A_SLUGS = ["makara-sankranti", "maha-shivaratri", "holi", "rama-navami"] as const;
+/** Every festival whose basics and guide are reviewed. Batch B (the other three) is still draft. */
+export const REVIEWED_SLUGS: readonly string[] = [...REVIEWED_PILOT_SLUGS, ...REVIEWED_BATCH_A_SLUGS];
+export const draftFestivals: readonly Festival[] = contentFestivals.filter((f) => !REVIEWED_SLUGS.includes(f.slug));

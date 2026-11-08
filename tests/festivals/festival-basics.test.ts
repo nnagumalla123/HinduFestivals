@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getFestivalBySlug, listPublishedFestivals } from "@/lib/festivals/queries";
 import { FESTIVAL_RECORDS } from "@/content";
-import { contentFestivals, draftFestivals, REVIEWED_PILOT_SLUGS, withReviewedBasics } from "../fixtures/festivals";
+import { contentFestivals, draftFestivals, REVIEWED_BATCH_A_SLUGS, REVIEWED_PILOT_SLUGS, REVIEWED_SLUGS, withReviewedBasics } from "../fixtures/festivals";
 
 describe("festival basics (public names, aliases, subtitles, deities)", () => {
   it("contains exactly the ten curated festivals from the PRD", () => {
@@ -54,25 +54,25 @@ describe("festival basics (public names, aliases, subtitles, deities)", () => {
 });
 
 describe("festival basics review state", () => {
-  it("has reviewed basics only for the three pilots; the other seven are still draft", () => {
+  it("has reviewed basics for the three pilots and the four Batch A festivals; Batch B is still draft", () => {
     FESTIVAL_RECORDS.forEach((r) => {
-      const pilot = (REVIEWED_PILOT_SLUGS as readonly string[]).includes(r.slug);
-      expect(r.basics.status, r.slug).toBe(pilot ? "reviewed" : "draft");
-      if (pilot) expect(r.basics).toMatchObject({ reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" });
+      const reviewed = REVIEWED_SLUGS.includes(r.slug);
+      expect(r.basics.status, r.slug).toBe(reviewed ? "reviewed" : "draft");
+      if (reviewed) expect(r.basics).toMatchObject({ reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" });
     });
   });
 });
 
 describe("unreviewed basics are not published as approved content", () => {
   it("expose only the name and slug for display, and keep the wording as search-only terms", () => {
-    expect(draftFestivals).toHaveLength(7);
+    expect(draftFestivals.map((f) => f.slug).sort()).toEqual(["ganesh-chaturthi", "krishna-janmashtami", "vijayadashami"]);
     draftFestivals.forEach((f) => {
       expect(f.subtitle, f.slug).toBeUndefined();
       expect(f.aliases, f.slug).toEqual([]);
       expect(f.deities, f.slug).toEqual([]);
     });
-    const holi = draftFestivals.find((f) => f.slug === "holi")!;
-    expect(holi.provisional.deities.length).toBeGreaterThan(0);
+    const janmashtami = draftFestivals.find((f) => f.slug === "krishna-janmashtami")!;
+    expect(janmashtami.provisional.deities.length).toBeGreaterThan(0);
   });
 
   it("show the approved subtitle, aliases and deities for the three reviewed pilots", () => {
@@ -81,6 +81,16 @@ describe("unreviewed basics are not published as approved content", () => {
     expect(by("ugadi")).toMatchObject({ subtitle: "A new year for Telugu and Kannada families", aliases: ["Yugadi"], deities: ["Brahma"] });
     expect(by("navaratri")).toMatchObject({ subtitle: "Nine nights honoring the goddess", aliases: ["Navratri"], deities: ["Durga", "Lakshmi", "Saraswati"] });
     REVIEWED_PILOT_SLUGS.forEach((slug) => expect(by(slug).provisional).toEqual({ aliases: [], deities: [] }));
+  });
+
+  it("show the approved subtitle, aliases and deities for the four Batch A festivals", () => {
+    const by = (slug: string) => contentFestivals.find((f) => f.slug === slug)!;
+    expect(by("makara-sankranti")).toMatchObject({ subtitle: "A solar festival of harvest and renewal", aliases: ["Sankranti", "Makar Sankranti"], deities: ["Surya"] });
+    expect(by("holi")).toMatchObject({ aliases: [], deities: ["Krishna", "Radha", "Vishnu"] });
+    for (const slug of REVIEWED_BATCH_A_SLUGS) {
+      expect(by(slug).subtitle, slug).toBeTruthy();
+      expect(by(slug).provisional, slug).toEqual({ aliases: [], deities: [] });
+    }
   });
 
   it("publish subtitle, aliases and deities once the basics are reviewed", () => {

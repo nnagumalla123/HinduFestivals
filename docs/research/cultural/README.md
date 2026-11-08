@@ -2,7 +2,19 @@
 
 **Status: RESEARCH ONLY.** These packs list sources and what each supports. They contain **no guide text**, nothing here is marked reviewed, and nothing is in `content/`. Drafting is P3-03, and only after the owner approves the sources and the open questions below.
 
-Covers the pilot festivals: [Diwali](diwali.md), [Ugadi](ugadi.md), [Navaratri](navaratri.md), plus shared [practical dorm-safety sources](practical-dorm-safety.md).
+Covers the pilot festivals: [Diwali](diwali.md), [Ugadi](ugadi.md), [Navaratri](navaratri.md) (published after review), plus shared [practical dorm-safety sources](practical-dorm-safety.md).
+
+**P3-05 Batch A (research only, prepared 2026-11-08):** [Makar Sankranti](makar-sankranti.md), [Maha Shivaratri](maha-shivaratri.md), [Holi](holi.md), [Rama Navami](rama-navami.md). These packs follow the same format and add, for every source, the four source-use answers and an independence group, a claim map that separates well-supported, disputed and unsupported claims, proposed basics, recommended sections and classified open points. Nothing in them is guide text; the four content files are still `draft` with no sections, sources or occurrences.
+
+**Batch A findings that apply to all four packs**
+- **Britannica remains one publisher.** Where its pages are the only support, the claim is Moderate at best. A fetch-agent report is model output and is recorded as such; "summary only" sources must be re-read in a browser before any wording depends on them.
+- **Britannica's "Holika" and "Sivaratri" pages are AI-generated summaries** ("Summary created from Britannica articles using AI") and are not cited.
+- **A linking restriction (blocker):** IGNCA (Government of India) requires prior permission before others link to it. It is the best source on Kashmir's Herath tradition. Under the source-use policy it is `permissionRequired: "yes"` until permission is granted. See [maha-shivaratri.md](maha-shivaratri.md).
+- **Primary-text checks:** Valmiki Bala Kanda (read) confirms the birth in Chaitra on the navami; the Shiva Purana (read) prescribes a Shivaratri vigil and tells the hunter story; the Linga Purana's pillar-of-light chapter (read) does **not** link it to Shivaratri; the Bhagavata Purana's Prahlada chapters (partly read) and an abridged Vishnu Purana do **not** name Holika.
+- **Owner decisions applied (2026-11-08):** bhang and thandai only where relevant and reliably sourced, with no recipes or consumption advice; relevant historical context yes, contemporary political controversy no; sensitive historical customs included only when essential, non-graphic and attributed; 8 to 10 sections and 11 to 18 sources are guidelines, not quotas.
+- **Two different statuses (clarified 2026-11-08):** *content read status* (which part of a page was read, and how) is kept apart from *terms review status* (whether the publisher's terms, copyright or linking page was read). A source can be fully read yet have unreviewed terms, and an unread or missing terms page is never permission. Every Batch A pack, the verification list and each source's `termsNote` in the content files now say which is which.
+- **Environment notes:** utsav.gov.in (expired certificate), Andhra Pradesh Tourism (connection refused), pluralism.org and brandeis.edu (403 to the fetch tool; read in a browser) and PDF files (unreadable by the fetch tool; opening them in the browser starts a download, so avoid them) limited what could be read.
+- **Pilot-source follow-up:** the reviewed Diwali source titled "prose translation by K. M. K. Murthy" could not be matched to the credit line shown on valmikiramayan.net; see [rama-navami.md](rama-navami.md), section 7.
 Cultural research is **separate from date verification** (see [../dates-2027.md](../dates-2027.md)). No source in these packs is used for a date, and no date source is used for a cultural claim. CalendarLabs and other holiday-list sites are not used here at all.
 
 ## How to read a pack

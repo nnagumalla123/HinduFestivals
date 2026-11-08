@@ -102,7 +102,7 @@ describe("/festivals/[slug]", () => {
     expect(screen.getByRole("link", { name: "All festivals" })).toHaveAttribute("href", "/explore");
   });
 
-  it.each([["diwali", 8], ["ugadi", 9], ["navaratri", 9]])("%s (reviewed) shows its guide, citations and review date, and still no date or countdown", async (slug, h2s) => {
+  it.each([["diwali", 8], ["ugadi", 9], ["navaratri", 9], ["makara-sankranti", 8], ["maha-shivaratri", 9], ["holi", 9], ["rama-navami", 9]])("%s (reviewed) shows its guide, citations and review date, and still no date or countdown", async (slug, h2s) => {
     const { container } = render(await FestivalPage(slugProps(slug)));
     expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(h2s);
     // Complete reviewed guides carry no placeholders and no partly-reviewed notice.

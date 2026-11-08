@@ -15,7 +15,8 @@ import { searchFestivals } from "@/lib/festivals/search";
 const TODAY = "2026-12-01";
 const SYNTH_REVIEWED_AT = "2026-11-30";
 const SYNTH_REVIEWER = "SYNTHETIC-PREVIEW-REVIEWER";
-const PILOTS = ["diwali", "ugadi", "navaratri"];
+// The three pilots plus Batch A: every guide that is now really reviewed. Promoting them again here is harmless.
+const PILOTS = ["diwali", "ugadi", "navaratri", "makara-sankranti", "maha-shivaratri", "holi", "rama-navami"];
 
 const stamp = <T extends { status: string }>(item: T) => ({ ...item, status: "reviewed" as const, reviewedAt: SYNTH_REVIEWED_AT, reviewedBy: SYNTH_REVIEWER });
 const promote = (r: FestivalRecord): FestivalRecord => ({
@@ -29,7 +30,7 @@ const promote = (r: FestivalRecord): FestivalRecord => ({
 const records = FESTIVAL_RECORDS.map((r) => (PILOTS.includes(r.slug) ? promote(r) : r));
 const norm = (s: string) => s.replace(/\s+/g, " ").trim();
 
-describe("synthetic publication preview: the three pilot guides", () => {
+describe("synthetic publication preview: the seven reviewed guides", () => {
   PILOTS.forEach((slug) => {
     const record = records.find((r) => r.slug === slug)!;
     const original = FESTIVAL_RECORDS.find((r) => r.slug === slug)!;
@@ -104,7 +105,7 @@ describe("synthetic publication preview: the three pilot guides", () => {
   });
 });
 
-describe("synthetic publication preview: every other festival stays hidden", () => {
+describe("synthetic publication preview: the three Batch B festivals stay hidden", () => {
   records.filter((r) => !PILOTS.includes(r.slug)).forEach((record) => {
     it(`${record.slug}: still draft, publishes only its name`, () => {
       const pub = publishRecord(record, TODAY);
@@ -147,9 +148,9 @@ describe("synthetic publication preview: basics and search", () => {
     expect(hit("Saraswati").map((r) => r.festival.slug)).toContain("navaratri");
   });
 
-  it("the other seven festivals show only their name; their search terms stay provisional", () => {
+  it("the other three festivals show only their name; their search terms stay provisional", () => {
     const others = published.filter((f) => !PILOTS.includes(f.slug));
-    expect(others).toHaveLength(7);
+    expect(others.map((f) => f.slug).sort()).toEqual(["ganesh-chaturthi", "krishna-janmashtami", "vijayadashami"]);
     others.forEach((f) => {
       expect(f.subtitle).toBeUndefined();
       expect(f.aliases).toEqual([]);

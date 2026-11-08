@@ -44,15 +44,15 @@ describe("festival detail: structure (PRD section 4)", () => {
   });
 
   it("shows only the name while the festival's basics are unreviewed", () => {
-    const holi = draftFestivals.find((f) => f.slug === "holi")!;
-    const { container } = renderDetail([], emptyGuide, holi);
-    expect(screen.getByRole("heading", { level: 1, name: "Holi" })).toBeInTheDocument();
+    const janmashtami = draftFestivals.find((f) => f.slug === "krishna-janmashtami")!;
+    const { container } = renderDetail([], emptyGuide, janmashtami);
+    expect(screen.getByRole("heading", { level: 1, name: "Krishna Janmashtami" })).toBeInTheDocument();
     expect(container.querySelector("header")).not.toHaveTextContent(/Also known as|Deepavali|festival of lights/);
     expect(container.querySelector("header p:not(:has(*))")?.textContent).toBe("Festival guide");
   });
 
   it("omits the aliases line for a festival without aliases", () => {
-    renderDetail([], emptyGuide, withReviewedBasics("holi"));
+    renderDetail([], emptyGuide, { ...withReviewedBasics("holi"), aliases: [] });
     expect(screen.queryByText(/Also known as/)).not.toBeInTheDocument();
   });
 });

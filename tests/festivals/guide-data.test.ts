@@ -5,11 +5,11 @@ import { formatCivilDate } from "@/lib/festivals/occurrences";
 import { isHttpUrl } from "@/lib/utils/url";
 
 describe("production guide data", () => {
-  // Three guides are reviewed (P3-05B); the other seven and every date are not (see content-gating.test.ts for the rules).
+  // Seven guides are reviewed (three pilots in P3-05B, Batch A in P3-05); Batch B and every date are not (see content-gating.test.ts for the rules).
   const empty = { sections: [], quickFacts: [], deities: [], sources: [], pendingReview: false };
 
-  it("publishes the reviewed Diwali, Ugadi and Navaratri guides with citations", async () => {
-    for (const slug of ["diwali", "ugadi", "navaratri"]) {
+  it("publishes the seven reviewed guides with citations", async () => {
+    for (const slug of ["diwali", "ugadi", "navaratri", "makara-sankranti", "maha-shivaratri", "holi", "rama-navami"]) {
       const guide = await getFestivalGuide(slug);
       expect(guide.sections.length, slug).toBeGreaterThan(5);
       expect(guide.quickFacts.length, slug).toBeGreaterThan(3);
@@ -19,8 +19,9 @@ describe("production guide data", () => {
     }
   });
 
-  it("publishes nothing for the seven draft festivals or an unknown slug", async () => {
-    for (const slug of ["holi", "ganesh-chaturthi", "vijayadashami", "krishna-janmashtami", "maha-shivaratri", "makara-sankranti", "rama-navami"]) {
+  it("publishes nothing for the three Batch B festivals or an unknown slug", async () => {
+    // Batch B has no drafted guide content yet.
+    for (const slug of ["ganesh-chaturthi", "vijayadashami", "krishna-janmashtami"]) {
       expect(await getFestivalGuide(slug), slug).toEqual(empty);
     }
     expect(await getFestivalGuide("not-a-festival")).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
