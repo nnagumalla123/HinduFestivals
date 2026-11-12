@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getFestivalBySlug, listPublishedFestivals } from "@/lib/festivals/queries";
 import { FESTIVAL_RECORDS } from "@/content";
-import { contentFestivals, draftFestivals, REVIEWED_BATCH_A_SLUGS, REVIEWED_PILOT_SLUGS, REVIEWED_SLUGS, withReviewedBasics } from "../fixtures/festivals";
+import { contentFestivals, draftFestivals, REVIEWED_BATCH_A_SLUGS, REVIEWED_BATCH_B_SLUGS, REVIEWED_PILOT_SLUGS, REVIEWED_SLUGS, withReviewedBasics } from "../fixtures/festivals";
 
 describe("festival basics (public names, aliases, subtitles, deities)", () => {
   it("contains exactly the ten curated festivals from the PRD", () => {
@@ -54,17 +54,19 @@ describe("festival basics (public names, aliases, subtitles, deities)", () => {
 });
 
 describe("festival basics review state", () => {
-  it("has reviewed basics for the three pilots and the four Batch A festivals; Batch B is still draft", () => {
+  it("has reviewed basics for all ten festivals, with the review date of each batch", () => {
+    expect(REVIEWED_SLUGS).toHaveLength(10);
     FESTIVAL_RECORDS.forEach((r) => {
-      const reviewed = REVIEWED_SLUGS.includes(r.slug);
-      expect(r.basics.status, r.slug).toBe(reviewed ? "reviewed" : "draft");
-      if (reviewed) expect(r.basics).toMatchObject({ reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" });
+      expect(REVIEWED_SLUGS, r.slug).toContain(r.slug);
+      const date = (REVIEWED_BATCH_B_SLUGS as readonly string[]).includes(r.slug) ? "2026-11-12" : "2026-11-08";
+      expect(r.basics, r.slug).toMatchObject({ status: "reviewed", reviewedAt: date, reviewedBy: "desi-days-editorial" });
     });
   });
 });
 
 describe("unreviewed basics are not published as approved content", () => {
   it("expose only the name and slug for display, and keep the wording as search-only terms", () => {
+    // Synthetic drafts (the three Batch B festivals put back into their pre-review state), because no real festival is draft now.
     expect(draftFestivals.map((f) => f.slug).sort()).toEqual(["ganesh-chaturthi", "krishna-janmashtami", "vijayadashami"]);
     draftFestivals.forEach((f) => {
       expect(f.subtitle, f.slug).toBeUndefined();
@@ -81,6 +83,14 @@ describe("unreviewed basics are not published as approved content", () => {
     expect(by("ugadi")).toMatchObject({ subtitle: "A new year for Telugu and Kannada families", aliases: ["Yugadi"], deities: ["Brahma"] });
     expect(by("navaratri")).toMatchObject({ subtitle: "Nine nights honoring the goddess", aliases: ["Navratri"], deities: ["Durga", "Lakshmi", "Saraswati"] });
     REVIEWED_PILOT_SLUGS.forEach((slug) => expect(by(slug).provisional).toEqual({ aliases: [], deities: [] }));
+  });
+
+  it("show the approved subtitle, aliases and deities for the three Batch B festivals", () => {
+    const by = (slug: string) => contentFestivals.find((f) => f.slug === slug)!;
+    expect(by("krishna-janmashtami")).toMatchObject({ subtitle: "A festival honoring the birth of Krishna", aliases: ["Janmashtami", "Gokulashtami"], deities: ["Krishna", "Vishnu"] });
+    expect(by("ganesh-chaturthi")).toMatchObject({ subtitle: "A festival honoring the birth of Ganesha", aliases: ["Vinayaka Chaturthi"], deities: ["Ganesha", "Parvati", "Shiva"] });
+    expect(by("vijayadashami")).toMatchObject({ subtitle: "The victorious tenth day", aliases: ["Dussehra", "Dasara", "Vijaya Dashami"], deities: ["Rama", "Durga"] });
+    for (const slug of REVIEWED_BATCH_B_SLUGS) expect(by(slug).provisional, slug).toEqual({ aliases: [], deities: [] });
   });
 
   it("show the approved subtitle, aliases and deities for the four Batch A festivals", () => {

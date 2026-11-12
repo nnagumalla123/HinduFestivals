@@ -10,7 +10,7 @@ import MyFestivalsPage from "@/app/my-festivals/page";
 import OnboardingPage from "@/app/onboarding/page";
 import SettingsPage from "@/app/settings/page";
 import SignupPage from "@/app/signup/page";
-import { contentFestivals, draftFestivals } from "../fixtures/festivals";
+import { contentFestivals } from "../fixtures/festivals";
 
 // `connection()` only works inside a real request; in unit tests there is none, so it becomes a no-op.
 vi.mock("next/server", () => ({ connection: async () => {} }));
@@ -92,23 +92,35 @@ describe("/festivals/[slug]", () => {
     expect(screen.getByText("Date not yet verified")).toBeInTheDocument();
   });
 
-  it.each(draftFestivals.map((f) => [f.slug]))("%s (draft) shows all sections as placeholders, with no dates", async (slug) => {
-    const { container } = render(await FestivalPage(slugProps(slug)));
-    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(9);
-    expect(screen.getAllByText("Not yet available.").length).toBeGreaterThan(0);
-    expect(screen.getByText(/work in progress/i)).toBeInTheDocument();
-    expect(container.querySelector("time")).toBeNull();
-    expect(container).not.toHaveTextContent(/Atlanta|Reference calendar/);
-    expect(screen.getByRole("link", { name: "All festivals" })).toHaveAttribute("href", "/explore");
+  // No real festival is draft any more; the draft layout (placeholders, work-in-progress notice) is covered by
+  // FestivalDetail.test.tsx and content-gating.test.ts with synthetic draft records.
+  it("renders all ten festivals as reviewed guides, none as work in progress", async () => {
+    expect(contentFestivals).toHaveLength(10);
+    for (const f of contentFestivals) {
+      const { container, unmount } = render(await FestivalPage(slugProps(f.slug)));
+      expect(container, f.slug).not.toHaveTextContent(/work in progress|Not yet available/i);
+      unmount();
+    }
   });
 
-  it.each([["diwali", 8], ["ugadi", 9], ["navaratri", 9], ["makara-sankranti", 8], ["maha-shivaratri", 9], ["holi", 9], ["rama-navami", 9]])("%s (reviewed) shows its guide, citations and review date, and still no date or countdown", async (slug, h2s) => {
+  it.each([
+    ["diwali", 8, "November 8, 2026"],
+    ["ugadi", 9, "November 8, 2026"],
+    ["navaratri", 9, "November 8, 2026"],
+    ["makara-sankranti", 8, "November 8, 2026"],
+    ["maha-shivaratri", 9, "November 8, 2026"],
+    ["holi", 9, "November 8, 2026"],
+    ["rama-navami", 9, "November 8, 2026"],
+    ["krishna-janmashtami", 9, "November 12, 2026"],
+    ["ganesh-chaturthi", 9, "November 12, 2026"],
+    ["vijayadashami", 8, "November 12, 2026"],
+  ])("%s (reviewed) shows its guide, citations and review date, and still no date or countdown", async (slug, h2s, reviewedOn) => {
     const { container } = render(await FestivalPage(slugProps(slug)));
     expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(h2s);
     // Complete reviewed guides carry no placeholders and no partly-reviewed notice.
     expect(container).not.toHaveTextContent(/Not yet available|Parts of this guide are complete|work in progress/i);
     expect(screen.getByText("Date not yet verified")).toBeInTheDocument();
-    expect(screen.getByText(/Last reviewed November 8, 2026/)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`Last reviewed ${reviewedOn}`))).toBeInTheDocument();
     expect(container.querySelectorAll("a[aria-label^='Source ']").length).toBeGreaterThan(10);
     expect(container.querySelector("time")).toBeNull();
     expect(container).not.toHaveTextContent(/Atlanta|Reference calendar|days? (to go|left|until)/i);

@@ -5,25 +5,21 @@ import { formatCivilDate } from "@/lib/festivals/occurrences";
 import { isHttpUrl } from "@/lib/utils/url";
 
 describe("production guide data", () => {
-  // Seven guides are reviewed (three pilots in P3-05B, Batch A in P3-05); Batch B and every date are not (see content-gating.test.ts for the rules).
-  const empty = { sections: [], quickFacts: [], deities: [], sources: [], pendingReview: false };
-
-  it("publishes the seven reviewed guides with citations", async () => {
-    for (const slug of ["diwali", "ugadi", "navaratri", "makara-sankranti", "maha-shivaratri", "holi", "rama-navami"]) {
+  // All ten guides are reviewed (three pilots in P3-05B, Batch A and Batch B in P3-05); no date is (see content-gating.test.ts for the rules).
+  it("publishes the ten reviewed guides with citations", async () => {
+    for (const slug of ["diwali", "ugadi", "navaratri", "makara-sankranti", "maha-shivaratri", "holi", "rama-navami", "krishna-janmashtami", "ganesh-chaturthi", "vijayadashami"]) {
       const guide = await getFestivalGuide(slug);
       expect(guide.sections.length, slug).toBeGreaterThan(5);
       expect(guide.quickFacts.length, slug).toBeGreaterThan(3);
       expect(guide.deities.length, slug).toBeGreaterThan(0);
       expect(guide.sources.length, slug).toBeGreaterThan(5);
-      guide.sections.forEach((s) => expect(s.status === "published" && s.reviewedAt, s.title).toBe("2026-11-08"));
+      const date = ["krishna-janmashtami", "ganesh-chaturthi", "vijayadashami"].includes(slug) ? "2026-11-12" : "2026-11-08";
+      guide.sections.forEach((s) => expect(s.status === "published" && s.reviewedAt, s.title).toBe(date));
+      expect(guide.pendingReview, slug).toBe(false);
     }
   });
 
-  it("publishes nothing for the three Batch B festivals or an unknown slug", async () => {
-    // Batch B has no drafted guide content yet.
-    for (const slug of ["ganesh-chaturthi", "vijayadashami", "krishna-janmashtami"]) {
-      expect(await getFestivalGuide(slug), slug).toEqual(empty);
-    }
+  it("publishes nothing for an unknown slug", async () => {
     expect(await getFestivalGuide("not-a-festival")).toEqual({ sections: [], quickFacts: [], deities: [], sources: [] });
   });
 

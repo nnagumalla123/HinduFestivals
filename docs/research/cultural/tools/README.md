@@ -5,6 +5,7 @@ Small Node scripts that regenerate the readable drafts, verification lists and t
 | Script | Writes |
 |---|---|
 | `batch-a-export.mjs` | `p3-05-batch-a-drafts-for-review.md`, `p3-05-batch-a-verification-list.md`, `p3-05-batch-a-editorial-review-packet.md` (the per-section reviewer notes and the packet header are written in the script; edit them there) |
+| `batch-b-export.mjs` | `p3-05-batch-b-drafts-for-review.md`, `p3-05-batch-b-verification-list.md`, `p3-05-batch-b-editorial-review-packet.md` (the per-section decision rows come from each item's `reviewNotes`; the packet header and register are written in the script) |
 | `pilot-export.mjs` | `p3-03-drafts-for-review.md` and the note-derived sections of `p3-03-verification-list.md` (the three reviewed pilots) |
 | `ts-resolve.mjs` | A tiny loader so Node can import the extensionless relative imports in `content/` |
 
@@ -12,5 +13,6 @@ Run from the repository root (Node 24 runs TypeScript with type stripping; the `
 
 ```bash
 node --experimental-strip-types --no-warnings --import ./docs/research/cultural/tools/ts-resolve.mjs docs/research/cultural/tools/batch-a-export.mjs
+node --experimental-strip-types --no-warnings --import ./docs/research/cultural/tools/ts-resolve.mjs docs/research/cultural/tools/batch-b-export.mjs
 node --experimental-strip-types --no-warnings --import ./docs/research/cultural/tools/ts-resolve.mjs docs/research/cultural/tools/pilot-export.mjs
 ```

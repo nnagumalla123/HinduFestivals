@@ -5,6 +5,7 @@ import { FestivalDetail } from "@/components/festivals/detail/FestivalDetail";
 import { publishRecord } from "@/lib/festivals/content/load";
 import type { FestivalRecord } from "@/lib/festivals/content/schema";
 import { errors, validateRecord } from "@/lib/festivals/content/validate";
+import { asDraftRecord } from "./fixtures/festivals";
 import { searchFestivals } from "@/lib/festivals/search";
 
 /*
@@ -15,8 +16,8 @@ import { searchFestivals } from "@/lib/festivals/search";
 const TODAY = "2026-12-01";
 const SYNTH_REVIEWED_AT = "2026-11-30";
 const SYNTH_REVIEWER = "SYNTHETIC-PREVIEW-REVIEWER";
-// The three pilots plus Batch A: every guide that is now really reviewed. Promoting them again here is harmless.
-const PILOTS = ["diwali", "ugadi", "navaratri", "makara-sankranti", "maha-shivaratri", "holi", "rama-navami"];
+// Every guide is now really reviewed (the three pilots, Batch A and Batch B). Promoting them again here is harmless.
+const PILOTS = ["diwali", "ugadi", "navaratri", "makara-sankranti", "maha-shivaratri", "holi", "rama-navami", "krishna-janmashtami", "ganesh-chaturthi", "vijayadashami"];
 
 const stamp = <T extends { status: string }>(item: T) => ({ ...item, status: "reviewed" as const, reviewedAt: SYNTH_REVIEWED_AT, reviewedBy: SYNTH_REVIEWER });
 const promote = (r: FestivalRecord): FestivalRecord => ({
@@ -30,7 +31,7 @@ const promote = (r: FestivalRecord): FestivalRecord => ({
 const records = FESTIVAL_RECORDS.map((r) => (PILOTS.includes(r.slug) ? promote(r) : r));
 const norm = (s: string) => s.replace(/\s+/g, " ").trim();
 
-describe("synthetic publication preview: the seven reviewed guides", () => {
+describe("synthetic publication preview: the ten reviewed guides", () => {
   PILOTS.forEach((slug) => {
     const record = records.find((r) => r.slug === slug)!;
     const original = FESTIVAL_RECORDS.find((r) => r.slug === slug)!;
@@ -95,6 +96,8 @@ describe("synthetic publication preview: the seven reviewed guides", () => {
       // A source title may contain a year (the UGA housing guide is titled "Community Guide 2026-2027"), so remove titles first.
       let scrubbed = html;
       pub.guide.sources.forEach((src) => (scrubbed = scrubbed.split(src.title).join("")));
+      // Source URLs may also contain dates (the India TV article URL ends "...2025-08-10-1002881"); they are links, not shown dates.
+      pub.guide.sources.forEach((src) => (scrubbed = scrubbed.split(src.url.replace(/&/g, "&amp;")).join("")));
       const at = scrubbed.indexOf("2027");
       expect(at === -1 ? "" : scrubbed.slice(Math.max(0, at - 80), at + 40)).toBe("");
       expect(scrubbed).not.toMatch(/\b20\d\d-\d\d-\d\d\b/);
@@ -105,9 +108,9 @@ describe("synthetic publication preview: the seven reviewed guides", () => {
   });
 });
 
-describe("synthetic publication preview: the three Batch B festivals stay hidden", () => {
-  records.filter((r) => !PILOTS.includes(r.slug)).forEach((record) => {
-    it(`${record.slug}: still draft, publishes only its name`, () => {
+describe("synthetic publication preview: a draft festival stays hidden (the three Batch B records put back into draft)", () => {
+  ["krishna-janmashtami", "ganesh-chaturthi", "vijayadashami"].map((slug) => asDraftRecord(slug)).forEach((record) => {
+    it(`${record.slug}: when draft, publishes only its name`, () => {
       const pub = publishRecord(record, TODAY);
       expect(pub.guide.sections).toEqual([]);
       expect(pub.guide.quickFacts).toEqual([]);
@@ -148,18 +151,18 @@ describe("synthetic publication preview: basics and search", () => {
     expect(hit("Saraswati").map((r) => r.festival.slug)).toContain("navaratri");
   });
 
-  it("the other three festivals show only their name; their search terms stay provisional", () => {
-    const others = published.filter((f) => !PILOTS.includes(f.slug));
-    expect(others.map((f) => f.slug).sort()).toEqual(["ganesh-chaturthi", "krishna-janmashtami", "vijayadashami"]);
+  it("a festival whose basics are draft shows only its name; its search terms stay provisional", () => {
+    const others = ["krishna-janmashtami", "ganesh-chaturthi", "vijayadashami"].map((slug) => publishRecord(asDraftRecord(slug), TODAY).festival);
+    expect(others).toHaveLength(3);
     others.forEach((f) => {
       expect(f.subtitle).toBeUndefined();
       expect(f.aliases).toEqual([]);
       expect(f.deities).toEqual([]);
     });
-    const vishnuLike = published.flatMap((f) => f.provisional.deities).length;
+    const vishnuLike = others.flatMap((f) => f.provisional.deities).length;
     expect(vishnuLike).toBeGreaterThan(0);
     // a match on unreviewed wording is flagged provisional so the text is never displayed
-    const provisionalHit = published.flatMap((f) => f.provisional.aliases.map((a) => searchFestivals(published, a)[0]?.matchedOn)).filter(Boolean);
+    const provisionalHit = others.flatMap((f) => f.provisional.aliases.map((a) => searchFestivals(others, a)[0]?.matchedOn)).filter(Boolean);
     provisionalHit.forEach((m) => expect(m!.provisional).toBe(true));
   });
 });

@@ -6,6 +6,8 @@ Covers the pilot festivals: [Diwali](diwali.md), [Ugadi](ugadi.md), [Navaratri](
 
 **P3-05 Batch A (research only, prepared 2026-11-08):** [Makar Sankranti](makar-sankranti.md), [Maha Shivaratri](maha-shivaratri.md), [Holi](holi.md), [Rama Navami](rama-navami.md). These packs follow the same format and add, for every source, the four source-use answers and an independence group, a claim map that separates well-supported, disputed and unsupported claims, proposed basics, recommended sections and classified open points. Nothing in them is guide text; the four content files are still `draft` with no sections, sources or occurrences.
 
+**P3-05 Batch B (first drafting pass, 2026-11-08, all `draft`):** [Krishna Janmashtami](krishna-janmashtami.md), [Ganesh Chaturthi](ganesh-chaturthi.md), [Vijayadashami](vijayadashami.md). Same pack format as Batch A; the three content files hold full **draft** guides (no dates, empty occurrences). Review documents: [p3-05-batch-b-editorial-review-packet.md](p3-05-batch-b-editorial-review-packet.md), [p3-05-batch-b-drafts-for-review.md](p3-05-batch-b-drafts-for-review.md), [p3-05-batch-b-verification-list.md](p3-05-batch-b-verification-list.md).
+
 **Batch A findings that apply to all four packs**
 - **Britannica remains one publisher.** Where its pages are the only support, the claim is Moderate at best. A fetch-agent report is model output and is recorded as such; "summary only" sources must be re-read in a browser before any wording depends on them.
 - **Britannica's "Holika" and "Sivaratri" pages are AI-generated summaries** ("Summary created from Britannica articles using AI") and are not cited.

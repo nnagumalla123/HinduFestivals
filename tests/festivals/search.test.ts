@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { contentFestivals, withReviewedBasics } from "../fixtures/festivals";
+import { contentFestivals, draftFestivals, withReviewedBasics } from "../fixtures/festivals";
 import { normalizeSearchText, searchFestivals } from "@/lib/festivals/search";
 
 const names = (query: string) => searchFestivals(contentFestivals, query).map((r) => r.festival.name);
@@ -29,16 +29,30 @@ describe("searchFestivals", () => {
   it("finds by alias and explains the match", () => {
     const [result] = searchFestivals(contentFestivals, "dussehra");
     expect(result.festival.name).toBe("Vijayadashami");
-    // Unreviewed wording: found, but flagged so the page never displays it.
-    expect(result.matchedOn).toEqual({ kind: "alias", text: "Dussehra", provisional: true });
+    // Reviewed wording: found and explained without the provisional flag.
+    expect(result.matchedOn).toEqual({ kind: "alias", text: "Dussehra" });
     expect(names("Navratri")).toEqual(["Navaratri"]);
+    expect(names("Dasara")).toEqual(["Vijayadashami"]);
+    expect(names("vijaya dashami")).toEqual(["Vijayadashami"]);
+    expect(names("Gokulashtami")).toEqual(["Krishna Janmashtami"]);
+    expect(names("Vinayaka")).toEqual(["Ganesh Chaturthi"]);
+    expect(names("Makar Sankranti")).toEqual(["Makara Sankranti"]);
+    // Unreviewed (synthetic draft) wording is found but flagged so the page never displays it.
+    const [draft] = searchFestivals(draftFestivals, "dussehra");
+    expect(draft.matchedOn).toEqual({ kind: "alias", text: "Dussehra", provisional: true });
   });
 
   it("finds by deity and explains the match", () => {
     const [result] = searchFestivals(contentFestivals, "ganesha");
     expect(result.festival.name).toBe("Ganesh Chaturthi");
-    expect(result.matchedOn).toEqual({ kind: "deity", text: "Ganesha", provisional: true });
+    expect(result.matchedOn).toEqual({ kind: "deity", text: "Ganesha" });
     expect(names("lakshmi")).toEqual(expect.arrayContaining(["Diwali", "Navaratri"]));
+    expect(names("parvati")).toEqual(expect.arrayContaining(["Ganesh Chaturthi", "Maha Shivaratri"]));
+    expect(names("rama")).toEqual(expect.arrayContaining(["Vijayadashami", "Rama Navami"]));
+    expect(names("vishnu")).toEqual(expect.arrayContaining(["Krishna Janmashtami", "Holi"]));
+    // Unreviewed (synthetic draft) deity wording is flagged provisional.
+    const [draft] = searchFestivals(draftFestivals, "ganesha");
+    expect(draft.matchedOn).toEqual({ kind: "deity", text: "Ganesha", provisional: true });
   });
 
   it("reports an explainable match without the flag once the basics are reviewed", () => {

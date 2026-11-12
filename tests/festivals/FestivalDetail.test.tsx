@@ -43,7 +43,7 @@ describe("festival detail: structure (PRD section 4)", () => {
     expect(container.querySelector("header svg")).toHaveAttribute("aria-hidden", "true");
   });
 
-  it("shows only the name while the festival's basics are unreviewed", () => {
+  it("shows only the name while the festival's basics are unreviewed (synthetic draft)", () => {
     const janmashtami = draftFestivals.find((f) => f.slug === "krishna-janmashtami")!;
     const { container } = renderDetail([], emptyGuide, janmashtami);
     expect(screen.getByRole("heading", { level: 1, name: "Krishna Janmashtami" })).toBeInTheDocument();
