@@ -402,7 +402,7 @@
   "publisher": "American Academy of Ophthalmology",
   "kind": "other",
   "termsChecked": false,
-  "read": "unspecified",
+  "read": "full",
   "usedBy": 1,
   "family": "aao.org",
   "accessedAt": "2026-11-08"
@@ -1208,6 +1208,18 @@
   "termsChecked": true,
   "read": "unspecified",
   "usedBy": 7,
+  "family": "britannica",
+  "accessedAt": "2026-11-08"
+ },
+ {
+  "guide": "makara-sankranti",
+  "id": "sankranti-brit-when",
+  "url": "https://www.britannica.com/question/When-does-Makar-Sankranti-take-place",
+  "publisher": "Encyclopaedia Britannica",
+  "kind": "cultural",
+  "termsChecked": true,
+  "read": "unspecified",
+  "usedBy": 3,
   "family": "britannica",
   "accessedAt": "2026-11-08"
  },

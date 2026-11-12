@@ -120,10 +120,10 @@ export const ramaNavami: FestivalRecord = {
     },
     {
       label: "Signature foods",
-      text: "Panaka, a sweet jaggery drink, and spiced buttermilk, served to the public at some temples.",
+      text: "Panaka, a sweet jaggery drink, and spiced buttermilk, served to the public by devotees.",
       tradition: "Some temples",
       sourceIds: ["rama-ht-2010"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: ["SOURCE NOTE: one magazine page, with no region given; kosambari and neer mor appear only on a weak blog and are not used."],
     },
   ],
@@ -232,11 +232,12 @@ export const ramaNavami: FestivalRecord = {
       title: "Fasting and food",
       tradition: "Varies by tradition and family",
       body: [
-        "Many devotees fast on Rama Navami, and some eat only fruit or simple offerings. Hinduism Today describes temples that mark the day by serving panaka, a sweet drink made with jaggery, lime, ginger and cardamom, and spiced buttermilk to the public, and some that prepare sweets such as khoa. Fasting practices vary by family and tradition.",
+        "Many devotees fast on Rama Navami, and some eat only fruit or simple offerings. Hinduism Today describes devotees making and serving panaka, a sweet drink made with jaggery, lime, ginger and cardamom, and spiced buttermilk to the public, and some temples preparing sweets such as khoa. Fasting practices vary by family and tradition.",
       ].join("\n\n"),
       sourceIds: ["rama-brit", "rama-ht-2010"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-04, owner-approved 2026-11-12): attribution corrected to what Hinduism Today says: devotees make and serve panaka and spiced buttermilk to the public; temples are mentioned only for sweets such as khoa.",
         "EDITORIAL: no vegetarian rule and no medical advice. A Gaudiya “fast until sunset” rule and a food list from a non-reputable blog are not used; Hinduism Today gives no region for panaka, so “at some temples” is used.",
       ],
     },

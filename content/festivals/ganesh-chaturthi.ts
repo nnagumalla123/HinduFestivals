@@ -209,7 +209,7 @@ export const ganeshChaturthi: FestivalRecord = {
     },
     {
       name: "Parvati",
-      role: "In the best-known birth story, Ganesha’s mother, who shapes him as a boy to guard her while she bathes. In that version she alone makes him, though he is traditionally regarded as the child of both Parvati and Shiva.",
+      role: "In the best-known birth story, Ganesha’s mother, who makes him from the dirt of her body to guard her while she bathes. In that version she alone makes him, though he is traditionally regarded as the child of both Parvati and Shiva.",
       tradition: "Puranic tradition; versions vary",
       sourceIds: ["gc-brit-ganesha", "gc-haf"],
       status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",

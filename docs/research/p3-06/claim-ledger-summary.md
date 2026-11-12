@@ -6,13 +6,13 @@ One ledger per guide, linked in the table. Paragraph-level rows (a guide's secti
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | [Diwali](claim-ledger-diwali.md) | 10 | 4 | 4 | 39 | 6 | 25 | 0 | 8 | 0 | 2 | 18 |
 | [Ugadi](claim-ledger-ugadi.md) | 8 | 5 | 1 | 28 | 3 | 18 | 0 | 7 | 0 | 2 | 11 |
-| [Holi](claim-ledger-holi.md) | 9 | 5 | 3 | 31 | 0 | 22 | 2 | 7 | 0 | 1 | 7 |
+| [Holi](claim-ledger-holi.md) | 9 | 5 | 3 | 31 | 0 | 22 | 2 | 7 | 0 | 3 | 7 |
 | [Ganesh Chaturthi](claim-ledger-ganesh-chaturthi.md) | 9 | 5 | 3 | 31 | 2 | 21 | 1 | 7 | 0 | 4 | 15 |
 | [Navaratri](claim-ledger-navaratri.md) | 8 | 5 | 3 | 30 | 3 | 19 | 1 | 7 | 0 | 3 | 11 |
 | [Vijayadashami](claim-ledger-vijayadashami.md) | 8 | 4 | 3 | 28 | 3 | 17 | 2 | 6 | 0 | 3 | 13 |
 | [Krishna Janmashtami](claim-ledger-krishna-janmashtami.md) | 9 | 5 | 2 | 28 | 5 | 15 | 2 | 6 | 0 | 6 | 13 |
 | [Maha Shivaratri](claim-ledger-maha-shivaratri.md) | 9 | 5 | 2 | 28 | 6 | 15 | 1 | 6 | 0 | 3 | 12 |
-| [Makara Sankranti](claim-ledger-makara-sankranti.md) | 8 | 5 | 2 | 30 | 0 | 23 | 0 | 7 | 0 | 3 | 17 |
+| [Makara Sankranti](claim-ledger-makara-sankranti.md) | 8 | 5 | 2 | 30 | 0 | 23 | 0 | 7 | 0 | 3 | 18 |
 | [Rama Navami](claim-ledger-rama-navami.md) | 7 | 5 | 3 | 25 | 2 | 14 | 3 | 6 | 0 | 2 | 8 |
 
 ## Single-publisher paragraphs (each needs a conscious acceptance)
@@ -49,5 +49,5 @@ One ledger per guide, linked in the table. Paragraph-level rows (a guide's secti
 
 ### Rama Navami
 - Quick fact: Length of observance: One day, the ninth and final day of spring Navaratri.… [rama-brit]
-- Quick fact: Signature foods: Panaka, a sweet jaggery drink, and spiced buttermilk, served to the public at some temples.… [rama-ht-2010]
+- Quick fact: Signature foods: Panaka, a sweet jaggery drink, and spiced buttermilk, served to the public by devotees.… [rama-ht-2010]
 - The last day of spring Navaratri (significance): Rama Navami is the ninth and final day of the spring Navaratri, also called Chaitra or Vasanta Navaratri. It i… [rama-brit]

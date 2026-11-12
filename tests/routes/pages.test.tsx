@@ -105,12 +105,12 @@ describe("/festivals/[slug]", () => {
 
   it.each([
     ["diwali", 8, "November 8, 2026"],
-    ["ugadi", 9, "November 8, 2026"],
-    ["navaratri", 9, "November 8, 2026"],
-    ["makara-sankranti", 8, "November 8, 2026"],
+    ["ugadi", 9, "November 12, 2026"],
+    ["navaratri", 9, "November 12, 2026"],
+    ["makara-sankranti", 8, "November 12, 2026"],
     ["maha-shivaratri", 9, "November 8, 2026"],
-    ["holi", 9, "November 8, 2026"],
-    ["rama-navami", 9, "November 8, 2026"],
+    ["holi", 9, "November 12, 2026"],
+    ["rama-navami", 9, "November 12, 2026"],
     ["krishna-janmashtami", 9, "November 12, 2026"],
     ["ganesh-chaturthi", 9, "November 12, 2026"],
     ["vijayadashami", 8, "November 12, 2026"],

@@ -319,11 +319,12 @@ export const navaratri: FestivalRecord = {
       title: "Fasting and food",
       tradition: "Varies by region, family and person",
       body:
-        "Fasting is part of Navaratri for many people, but it is optional and takes many forms. Some devotees choose simple vegetarian (sattvic) meals, and some keep a daytime fast. In parts of North India many people fast. Many other families celebrate without fasting at all, and what any family does is shaped by its own tradition.\n\n" +
+        "Fasting is part of Navaratri for many people, but it is optional and takes many forms. Some devotees choose simple vegetarian (sattvic) meals, and some keep a daytime fast. In parts of North India many people fast. Some families do not fast, and what any family does is shaped by its own tradition.\n\n" +
         "Food is part of the worship as well. At home, many devotees offer bhog, food prepared for the goddess, to her image. At Kanya Puja, the girls are traditionally served puri, semolina halva and black chickpeas.",
       sourceIds: ["navaratri-britannica", "navaratri-hpi", "navaratri-hinduism-today-tamil"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-01, owner-approved 2026-11-12): “Many other families celebrate without fasting at all” was replaced by “Some families do not fast”, the wording the sources support (a Tamil-family writer in Hinduism Today says fasting is “not how everybody observes” the festival; Britannica and the HPI digest speak only of many who fast). Nothing else in this section changed.",
         "OPTIONAL: specific fasting foods (sabudana, buckwheat or amaranth flour, rock salt) and the regional split (first-and-last-day fasts, southern feasts) were removed because they rested on one temple blog (Radha Krishna Temple), which also stated its avoided-food list as universal and made health claims. A second reputable source (university, temple board or museum) would allow a short list to return.",
         "SOURCE NOTE: Britannica supports sattvic eating and daytime fasts; the HPI digest says 'many' in the north fast; a young Tamil-family writer says fasting is 'not how everybody observes' the festival.",
         "EDITORIAL: no medical advice is given.",
@@ -385,11 +386,12 @@ export const navaratri: FestivalRecord = {
         "Build a mini Golu. A small display on a shelf, with a few figures or pictures, works. Invite friends over to see it, as families traditionally invite neighbors, and use a battery-powered lamp for light.\n\n" +
         "Check your housing rules. Many residence halls ban open flames, including candles, oil lamps and incense, and some limit decorations like string lights. Read your housing contract before lighting or hanging anything. If you have questions about religious accommodations, ask your residence life office.\n\n" +
         "Honor your tools. This is a modern adaptation, not a traditional rule. In South India, Ayudha Puja honors tools, instruments and books as means of work and learning, and many students clean and decorate their pens, instruments or books. If you like, on the ninth day you could tidy your desk, wipe down your laptop and place a flower by your books or instrument in that spirit.\n\n" +
-        "If you choose to fast. Some people keep a full fast, some choose simple vegetarian meals, and many celebrate without fasting, so do whatever fits your family’s tradition and your own life. If you do change what you eat, your dining hall or a nearby Indian grocery can help with ingredients, and in-room cooking is often restricted.\n\n" +
+        "If you choose to fast. Some people keep a full fast, some choose simple vegetarian meals, and some celebrate without fasting, so do whatever fits your family’s tradition and your own life. If you do change what you eat, your dining hall or a nearby Indian grocery can help with ingredients, and in-room cooking is often restricted.\n\n" +
         "Stay connected. A video call with family, or sharing a meal over a call, keeps you part of the celebration back home.",
       sourceIds: ["dorm-appstate", "dorm-dartmouth", "dorm-uga", "navaratri-pluralism", "navaratri-britannica"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-01, owner-approved 2026-11-12): “many celebrate without fasting” became “some celebrate without fasting” for the same reason. Nothing else in this section changed.",
         "EDITORIAL: practical suggestions, not cultural claims; no college is named. 'Honor your tools' adapts Britannica's description of Ayudha Puja (rechecked 2026-11-08: Britannica says artisans, professionals and students clean and decorate tools such as pens, pencils and instruments) and is now labelled a modern adaptation. Laptops are our own addition.",
         "EDITORIAL: Owner direction 2026-11-08. the housing-accommodation sentence uses the same neutral pointer as Diwali ('If you have questions about religious accommodations, ask your residence life office.'); no claim is made about any school's exception process.",
         "OPTIONAL: no specific campus event is promised.",

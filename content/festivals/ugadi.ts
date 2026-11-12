@@ -382,10 +382,11 @@ export const ugadi: FestivalRecord = {
         "Decorate the doorway. Draw a muggu on paper or poster board for your door or desk. If fresh mango leaves are hard to find, a paper or cloth toran does the job.\n\n" +
         "Start something new. Pick one small goal for the year.\n\n" +
         "Call home. Ask a relative to read out the year’s panchangam, or just call and hear how everyone is celebrating.\n\n" +
-        "If you want to light a lamp or incense, check your housing rules first. Many residence halls ban open flames, and a battery-powered lamp is a safer choice.",
+        "If you want to light a lamp or incense, check your housing rules first. Many residence halls ban open flames, and a battery-powered lamp is a safer choice. If you have questions about religious accommodations, ask your residence life office.",
       sourceIds: ["dorm-appstate", "dorm-uga", "ugadi-hans-india", "ugadi-htcs-temple"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-05, owner-approved 2026-11-12): the project’s standard neutral accommodations sentence was added, as in the other nine guides. Nothing else in this section changed.",
         "EDITORIAL: practical suggestions, not cultural claims; no college is named. Mango-leaf and neem-flower availability is common knowledge, not sourced.",
         "OPTIONAL: no Atlanta-area Telugu or Kannada organization has been verified, so none is named.",
       ],

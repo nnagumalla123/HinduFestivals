@@ -11,10 +11,10 @@ Stack: Next.js 16 (App Router), React 19, TypeScript strict, Tailwind 4, Vitest 
 | Item | State |
 |---|---|
 | Published, reviewed guides | **All ten.** Diwali, Ugadi, Navaratri (pushed in **`b4e7ac8`**); Makara Sankranti, Maha Shivaratri, Holi, Rama Navami (Batch A, reviewed 2026-11-08, committed locally as **`6fb9e7e`**, not pushed); Krishna Janmashtami, Ganesh Chaturthi, Vijayadashami (Batch B, marked `reviewed` on 2026-11-12, committed locally as **`70c1ffa`**, not pushed) |
-| P3-06 audit | **Done 2026-11-12, awaiting owner sign-off.** **0 S1**, **4 S2** (F-01 to F-04) needing the owner's decision, 13 S3. No reviewed content was changed. Start at `docs/research/p3-06/final-audit-report.md` (section 5C) |
+| P3-06 audit | **Complete 2026-11-12; Phase 3 is complete.** 0 S1; 4 S2 and the approved S3 fixes applied as a new revision (13 entries re-approved and re-dated 2026-11-12); 8 S3 items deferred (mostly Phase 6). Start at `docs/research/p3-06/final-audit-report.md` (section 5C) |
 | Dates | **No 2027 date is verified or published.** Every festival shows "Date not yet verified", no countdown; every `occurrences` array is empty |
-| Checks (P3-06 audit, 2026-11-12) | Lint pass, typecheck pass, **707 tests pass (37 files, 4 to-dos)**, isolated production build pass (21 static pages), public-output leak scan **PASS (0 hits)** (section 8) |
-| Git | `HEAD` = **`70c1ffa`** (Batch B), two commits ahead of `origin/main` (`6fb9e7e`, `70c1ffa`; `origin/main` = `b4e7ac8`). The P3-06 audit files and the plan update are **uncommitted** (section 9). **No push or deployment has occurred since `b4e7ac8`.** Vercel setup and deployment are **postponed to Phase 6** (owner decision) |
+| Checks (after the P3-06 fixes, 2026-11-12) | Lint pass, typecheck pass, **718 tests pass (38 files, 4 to-dos)**, isolated production build pass (21 static pages), public-output leak scan **PASS (0 hits, 558 fingerprints)**, 30 page-width combinations pass, keyboard check complete (section 8) |
+| Git | Branch `main` is **four commits ahead of `origin/main`** (`origin/main` = `b4e7ac8`): `6fb9e7e` Batch A, `70c1ffa` Batch B, `00e6e44` `docs(audit): P3-06 final Phase 3 cultural-content audit`, and the commit after it, `fix(content): resolve P3-06 editorial and citation findings` (see `git log`). The working tree is clean. **No push or deployment has occurred since `b4e7ac8`.** Vercel setup and deployment are **postponed to Phase 6** (owner decision) |
 
 ## 3. History and milestones
 | Phase | Result | Commit |
@@ -32,7 +32,7 @@ Phase 3 milestone notes (all owner-approved):
 - **P3-05A/B (done, pushed):** review of Diwali, Ugadi, Navaratri. Metadata used: `reviewedBy: desi-days-editorial`, `reviewedAt: 2026-11-08` (reviewer internal, date public).
 - **P3-05 Batch A (reviewed 2026-11-08, committed locally):** see section 5.
 - **P3-05 Batch B (reviewed 2026-11-12, committed locally as `70c1ffa`):** see section 5B. **P3-05 is complete.**
-- **P3-06 (phase gate, audit done 2026-11-12, awaiting owner sign-off):** see section 5C. Findings are proposed, not applied; a January 2027 date re-check checkpoint is recorded.
+- **P3-06 (phase gate, complete 2026-11-12):** see section 5C. **Phase 3 is complete.**
 
 ## 4. Key architecture
 - **Content lives in the repo, not a database** (ADR-007): `content/festivals/<slug>.ts` (one `FestivalRecord` each; all ten exist). Supabase arrives in Phase 4 for accounts, follows and preferences, with a `festivals` table seeded from these files.
@@ -45,7 +45,7 @@ Phase 3 milestone notes (all owner-approved):
 - **Display rules** (`CLAUDE.md`): the "Reference calendar: Atlanta, GA · 2027" label appears only under the Calendar heading; unverified dates show "Date not yet verified" with no countdown or reminder. Footer: "Guides appear here only after editorial review. Festivals without a full guide are still being prepared."
 - **Basics gating:** unreviewed subtitles, aliases and deity names are never displayed; they stay only as search terms (`Festival.provisional`).
 - **Batch A helper:** `content/shared-sources.ts` (`source()`, `britannica()` and the shared dorm-policy sources). The three published pilots keep their own source lists and were not changed.
-- **Tests** (`tests/`, 707 tests and 4 to-dos, 37 files; `tests/festivals/search-matrix.test.ts` was added in P3-06)
+- **Tests** (`tests/`, 718 tests and 4 to-dos, 38 files; P3-06 added `tests/festivals/search-matrix.test.ts`, `tests/content/p3-06-revisions.test.ts` and `tests/fixtures/review-dates.ts`; the pilot, Batch A and guide-data tests now take each entry's review date from that fixture)
 - **Research artefacts (not shipped):** `docs/research/dates-2027.md`, `docs/research/astro-check/`, `docs/research/cultural/` (packs, drafts, lists, policy, tools), `docs/research/p3-04b-readiness-report.md`.
 
 ## 5. P3-05 Batch A: status, decisions and files
@@ -100,25 +100,28 @@ Site names: the festival is **"Makara Sankranti"** (slug `makara-sankranti`); "M
 | Regeneration tool | `docs/research/cultural/tools/batch-b-export.mjs` (see the tools README) |
 | Tests | `tests/content/batch-b-drafts.test.ts` |
 
-## 5C. P3-06: final Phase 3 cultural-content audit (2026-11-12)
+## 5C. P3-06: final Phase 3 cultural-content audit (2026-11-12): complete
 
-Owner-approved scope: all ten workstreams (claim ledgers, cross-festival consistency, source and citation integrity, safety and student guidance, search aliases and deity associations, date safeguards, metadata leak scan, accessibility and responsive checks, second-reader packet, findings register). **Audit first, fix later:** no reviewed guide text, date or publication status was modified. Any approved fix is a new revision and updates `reviewedAt` only for the items the owner re-approves.
+Owner-approved scope: all ten workstreams (claim ledgers, cross-festival consistency, source and citation integrity, safety and student guidance, search aliases and deity associations, date safeguards, metadata leak scan, accessibility and responsive checks, second-reader packet, findings register). The audit changed nothing; the owner then approved the resolutions the same day and they were applied as a **new revision** (review dates updated only for the entries the owner re-approved).
 
-**Results.** **S1: none.** **S2 (owner decision): F-01** Navaratri's "many other families celebrate without fasting at all" is less supported than the statement removed from Janmashtami (sources support only "optional; some do not fast"); **F-02** Makara Sankranti's solstice, solar-calendar and 14 January statements are accurate but cited to a Britannica page that does not contain them (they are on "When does Makar Sankranti take place?"); **F-03** Holi's eye-safety line is softer than the American Academy of Ophthalmology page ("seek emergency medical treatment right away" for chemical splashes); **F-04** Rama Navami says temples serve panaka where Hinduism Today says devotees do. **S3: 13** (F-05 to F-17: Ugadi's missing accommodations sentence, small wording and spelling points, stale source URLs, long page titles with no meta descriptions, readability of Ganesh Chaturthi and Vijayadashami, search gaps such as Dusshera and Pongal, one manual keyboard confirmation).
+**Results.** **S1: none. S2 (all resolved): F-01** Navaratri's "many other families celebrate without fasting at all" became "Some families do not fast" (and "some celebrate without fasting"); **F-02** the Britannica page "When does Makar Sankranti take place?" was added as a source (`sankranti-brit-when`) for the solar-calendar, 14 January and solstice statements, wording unchanged; **F-03** Holi's eye-safety tip now follows the American Academy of Ophthalmology page (flush right away; a chemical splash needs emergency medical treatment right away; ordinary dust or grit often clears with blinking and flushing but needs a doctor if it still feels like something is in the eye; ongoing pain or trouble seeing means medical help right away); **F-04** Rama Navami now says devotees (not temples) make and serve panaka. **S3 fixed:** F-05 (Ugadi accommodations sentence; now all ten guides), F-07 (Parvati entry), F-08 (HAF sentence in Holi), F-14 ("run-up" instead of "countdown"). **F-17 verified** (Enter opens and Space toggles a story disclosure). **Deferred or accepted:** F-06, F-09 (Lathmar "playfully"; not clearly low-risk), F-10 (Hola Mohalla spelling; accepted), F-11, F-12, F-13, F-15, F-16.
 
-**Evidence.** 298 ledger rows (none unsourced, 12 single-publisher); 104 unique source URLs all live (26 refuse curl and load in the browser); 10 high-risk sources re-read; no contradiction between related guides; date safeguards confirmed (occurrences empty; rules and tests listed in the report); leak scan **PASS, 0 hits** (227 public files, 547 fingerprints, repeatable with `docs/research/p3-06/tools/leak-scan.mjs <built-copy>`); 0 overflow, heading skips or unnamed controls at 1280, 640 and 375 px; 24 px citation targets; visible focus; search matrix test (32 passing, 4 to-dos).
+**Re-dated 2026-11-12 (13 entries; everything else keeps its original date):** Navaratri "Fasting and food" and "Celebrating Navaratri away from home"; Ugadi "Celebrating Ugadi away from home"; Holi "Celebrating Holi away from home" and "Holi beyond temples and homes"; Makara Sankranti "Why celebrate Makara Sankranti?", "A solar festival: tradition and astronomy" and quick fact "Meaning"; Rama Navami "Fasting and food" and quick fact "Signature foods". Ganesh Chaturthi's Parvati entry and Vijayadashami's names section were also revised but already carried 2026-11-12. All basics, occurrences and statuses are unchanged; pages now show "Last reviewed November 12, 2026" for any guide containing a re-dated entry (that line is the latest date among a guide's entries), while each section shows its own date. `tests/fixtures/review-dates.ts` records the approved set, and `tests/content/p3-06-revisions.test.ts` pins every change and the set of re-dated entries, so no other entry's date or text can change silently.
+
+**Evidence.** 298 ledger rows (none unsourced); 105 unique source URLs all live (27 refuse curl and load in the browser); no contradiction between related guides; date safeguards confirmed (occurrences empty; rules and tests listed in the report); leak scan **PASS, 0 hits** (227 public files, 558 fingerprints; repeatable with `docs/research/p3-06/tools/leak-scan.mjs <built-copy>`); 0 overflow, heading skips or unnamed controls at 1280, 640 and 375 px; 497 of 497 citation links at least 24 px; the public text of all ten guides was compared with the pre-fix commit and exactly the 13 approved entries (plus the new source) differ.
 
 | What | Path |
 |---|---|
-| Executive summary and sign-off checklist | `docs/research/p3-06/final-audit-report.md` |
-| Findings with proposed fixes | `docs/research/p3-06/findings-register.md` |
+| Final report and sign-off | `docs/research/p3-06/final-audit-report.md` |
+| Findings and resolutions | `docs/research/p3-06/findings-register.md` |
 | Claim ledgers, source report, consistency, safety, search, dates, accessibility, readability, leak scan | `docs/research/p3-06/*.md` (see its `README.md`) |
-| Second-reader packet and reading copy | `docs/research/p3-06/second-reader-packet.md`, `ten-guides-reading-copy.md` |
+| Second-reader packet and reading copy (regenerated after the fixes) | `docs/research/p3-06/second-reader-packet.md`, `ten-guides-reading-copy.md` |
 | Repeatable tools | `docs/research/p3-06/tools/` |
+| Revision tests | `tests/content/p3-06-revisions.test.ts`, `tests/fixtures/review-dates.ts`, `tests/festivals/search-matrix.test.ts` |
 
-**Plan reconciliation (owner decision 2026-11-12).** `docs/IMPLEMENTATION_PLAN.md` now shows P3-03 and P3-04 as `[x]`, on this evidence: P3-03: pilot drafts, owner review with edits and approval, items flipped to `reviewed` with metadata and the pilots' subtitles and aliases reviewed (commit `b4e7ac8`, readiness report section 10); P3-04: integration built (`6f3e464`), verified visually on the real pilot guides (readiness report section 9) and used by every later batch. **P3-04's date, key-day, countdown, Explore and Calendar paths were validated with synthetic fixtures only**; no real date has been verified, so they have not been exercised end to end.
+**Plan reconciliation (owner decision 2026-11-12).** `docs/IMPLEMENTATION_PLAN.md` shows P3-03, P3-04, P3-05 and P3-06 as `[x]`. **P3-04's date, key-day, countdown, Explore and Calendar paths were validated with synthetic fixtures only**; no real date has been verified, so they have not been exercised end to end.
 
-**January 2027 checkpoint (owner decision).** A "date re-check not yet possible" result is accepted for Phase 3. Re-check authoritative Atlanta-area calendars in January 2027 (the Hindu Temple of Atlanta posts a yearly PDF then), following `docs/research/p3-06/date-safeguards-report.md` section 4. No date is published without separate verification and the owner's approval.
+**January 2027 checkpoint (owner decision).** "Date re-check not yet possible" is accepted for Phase 3. Re-check authoritative Atlanta-area calendars in January 2027 (the Hindu Temple of Atlanta posts a yearly PDF then), following `docs/research/p3-06/date-safeguards-report.md` section 4. No date is published without separate verification and the owner's approval.
 
 ## 6. Former pending decisions (all applied in revision 3, 2026-11-08)
 1. **Holi:** the unsupported cannabis-infused-drinks clause and the inferred "ordinarily made without cannabis" wording were removed; the guide now says only that bhang, a mild cannabis-based drink, is listed separately from thandai and served in some places.
@@ -159,9 +162,8 @@ Full register: the editorial packet (items U1 to U14). Summary:
 - **Deployment:** no deployment config in the repo; whether a Vercel Git integration exists is unknown (the Vercel dashboard needs a sign-in the assistant cannot provide). The owner **postponed Vercel setup and deployment to Phase 6**. GitHub shows no deployments, statuses or check runs for earlier pushes, which suggests no active integration but does not prove it. **Do not push without confirming in the Vercel dashboard and GitHub app settings that nothing will deploy, or without accepting that it might.**
 
 ## 9. Git state and test results
-- Branch `main`, `HEAD` **`70c1ffa`** (Batch B), **two commits ahead of `origin/main`** (`6fb9e7e` Batch A, `70c1ffa` Batch B; `origin/main` = `b4e7ac8`; `git@github.com:nnagumalla123/HinduFestivals.git`). **Nothing has been pushed since `b4e7ac8`.**
-- **Uncommitted (P3-06):** new `docs/research/p3-06/` (reports, ledgers, `tools/`), new `tests/festivals/search-matrix.test.ts`; modified `docs/IMPLEMENTATION_PLAN.md` and `docs/PROJECT_HANDOFF.md`. No content or other test file changed.
-- **Results (2026-11-12, P3-06): lint 0 warnings and 0 errors; typecheck pass; 707 tests pass (4 to-dos) in 37 files; isolated production build pass** (scratch copy, port 3100, dev server untouched; 21 static pages); leak scan PASS.
+- Branch `main`, **four commits ahead of `origin/main`** (`b4e7ac8`; `git@github.com:nnagumalla123/HinduFestivals.git`): `6fb9e7e` (Batch A), `70c1ffa` (Batch B), `00e6e44` (`docs(audit): P3-06 final Phase 3 cultural-content audit`) and the following `fix(content): resolve P3-06 editorial and citation findings`. Working tree clean after the second commit. **Nothing has been pushed since `b4e7ac8`.**
+- **Results (2026-11-12, after the P3-06 fixes): lint 0 warnings and 0 errors; typecheck pass; 718 tests pass (4 to-dos) in 38 files; isolated production build pass** (scratch copy, port 3100, dev server untouched; 21 static pages); leak scan PASS.
 - Ignored and not to commit: `.next/`, `node_modules/`, `.DS_Store`, `next-env.d.ts`, `tsconfig.tsbuildinfo`. No secrets found. `.claude/launch.json` is tracked from earlier phases.
 
 ## 10. Editorial decisions on record (project-wide)
@@ -172,13 +174,11 @@ Full register: the editorial packet (items U1 to U14). Summary:
 - **Process:** one milestone at a time, stop for review, never commit, push, deploy or publish without explicit approval.
 
 ## 11. Next steps
-1. **Owner decisions on the P3-06 findings** (`docs/research/p3-06/findings-register.md`): approve, edit or accept F-01 to F-04; choose which S3 items to apply now (F-05, F-07 to F-10, F-14 are quick text edits) or defer (F-13 and F-16 suit Phase 6). Approved fixes become a new revision (re-approve only the affected items), followed by a fresh audit run.
-2. **Optional second reader** (`second-reader-packet.md` and `ten-guides-reading-copy.md`): recommended, not a blocker.
-3. **Owner approval to commit the P3-06 audit files locally** (suggested message: `docs(audit): P3-06 final Phase 3 cultural-content audit`), then, separately, any push (confirm the Vercel and GitHub app state first, section 8). Phase 3 can then be closed.
-4. **January 2027 date checkpoint** (section 5C); dates stay unverified until then.
-5. **Phase 4** (Supabase, auth, follows, preferences, region filters), **Phase 5** (email reminders), **Phase 6** (Playwright, accessibility, **Vercel setup and deployment**, README, SEO titles and descriptions).
-6. Optional research that would close content gaps (sections 7 and 7B): a calendar authority for Smarta and Vaishnava Janmashtami and the Dahi Handi rules, the later Shiva Purana chapter and an academic Ganeshotsav history, an independent Kullu source, Gauri Aagman, Pushtimarg and other regional customs.
-7. Housekeeping: `README.md` has no deployment or feature summary yet.
+1. **Phase 3 is complete.** Owner decisions still open: whether to push (check the Vercel dashboard and GitHub app settings first, section 8; deployment is postponed to Phase 6), whether to send the optional second-reader packet (`docs/research/p3-06/second-reader-packet.md`), and which deferred S3 items to schedule (F-06, F-09, F-11, F-12, F-13, F-15, F-16 in `findings-register.md`).
+2. **January 2027 date checkpoint** (section 5C): re-check authoritative Atlanta-area calendars; dates stay unverified, and no countdown, reminder or date ships, until the owner approves each date.
+3. **Phase 4** (Supabase, auth, follows, preferences, region filters), **Phase 5** (email reminders; needs verified occurrences), **Phase 6** (Playwright and automated accessibility, Vercel setup and deployment, README, per-page titles and descriptions, plain-language pass, source-URL refresh, search additions).
+4. Optional research that would close content gaps (sections 7 and 7B): a calendar authority for Smarta and Vaishnava Janmashtami and the Dahi Handi rules, the later Shiva Purana chapter and an academic Ganeshotsav history, an independent Kullu source, Gauri Aagman, Pushtimarg and other regional customs.
+5. Housekeeping: `README.md` has no deployment or feature summary yet.
 
 ## 12. Working commands
 ```bash

@@ -226,7 +226,7 @@ Start something new. Pick one small goal for the year.
 
 Call home. Ask a relative to read out the year’s panchangam, or just call and hear how everyone is celebrating.
 
-If you want to light a lamp or incense, check your housing rules first. Many residence halls ban open flames, and a battery-powered lamp is a safer choice.
+If you want to light a lamp or incense, check your housing rules first. Many residence halls ban open flames, and a battery-powered lamp is a safer choice. If you have questions about religious accommodations, ask your residence life office.
 
 ## Sources cited
 
@@ -316,7 +316,7 @@ In West Bengal and Odisha the festival is Dol Jatra, the “swing festival,” w
 
 _Tradition: Diaspora and pan-Indian_
 
-Holi has become popular in South Asian communities in the United States and elsewhere, and many people who are not Hindu join in; the Government of India’s tourism site describes it as a festival that crosses religion and age. The Hindu American Foundation says Holi is open to everyone, and asks that it also be remembered as a Hindu festival with religious roots, noting that commercial color events can lose that context.
+Holi has become popular in South Asian communities in the United States and elsewhere, and many people who are not Hindu join in; the Government of India’s tourism site describes it as a festival that crosses religion and age. The Hindu American Foundation says Holi is open to everyone and that understanding its origin can enrich the experience, noting that commercial color events can lose that context.
 
 In some places the loosening of everyday boundaries during the festival has led to harassment and fights, and police in many places in India take precautions. Ask before putting color on someone, and respect a no.
 
@@ -328,7 +328,7 @@ Find a celebration. Look for a Hindu or Indian student association event or a co
 
 Dress for it. Wear old clothes you do not mind staining, and keep colors outdoors, since powders can stain floors and walls.
 
-Protect your eyes and skin. Color ingredients vary, so check labels or choose herbal colors if you prefer, and keep powder away from your eyes. If color gets in your eyes, rinse with plenty of clean water, and see a doctor if irritation continues.
+Protect your eyes and skin. Color ingredients vary, so check labels or choose herbal colors if you prefer, and keep powder away from your eyes. If color gets in your eyes, do not rub them and flush the eye right away with plenty of clean water. If a liquid color, dye or other chemical splashes into your eye, the American Academy of Ophthalmology advises seeking emergency medical treatment right away. For ordinary dust or grit, blinking and flushing often clears it, but see a doctor if it still feels like something is in your eye. Ongoing pain or trouble seeing is a sign to get medical help right away.
 
 Ask first. Always ask before putting color on someone, and respect a no.
 
@@ -363,7 +363,7 @@ Call home. A video call with family keeps you part of the celebration.
 ## Deities
 
 - **Ganesha** _(Hindu traditions; Puranic birth stories vary)_: The elephant-headed god of beginnings, traditionally worshipped before any major undertaking and honored as a remover of obstacles. His festival celebrates his birth.
-- **Parvati** _(Puranic tradition; versions vary)_: In the best-known birth story, Ganesha’s mother, who shapes him as a boy to guard her while she bathes. In that version she alone makes him, though he is traditionally regarded as the child of both Parvati and Shiva.
+- **Parvati** _(Puranic tradition; versions vary)_: In the best-known birth story, Ganesha’s mother, who makes him from the dirt of her body to guard her while she bathes. In that version she alone makes him, though he is traditionally regarded as the child of both Parvati and Shiva.
 - **Shiva** _(Puranic tradition; versions vary)_: Parvati’s husband and, in tradition, Ganesha’s father. In the best-known story he replaces the boy’s lost head with an elephant’s head.
 
 ## Why celebrate Ganesh Chaturthi?
@@ -506,7 +506,7 @@ There is no single right way to do Navaratri: some people follow three goddesses
 
 _Tradition: Varies by region, family and person_
 
-Fasting is part of Navaratri for many people, but it is optional and takes many forms. Some devotees choose simple vegetarian (sattvic) meals, and some keep a daytime fast. In parts of North India many people fast. Many other families celebrate without fasting at all, and what any family does is shaped by its own tradition.
+Fasting is part of Navaratri for many people, but it is optional and takes many forms. Some devotees choose simple vegetarian (sattvic) meals, and some keep a daytime fast. In parts of North India many people fast. Some families do not fast, and what any family does is shaped by its own tradition.
 
 Food is part of the worship as well. At home, many devotees offer bhog, food prepared for the goddess, to her image. At Kanya Puja, the girls are traditionally served puri, semolina halva and black chickpeas.
 
@@ -546,7 +546,7 @@ Check your housing rules. Many residence halls ban open flames, including candle
 
 Honor your tools. This is a modern adaptation, not a traditional rule. In South India, Ayudha Puja honors tools, instruments and books as means of work and learning, and many students clean and decorate their pens, instruments or books. If you like, on the ninth day you could tidy your desk, wipe down your laptop and place a flower by your books or instrument in that spirit.
 
-If you choose to fast. Some people keep a full fast, some choose simple vegetarian meals, and many celebrate without fasting, so do whatever fits your family’s tradition and your own life. If you do change what you eat, your dining hall or a nearby Indian grocery can help with ingredients, and in-room cooking is often restricted.
+If you choose to fast. Some people keep a full fast, some choose simple vegetarian meals, and some celebrate without fasting, so do whatever fits your family’s tradition and your own life. If you do change what you eat, your dining hall or a nearby Indian grocery can help with ingredients, and in-room cooking is often restricted.
 
 Stay connected. A video call with family, or sharing a meal over a call, keeps you part of the celebration back home.
 
@@ -595,7 +595,7 @@ _Tradition: Varies by region and tradition_
 
 Vijayadashami, Dussehra and Dasara are different names, used in different regions, for the same tenth day. Britannica explains that Dussehra, from the Sanskrit dasha, “ten,” and hara, “defeat,” is the name used in much of the north and west, where the day marks the end of Sharad Navratri and celebrates Rama’s victory over Ravana. In West Bengal, Assam and other eastern states, Vijayadashami, also written Vijaya Dashami and known in Bengali as Bijoya Doshomi, is the tenth and final day of Durga Puja. In Karnataka the festival is known as Dasara, and Mysuru’s celebration is its best-known form. Britannica notes that Dussehra and Vijayadashami are often used interchangeably, perhaps because both mark a triumph of good over evil, though each name carries its own emphasis.
 
-The day follows the nine nights of Navaratri, and for many people it also begins the countdown to Diwali, which in much of the north remembers Rama’s return to Ayodhya. Dussehra celebrates the victory; Diwali, the homecoming.
+The day follows the nine nights of Navaratri, and for many people it also begins the run-up to Diwali, which in much of the north remembers Rama’s return to Ayodhya. Dussehra celebrates the victory; Diwali, the homecoming.
 
 ## Rama and Ravana
 
@@ -971,23 +971,24 @@ Call home. A video call with family at festival time keeps you part of the celeb
 
 ## Sources cited
 
-1. What is Makar Sankranti? (and When does Makar Sankranti take place?), Encyclopaedia Britannica
-2. How do people celebrate Makar Sankranti in different parts of India?, Encyclopaedia Britannica
-3. Why do people fly kites during Makar Sankranti?, Encyclopaedia Britannica
-4. Pongal, Encyclopaedia Britannica
-5. What is Magh Bihu?, Encyclopaedia Britannica
-6. Lohri, Encyclopaedia Britannica
-7. Lohri, Makar Sankranti, and Pongal: India’s winter harvest festivals, Hindu American Foundation
-8. Festivals: Sankranti or Pongal, Hinduism Today (Himalayan Academy)
-9. Makar Sankranti (A Guide to Religious Observances), Brandeis University, Center for Spiritual Life
-10. Sankranti in Karnataka, Department of Tourism, Government of Karnataka
-11. Makar Sankranti (Maharashtra Tourism), Department of Tourism, Government of Maharashtra
-12. Telangana celebrates festival of cattle Kanuma, News On AIR (All India Radio, Prasar Bharati)
-13. Cultural Tourism (Chittoor District), Chittoor District, Government of Andhra Pradesh
-14. Sunrise and Sunset Times Near the Solstices, U.S. Naval Observatory, Astronomical Applications Department
-15. The FASTER Act: Sesame Is the Ninth Major Food Allergen, U.S. Food and Drug Administration
-16. Open Flame Policy (residence halls), Appalachian State University
-17. Community Guide 2026-2027 (residence halls), University of Georgia Housing
+1. What is Makar Sankranti?, Encyclopaedia Britannica
+2. When does Makar Sankranti take place?, Encyclopaedia Britannica
+3. How do people celebrate Makar Sankranti in different parts of India?, Encyclopaedia Britannica
+4. Why do people fly kites during Makar Sankranti?, Encyclopaedia Britannica
+5. Pongal, Encyclopaedia Britannica
+6. What is Magh Bihu?, Encyclopaedia Britannica
+7. Lohri, Encyclopaedia Britannica
+8. Lohri, Makar Sankranti, and Pongal: India’s winter harvest festivals, Hindu American Foundation
+9. Festivals: Sankranti or Pongal, Hinduism Today (Himalayan Academy)
+10. Makar Sankranti (A Guide to Religious Observances), Brandeis University, Center for Spiritual Life
+11. Sankranti in Karnataka, Department of Tourism, Government of Karnataka
+12. Makar Sankranti (Maharashtra Tourism), Department of Tourism, Government of Maharashtra
+13. Telangana celebrates festival of cattle Kanuma, News On AIR (All India Radio, Prasar Bharati)
+14. Cultural Tourism (Chittoor District), Chittoor District, Government of Andhra Pradesh
+15. Sunrise and Sunset Times Near the Solstices, U.S. Naval Observatory, Astronomical Applications Department
+16. The FASTER Act: Sesame Is the Ninth Major Food Allergen, U.S. Food and Drug Administration
+17. Open Flame Policy (residence halls), Appalachian State University
+18. Community Guide 2026-2027 (residence halls), University of Georgia Housing
 
 ---
 
@@ -1001,7 +1002,7 @@ Call home. A video call with family at festival time keeps you part of the celeb
 - **Length of observance:** One day, the ninth and final day of spring Navaratri.
 - **Associated deities:** Rama, worshipped with his wife Sita, his brother Lakshmana and his devotee Hanuman. _(Vaishnava and wider Hindu traditions)_
 - **Common customs:** Cleaning and bathing, worship at home and in the temple, a cradle for baby Rama, readings of the Ramayana, Ramlila, processions, and in southern India a symbolic wedding of Rama and Sita.
-- **Signature foods:** Panaka, a sweet jaggery drink, and spiced buttermilk, served to the public at some temples. _(Some temples)_
+- **Signature foods:** Panaka, a sweet jaggery drink, and spiced buttermilk, served to the public by devotees. _(Some temples)_
 
 ## Deities
 
@@ -1047,7 +1048,7 @@ In the United States, at one Michigan temple, families of the congregation spons
 
 _Tradition: Varies by tradition and family_
 
-Many devotees fast on Rama Navami, and some eat only fruit or simple offerings. Hinduism Today describes temples that mark the day by serving panaka, a sweet drink made with jaggery, lime, ginger and cardamom, and spiced buttermilk to the public, and some that prepare sweets such as khoa. Fasting practices vary by family and tradition.
+Many devotees fast on Rama Navami, and some eat only fruit or simple offerings. Hinduism Today describes devotees making and serving panaka, a sweet drink made with jaggery, lime, ginger and cardamom, and spiced buttermilk to the public, and some temples preparing sweets such as khoa. Fasting practices vary by family and tradition.
 
 ## Celebrating Rama Navami away from home
 

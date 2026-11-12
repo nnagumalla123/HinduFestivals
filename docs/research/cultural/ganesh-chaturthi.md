@@ -6,6 +6,8 @@
 
 > **Revision 2 (2026-11-12, owner decisions after the combined editorial review).** (1) **One targeted attempt found a primary source:** Shiva Purana, Rudra Samhita, Kumara Khanda, chapter 13, in J. L. Shastri's translation on wisdomlib (`gc-shivapurana`), **read in full** (verses 1 to 39 and footnotes). The guide now tells that version with attribution and shows that versions vary; the chapter itself says the story differs by kalpa. The head-cutting appears there only in the opening frame; the later chapter on the head was not read. (2) The broken-tusk connection was removed (the chapter does not mention a tusk). (3) The Shivaji and nationalism claim was removed (no independent corroboration of the nationalist motive); Peshwa patronage, the private-before-the-1890s context and Tilak's role stay. (4) The Rangari and 1892 versus 1893 question is acknowledged and not treated as settled. (5) Britannica's "more communal" clause was removed. (6) Duration and day-counting are stated explicitly. (7) The specific CPCB claims (2020 revision, 2025 guidance, materials, fines) were generalized. (8) The dorm bucket-immersion and pour-the-water-on-plants instructions were removed; readers are pointed to a temple or community organizer. **Read but no longer cited in the guide:** `gc-hans` (home-immersion steps). Where this pack and the draft differ, the draft and the Batch B packet govern.
 
+> **P3-06 revision (2026-11-12, F-07):** Parvati's deity entry now says she "makes him from the dirt of her body" (no age word), matching the story.
+
 ## 1. Source inventory
 
 | ID | Title and publisher | URL | How read |

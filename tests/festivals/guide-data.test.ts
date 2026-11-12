@@ -3,6 +3,7 @@ import { GUIDE_SLOTS, SECTION_NAV } from "@/lib/festivals/guide";
 import { getFestivalGuide, getOccurrencesForFestival } from "@/lib/festivals/queries";
 import { formatCivilDate } from "@/lib/festivals/occurrences";
 import { isHttpUrl } from "@/lib/utils/url";
+import { expectedReviewDate } from "../fixtures/review-dates";
 
 describe("production guide data", () => {
   // All ten guides are reviewed (three pilots in P3-05B, Batch A and Batch B in P3-05); no date is (see content-gating.test.ts for the rules).
@@ -13,8 +14,7 @@ describe("production guide data", () => {
       expect(guide.quickFacts.length, slug).toBeGreaterThan(3);
       expect(guide.deities.length, slug).toBeGreaterThan(0);
       expect(guide.sources.length, slug).toBeGreaterThan(5);
-      const date = ["krishna-janmashtami", "ganesh-chaturthi", "vijayadashami"].includes(slug) ? "2026-11-12" : "2026-11-08";
-      guide.sections.forEach((s) => expect(s.status === "published" && s.reviewedAt, s.title).toBe(date));
+      guide.sections.forEach((s) => expect(s.status === "published" && s.reviewedAt, `${slug} ${s.title}`).toBe(expectedReviewDate(slug, "sections", s.title)));
       expect(guide.pendingReview, slug).toBe(false);
     }
   });

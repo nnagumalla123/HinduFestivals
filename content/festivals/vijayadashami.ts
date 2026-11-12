@@ -218,11 +218,12 @@ export const vijayadashami: FestivalRecord = {
       tradition: "Varies by region and tradition",
       body: [
         "Vijayadashami, Dussehra and Dasara are different names, used in different regions, for the same tenth day. Britannica explains that Dussehra, from the Sanskrit dasha, “ten,” and hara, “defeat,” is the name used in much of the north and west, where the day marks the end of Sharad Navratri and celebrates Rama’s victory over Ravana. In West Bengal, Assam and other eastern states, Vijayadashami, also written Vijaya Dashami and known in Bengali as Bijoya Doshomi, is the tenth and final day of Durga Puja. In Karnataka the festival is known as Dasara, and Mysuru’s celebration is its best-known form. Britannica notes that Dussehra and Vijayadashami are often used interchangeably, perhaps because both mark a triumph of good over evil, though each name carries its own emphasis.",
-        "The day follows the nine nights of Navaratri, and for many people it also begins the countdown to Diwali, which in much of the north remembers Rama’s return to Ayodhya. Dussehra celebrates the victory; Diwali, the homecoming.",
+        "The day follows the nine nights of Navaratri, and for many people it also begins the run-up to Diwali, which in much of the north remembers Rama’s return to Ayodhya. Dussehra celebrates the victory; Diwali, the homecoming.",
       ].join("\n\n"),
       sourceIds: ["vd-brit-dussehra", "vd-brit-vijayadashami", "vd-karnataka", "vd-haf"],
       status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-14, owner-approved 2026-11-12): “begins the countdown to Diwali” became “begins the run-up to Diwali”, so the word countdown stays reserved for the site’s date feature.",
         "EDITORIAL (revision 2, owner direction): Dussehra, Dasara and Vijaya Dashami stay as search aliases, and this section now states the regional distinctions (Dussehra in the north and west, Vijayadashami and Bijoya Doshomi in the east, Dasara in Karnataka) so the aliases are not read as identical.",
         "SOURCE NOTE: the name derivation, the interchangeable use and the Diwali link are Britannica (Dussehra); Vijayadashami, Vijaya Dashami and Bijoya Doshomi as names for the final day of Durga Puja are Britannica (Vijayadashami); Dasara is the Karnataka tourism and Mysuru sites’ own name for the festival. Britannica’s Diwali timing (“20 days after Dussehra”) is a date relation and is not used.",
         "EDITORIAL: consistent with the reviewed Diwali guide’s line “Dussehra, earlier in the autumn, celebrates the victory over Ravana. Diwali is the homecoming.” The Navaratri guide covers the nine nights and Durga Puja in more detail.",

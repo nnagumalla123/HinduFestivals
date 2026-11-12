@@ -6,6 +6,8 @@
 
 > **Revision 2 (2026-11-12, owner decisions after the combined editorial review).** (1) Dussehra, Dasara and Vijaya Dashami stay as search aliases, and the names section now states the regional distinctions. (2) The Rama and Durga narratives stay attributed to their traditions. (3) The guide does not claim the epic establishes Ravana's death on the tenth day: the overview now says Dussehra is when Rama's victory is celebrated, not "the day Rama defeated Ravana". (4) The example of children shooting flaming arrows (HAF interview) was removed; that interview is cited only for both victories being remembered on one day. (5) Mahanavami customs (Ayudha puja, Golu across Navratri) are separated from Vijayadashami customs (shami puja, Jamboo Savari, apta leaves). (6) Kullu is one sentence limited to Britannica. (7) The books-and-laptop idea is an optional modern adaptation, not a documented ritual. Where this pack and the draft differ, the draft and the Batch B packet govern.
 
+> **P3-06 revision (2026-11-12, F-14):** "begins the countdown to Diwali" became "begins the run-up to Diwali".
+
 ## 1. Source inventory
 
 | ID | Title and publisher | URL | How read |

@@ -8,6 +8,7 @@ import { FESTIVAL_RECORDS } from "@/content";
 import { publishAll, publishRecord } from "@/lib/festivals/content/load";
 import type { FestivalRecord } from "@/lib/festivals/content/schema";
 import { errors, validateRecord, wordCount } from "@/lib/festivals/content/validate";
+import { expectedReviewDate } from "../fixtures/review-dates";
 
 /*
  * P3-05 Batch B: three guides (Krishna Janmashtami, Ganesh Chaturthi, Vijayadashami), reviewed 2026-11-12 at editorial
@@ -142,7 +143,8 @@ describe("Batch B in the catalog", () => {
   it("leaves the seven earlier reviewed guides on their original review date", () => {
     for (const r of FESTIVAL_RECORDS.filter((x) => !batch.some((b) => b.slug === x.slug))) {
       expect(r.basics, r.slug).toMatchObject({ reviewedAt: "2026-11-08" });
-      r.sections.forEach((sec) => expect(sec.reviewedAt, `${r.slug} ${sec.title}`).toBe("2026-11-08"));
+      // Original review date, except entries the owner re-approved after the P3-06 audit (see tests/fixtures/review-dates.ts).
+      r.sections.forEach((sec) => expect(sec.reviewedAt, `${r.slug} ${sec.title}`).toBe(expectedReviewDate(r.slug, "sections", sec.title)));
     }
   });
 });

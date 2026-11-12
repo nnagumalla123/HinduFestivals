@@ -6,6 +6,7 @@ import { ramaNavami } from "@/content/festivals/rama-navami";
 import { publishRecord } from "@/lib/festivals/content/load";
 import type { FestivalRecord } from "@/lib/festivals/content/schema";
 import { errors, validateRecord, wordCount } from "@/lib/festivals/content/validate";
+import { expectedReviewDate } from "../fixtures/review-dates";
 
 /*
  * P3-05 Batch A: four guides (Makara Sankranti, Maha Shivaratri, Holi, Rama Navami), reviewed 2026-11-08 at editorial
@@ -13,7 +14,7 @@ import { errors, validateRecord, wordCount } from "@/lib/festivals/content/valid
  * content, and every internal note classified, plus the owner's editorial decisions.
  */
 const batch: readonly FestivalRecord[] = [makaraSankranti, mahaShivaratri, holi, ramaNavami];
-const TODAY = "2026-11-08";
+const TODAY = "2026-11-12"; // the validator rejects a review date in the future, and revised entries carry 2026-11-12
 
 const bodies = (r: FestivalRecord) => [
   ...r.sections.flatMap((s) => [s.title, s.body]),
@@ -25,11 +26,11 @@ const text = (r: FestivalRecord) => bodies(r).join("\n");
 
 describe.each(batch.map((r) => [r.slug, r] as const))("%s batch A reviewed guide", (_slug, record) => {
   it("is reviewed with the recorded metadata, and every occurrence stays empty", () => {
-    const meta = { status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" };
-    expect(record.basics).toMatchObject(meta);
-    record.sections.forEach((s) => expect(s, s.title).toMatchObject(meta));
-    (record.quickFacts ?? []).forEach((f) => expect(f, f.label).toMatchObject(meta));
-    (record.deityEntries ?? []).forEach((d) => expect(d, d.name).toMatchObject(meta));
+    const meta = (date: string) => ({ status: "reviewed", reviewedAt: date, reviewedBy: "desi-days-editorial" });
+    expect(record.basics).toMatchObject(meta("2026-11-08"));
+    record.sections.forEach((s) => expect(s, s.title).toMatchObject(meta(expectedReviewDate(record.slug, "sections", s.title))));
+    (record.quickFacts ?? []).forEach((f) => expect(f, f.label).toMatchObject(meta(expectedReviewDate(record.slug, "quickFacts", f.label))));
+    (record.deityEntries ?? []).forEach((d) => expect(d, d.name).toMatchObject(meta(expectedReviewDate(record.slug, "deities", d.name))));
     expect(record.occurrences).toEqual([]); // no 2027 date is verified or published
   });
 
@@ -100,7 +101,7 @@ describe.each(batch.map((r) => [r.slug, r] as const))("%s batch A reviewed guide
       ...(record.deityEntries ?? []).flatMap((d) => d.reviewNotes ?? []),
     ];
     expect(notes.length).toBeGreaterThan(2);
-    notes.forEach((n) => expect(n, n).toMatch(/^(BLOCKING|OPTIONAL|EDITORIAL|SOURCE NOTE): /));
+    notes.forEach((n) => expect(n, n).toMatch(/^(BLOCKING|OPTIONAL|EDITORIAL|SOURCE NOTE)( \([^)]*\))?: /));
   });
 
   it("records the four source-use answers, with nothing reproduced and no permission-restricted source", () => {
@@ -225,7 +226,7 @@ describe("Batch A editorial decisions (2026-11-08, revision 2)", () => {
   it("Holi keeps the explicit consent line and eye-safety guidance and does not claim hierarchies are suspended", () => {
     const college = holi.sections.find((s) => s.kind === "college_guide")!;
     expect(college.body).toMatch(/Ask first\. Always ask before putting color on someone, and respect a no\./);
-    expect(college.body).toMatch(/rinse with plenty of clean water/);
+    expect(college.body).toMatch(/flush the eye right away with plenty of clean water/);
     expect(text(holi)).not.toMatch(/set aside|suspend|no distinctions|caste/i);
     const rituals = holi.sections.find((s) => s.title === "A bonfire and a day of color")!;
     expect(rituals.body).toMatch(/In some places the play loosens/);
@@ -268,7 +269,7 @@ describe("Batch A editorial decisions (2026-11-08, revision 2)", () => {
     expect(wedding.body).not.toMatch(/gift of the daughter|prays for good marriages/);
     expect(ramaNavami.sections.some((s) => s.title === "The last day of spring Navaratri")).toBe(true);
     const food = ramaNavami.sections.find((s) => s.kind === "fasting")!;
-    expect(food.body).toMatch(/Hinduism Today describes temples/);
+    expect(food.body).toMatch(/Hinduism Today describes devotees making and serving panaka/);
     expect(food.body).toMatch(/panaka/);
   });
 

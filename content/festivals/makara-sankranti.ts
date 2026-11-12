@@ -10,12 +10,21 @@ import { britannica, dormSources, source } from "../shared-sources";
 const sources: readonly ContentSource[] = [
   britannica({
     id: "sankranti-brit-what",
-    title: "What is Makar Sankranti? (and When does Makar Sankranti take place?)",
+    title: "What is Makar Sankranti?",
     url: "https://www.britannica.com/question/What-is-Makar-Sankranti",
     claimsSupported: [
       "Marks the Sun's entry into makara and the start of uttarayana; a harvest festival",
       "Customs: kites, sesame-jaggery sweets, rangoli, bonfires, offerings to Surya, ritual bathing",
-      "Solar calendar, unlike most lunisolar Hindu holidays; once a winter-solstice holiday",
+    ],
+  }),
+  britannica({
+    id: "sankranti-brit-when",
+    accessedAt: "2026-11-12",
+    title: "When does Makar Sankranti take place?",
+    url: "https://www.britannica.com/question/When-does-Makar-Sankranti-take-place",
+    claimsSupported: [
+      "Celebrated on January 14 (January 15 in leap years); based on the solar calendar, so it falls on the same day each year unlike most lunisolar Hindu holidays",
+      "Originally a winter solstice holiday; its date now follows sidereal time while solstices follow tropical time, so, because of the precession of the equinoxes, it and the winter solstice no longer coincide",
     ],
   }),
   britannica({
@@ -176,8 +185,8 @@ export const makaraSankranti: FestivalRecord = {
     {
       label: "Meaning",
       text: "“Sankranti” means “transition.” Makara Sankranti marks the Sun’s entry into the sign of makara (Capricorn) in the Hindu solar calendar. By tradition it begins uttarayana, the Sun’s northward course; the astronomical turn comes at the December solstice, a few weeks earlier.",
-      sourceIds: ["sankranti-brit-what", "sankranti-brandeis", "sankranti-usno"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      sourceIds: ["sankranti-brit-what", "sankranti-brit-when", "sankranti-brandeis", "sankranti-usno"],
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
     },
     {
       label: "Length of observance",
@@ -234,9 +243,10 @@ export const makaraSankranti: FestivalRecord = {
         "Makara Sankranti is a solar festival of harvest and renewal. In the Hindu solar calendar it marks the Sun’s entry into the sign of makara, or Capricorn, and by tradition it opens uttarayana, the Sun’s northward course. Astronomically, the Sun’s turn comes at the December solstice, a few weeks earlier. Because the festival follows the Sun rather than the Moon, it falls at nearly the same point each year.",
         "Families give thanks for the harvest, share sesame-and-jaggery sweets, bathe in rivers, light bonfires and, in some places, fly kites. The season is celebrated under different names across India, from Pongal in Tamil Nadu to Lohri in Punjab, Uttarayan in Gujarat and Magh Bihu in Assam. Each is its own celebration, kept apart in this guide.",
       ].join("\n\n"),
-      sourceIds: ["sankranti-brit-what", "sankranti-brit-regional", "sankranti-haf", "sankranti-brandeis", "sankranti-usno"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      sourceIds: ["sankranti-brit-what", "sankranti-brit-when", "sankranti-brit-regional", "sankranti-haf", "sankranti-brandeis", "sankranti-usno"],
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-02, owner-approved 2026-11-12): the Britannica page “When does Makar Sankranti take place?” (sankranti-brit-when) was added as a source for the solar-calendar and solstice statements, which are on that page and not on “What is Makar Sankranti?”. Guide wording unchanged.",
         "SOURCE NOTE: core summary rests on Britannica plus HAF and Brandeis; the Brandeis claim that this is the only Hindu festival on the solar calendar is over-generalised and is not used.",
         "EDITORIAL: owner decision 2026-11-08: Pongal, Lohri, Magh Bihu and Uttarayan are described as related solar-season celebrations, never as aliases or as the same festival under other names.",
       ],
@@ -248,9 +258,10 @@ export const makaraSankranti: FestivalRecord = {
         "Sankranti means “transition.” Makara Sankranti is the Sun’s transition into makara in the Hindu solar reckoning, which follows the Sun’s position against the stars. By tradition, uttarayana, the half of the year in which the Sun travels north, is counted from this day. It is regarded as an auspicious time, and the days around it are seen as a favorable moment for new undertakings such as weddings.",
         "This is a traditional reckoning, not the astronomical turn of the Sun. At the December solstice, a few weeks before Makara Sankranti, the Sun reaches its most southerly track in the sky, and the U.S. Naval Observatory explains that it then begins its slow march northward. Britannica notes that the festival began as a winter-solstice holiday, but because it is reckoned by the stars, the two dates have drifted apart over the centuries. Unlike most Hindu festivals, which follow a calendar based on both Moon and Sun, it follows the solar calendar, so it moves very little from year to year.",
       ].join("\n\n"),
-      sourceIds: ["sankranti-brit-what", "sankranti-brit-pongal", "sankranti-haf", "sankranti-brandeis", "sankranti-usno"],
-      status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial",
+      sourceIds: ["sankranti-brit-what", "sankranti-brit-when", "sankranti-brit-pongal", "sankranti-haf", "sankranti-brandeis", "sankranti-usno"],
+      status: "reviewed", reviewedAt: "2026-11-12", reviewedBy: "desi-days-editorial",
       reviewNotes: [
+        "EDITORIAL (P3-06, F-02, owner-approved 2026-11-12): citation added (sankranti-brit-when) for Britannica’s statements that the festival began as a winter solstice holiday, follows sidereal time and has drifted from the solstice through the precession of the equinoxes; wording unchanged.",
         "SOURCE NOTE: Britannica says the festival began as a winter-solstice holiday and that, because its date now follows sidereal time, the date and the solstice are no longer the same (precession of the equinoxes). The astronomy (the Sun’s most southerly track at the December solstice, then its northward movement) is cited to the U.S. Naval Observatory page “Sunrise and Sunset Times Near the Solstices”, read in full in the browser on 2026-11-08. That page does not give the “few weeks earlier” gap to Makara Sankranti; that comparison rests on the solstice date it gives (on or about December 21) and the festival’s mid-January timing in Britannica, and no date appears in the guide. Owner direction 2026-11-08: the guide separates the traditional uttarayana reckoning from the astronomical solstice in the overview, the quick fact and this section.",
         "SOURCE NOTE: Britannica says the festival is on 14 January, or 15 January in leap years; other pages give a range. The guide states no date, and the Atlanta date work stays in the date ledger.",
         "EDITORIAL: the Bhishma story is omitted (owner direction 2026-11-08); the guide keeps only the belief that uttarayana is auspicious.",

@@ -4,8 +4,8 @@ Checked 2026-11-12. **Read-only.** Method: (1) every source URL in the ten recor
 
 ## 1. Availability
 
-- **125 source entries, 104 unique URLs** across the ten guides (the dorm-policy and a few shared sources are cited by several guides).
-- **Result by URL:** 200: 75, 200 (moved): 3, 403 to curl; 200 in browser: 26.
+- **126 source entries, 105 unique URLs** across the ten guides (the dorm-policy and a few shared sources are cited by several guides).
+- **Result by URL (re-run 2026-11-12 after the fixes: 105 unique URLs, 78 OK, 27 refuse curl and load in the browser, none dead):** 200: 75, 200 (moved): 3, 403 to curl; 200 in browser: 26.
 - **No URL is dead (no 404, 410 or connection failure).** Redirects: `https://www.hinduamerican.org/diwali-toolkit` and others listed below should have their stored URL updated (S3).
 - Pages whose address redirects:
 
@@ -42,13 +42,13 @@ Britannica pages were re-read in the built-in browser; other pages through the f
 | Dartmouth open-flame policy | Supports the ban, and adds "the only exception ... is for religious or spiritual observance" (consistent with the guides' "ask your residence life office" line) |
 | University of Louisville residence-hall safety | Supports candles and open flames; **does not mention incense** (it is cited by the Diwali guide among four policies; the guide's "candles, oil lamps and incense" is supported by the other three) |
 | FDA sesame page | Supports (sesame is the ninth major allergen; labeling required from 1 January 2023) |
-| American Academy of Ophthalmology eye injuries | **Partial** (finding F-03): "flush with plenty of clean water" is supported for chemical splashes; "do not rub" and "see a doctor if it persists" are not stated for chemical splashes (the page says to seek emergency medical treatment right away). The page's copyright notice also says its content may not be reproduced, copied or put into an AI program without permission; we paraphrase and link only |
+| American Academy of Ophthalmology eye injuries | **Partial before the fix (F-03, resolved 2026-11-12; the Holi tip now follows the page):** "flush with plenty of clean water" is supported for chemical splashes; "do not rub" and "see a doctor if it persists" are not stated for chemical splashes (the page says to seek emergency medical treatment right away). The page's copyright notice also says its content may not be reproduced, copied or put into an AI program without permission; we paraphrase and link only |
 | Karnataka Tourism, Sankranti | Supports glass-coated string caution and the ellu bella ingredients |
 | USNO, solstices | Supports (winter solstice on or about 21 December; the Sun then begins its slow march northward) |
-| Hinduism Today, Rama Navami | Supports panaka, spiced buttermilk, khoa, fasting; but it says **devotees** make and serve panaka and buttermilk, and only mentions temples for khoa (finding F-04) |
-| HAF, 5 things to know about Holi | Supports the openness and the commercial-event point; the page does not say "HAF asks" (finding F-08) |
+| Hinduism Today, Rama Navami | Supports panaka, spiced buttermilk, khoa, fasting; but it says **devotees** make and serve panaka and buttermilk, and only mentions temples for khoa (finding F-04, resolved) |
+| HAF, 5 things to know about Holi | Supports the openness and the commercial-event point; the page does not say "HAF asks" (finding F-08, resolved) |
 | Britannica, Holi | Supports thandai and bhang as separate drinks, Lathmar, Dol Jatra, the synthetic-color caution ("may contain toxic, metal-based pigments or potentially hazardous dyes and can cause skin and eye irritation"), the norm-relaxing statement and Holla Mohalla (spelled "Holla" on the page) |
-| Britannica, Makar Sankranti | The solstice, sidereal-time, 14 January and solar-calendar statements are on the separate page "When does Makar Sankranti take place?" and the topic article, **not** on the cited "What is Makar Sankranti?" page (finding F-02) |
+| Britannica, Makar Sankranti | The solstice, sidereal-time, 14 January and solar-calendar statements are on the separate page "When does Makar Sankranti take place?" and the topic article, **not** on the "What is Makar Sankranti?" page. **Resolved (F-02, 2026-11-12):** the "When" page was added as source `sankranti-brit-when` and is cited from the three entries that make those statements |
 | Britannica, Diwali (festival of lights), Pongal, Lohri, Rama Navami, Maha Shivaratri, Navratri, Durga Puja, Vijayadashami, Dussehra, Ugadi, Magh Bihu, kites, Durga | Key phrases for each guide claim found on the rendered pages |
 | Pluralism Project (Navaratri, Rama-Sita-Hanuman, Great Night of Shiva) | Loaded; the Navaratri page is a short entry that matches the claim it is cited for |
 

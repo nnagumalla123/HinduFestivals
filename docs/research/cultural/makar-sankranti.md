@@ -8,6 +8,8 @@
 
 **Summary of the evidence.** Britannica (one publisher) gives a strong core. Independent support comes from the Hindu American Foundation, Hinduism Today, Brandeis, and two state tourism departments. The real difficulty is **framing**: sources disagree on whether Pongal, Lohri, Bihu and Uttarayan are *the same festival under other names* or *separate festivals on the same solar day* (section 3). Telugu-region (Andhra/Telangana) Sankranti has no readable reputable source yet.
 
+> **P3-06 revision (2026-11-12, F-02):** the solar-calendar, 14 January and winter-solstice statements are on Britannica's "When does Makar Sankranti take place?" page (MS1b, https://www.britannica.com/question/When-does-Makar-Sankranti-take-place, read in the browser 2026-11-12), not on "What is Makar Sankranti?". The guide now cites both; wording unchanged.
+
 ## 1. Source inventory
 
 **Two different statuses are kept apart in this pack.** The *How read* column is the **content read status**: which part of the page was actually read and how (in a browser, by a fetch agent, a search-result summary that is not relied on). The **terms review status** (whether the publisher's terms, copyright or linking page was read, and what it says) is in section 2. A source can be fully read for content and still have its terms unreviewed; an unread terms page is recorded as such and is never treated as permission.

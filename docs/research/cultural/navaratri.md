@@ -4,6 +4,8 @@
 
 Scope: the autumn (Sharad) Navaratri. **Vijayadashami/Dussehra is a separate guide** (PRD section 2); this pack only records where the sources link the two. Chaitra (spring) Navaratri is noted only to avoid conflation.
 
+> **P3-06 revision (2026-11-12, F-01):** "Many other families celebrate without fasting at all" was replaced by "Some families do not fast", the wording the sources support.
+
 ## 1. Sources
 
 | ID | Title and publisher | Type | URL | Read | Supports |

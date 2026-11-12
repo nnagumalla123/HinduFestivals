@@ -24,7 +24,7 @@ Audit date 2026-11-12, against an isolated production build served on port 3100 
 
 - **Order (checked on Holi, 40+ stops):** Skip to main content, brand, Home, Calendar, Explore, My Festivals, Sign in, "All festivals", Follow, then the nine "On this page" links, then source citations in reading order; the first collapsed story disclosure ("The burning of Holika") is reached by Tab.
 - **Focus visibility:** a 3 px maroon outline on citation, navigation and link focus (computed style `solid 3px rgb(123, 30, 43)`).
-- **Disclosures:** each collapsed story section is a native `<details>`/`<summary>`, in the tab order. Pressing Enter to toggle it is native browser behavior; the automated key press did not toggle in the test harness, so it was not independently confirmed here (low risk; add to the owner's manual sign-off, F-17).
+- **Disclosures (F-17, verified 2026-11-12):** each collapsed story section is a native `<details>`/`<summary>` in the tab order. With real key presses on the Holi page, Tab reached "The burning of Holika" (3 px outline), **Enter opened it, Space toggled it closed**, and focus stayed on the summary.
 - **Skip link** present on all ten pages.
 
 ## Mobile and desktop visual checks (screenshots reviewed)
@@ -40,5 +40,5 @@ Reading ease 43 to 63, grade 8.3 to 11.9 on whole-guide text. The pilots sit nea
 
 - **F-13 (S3):** long page titles with a tagline; no per-page descriptions.
 - **F-15 (S3):** readability of two Batch B guides.
-- **F-17 (S3):** confirm Enter-to-toggle on disclosures once by hand.
-No S1 or S2 accessibility finding.
+- **F-17 (S3): verified, closed.**
+No S1 or S2 accessibility finding. The matrix was re-run on 2026-11-12 after the content fixes: 0 overflow, 0 heading skips, 0 unnamed controls, 0 broken anchors, 497 of 497 citation links laid out and at least 24 x 24 px.

@@ -5,9 +5,10 @@ import { ugadi } from "@/content/festivals/ugadi";
 import { publishRecord } from "@/lib/festivals/content/load";
 import type { FestivalRecord } from "@/lib/festivals/content/schema";
 import { errors, validateRecord, wordCount } from "@/lib/festivals/content/validate";
+import { expectedReviewDate } from "../fixtures/review-dates";
 
 const pilots: readonly FestivalRecord[] = [diwali, ugadi, navaratri];
-const TODAY = "2026-11-08";
+const TODAY = "2026-11-12"; // the validator rejects a review date in the future, and revised entries carry 2026-11-12
 
 const bodies = (r: FestivalRecord) => [
   ...r.sections.flatMap((s) => [s.title, s.body]),
@@ -17,11 +18,11 @@ const bodies = (r: FestivalRecord) => [
 
 describe.each(pilots.map((r) => [r.slug, r] as const))("%s reviewed guide (P3-05B)", (_slug, record) => {
   it("is reviewed with the recorded metadata, and every occurrence stays empty", () => {
-    const meta = { status: "reviewed", reviewedAt: "2026-11-08", reviewedBy: "desi-days-editorial" };
-    expect(record.basics).toMatchObject(meta);
-    record.sections.forEach((s) => expect(s, s.title).toMatchObject(meta));
-    (record.quickFacts ?? []).forEach((f) => expect(f, f.label).toMatchObject(meta));
-    (record.deityEntries ?? []).forEach((d) => expect(d, d.name).toMatchObject(meta));
+    const meta = (date: string) => ({ status: "reviewed", reviewedAt: date, reviewedBy: "desi-days-editorial" });
+    expect(record.basics).toMatchObject(meta("2026-11-08"));
+    record.sections.forEach((s) => expect(s, s.title).toMatchObject(meta(expectedReviewDate(record.slug, "sections", s.title))));
+    (record.quickFacts ?? []).forEach((f) => expect(f, f.label).toMatchObject(meta(expectedReviewDate(record.slug, "quickFacts", f.label))));
+    (record.deityEntries ?? []).forEach((d) => expect(d, d.name).toMatchObject(meta(expectedReviewDate(record.slug, "deities", d.name))));
     expect(record.occurrences).toEqual([]); // no 2027 date is verified or published
   });
 
@@ -102,7 +103,7 @@ describe.each(pilots.map((r) => [r.slug, r] as const))("%s reviewed guide (P3-05
     expect(notes.length).toBeGreaterThan(2);
     // BLOCKING = must be resolved before publication; OPTIONAL = future research; EDITORIAL = an owner choice;
     // SOURCE NOTE = a source-critical observation kept out of the public narrative.
-    notes.forEach((n) => expect(n, n).toMatch(/^(BLOCKING|OPTIONAL|EDITORIAL|SOURCE NOTE): /));
+    notes.forEach((n) => expect(n, n).toMatch(/^(BLOCKING|OPTIONAL|EDITORIAL|SOURCE NOTE)( \([^)]*\))?: /));
   });
 
   it("keeps process language and source-critical commentary out of the public text", () => {

@@ -6,6 +6,8 @@
 
 **Summary of the evidence.** Britannica's Holi article is unusually full (three origin stories, regional forms, colours, foods, safety and harassment). Independent support is thinner: the Hindu American Foundation and Brandeis agree on the two-day structure and the two main stories. Three owner decisions bear directly on this festival: **bhang and thandai** (decision 1), **sensitive customs** (decision 3) and **contemporary controversy** (decision 2). A named-text check found that **Holika is not named in the Bhagavata Purana's Prahlada chapters read or in the abridged Vishnu Purana text read**, so the burning-of-Holika episode cannot be attributed to a specific text yet.
 
+> **P3-06 revisions (2026-11-12):** F-03 the eye-safety tip now follows the American Academy of Ophthalmology page (re-read in full: chemical splash means flush immediately and seek emergency medical treatment right away; small particles usually not an emergency, do not rub, blink and flush, see a doctor if it still feels like something is in the eye); F-08 the HAF sentence now follows the page (understanding the origin can enrich the experience).
+
 ## 1. Source inventory
 
 **Two different statuses are kept apart in this pack.** The *How read* column is the **content read status**: which part of the page was actually read and how (in a browser, by a fetch agent, a search-result summary that is not relied on). The **terms review status** (whether the publisher's terms, copyright or linking page was read, and what it says) is in section 2. A source can be fully read for content and still have its terms unreviewed; an unread terms page is recorded as such and is never treated as permission.

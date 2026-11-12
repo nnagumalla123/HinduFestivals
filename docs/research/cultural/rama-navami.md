@@ -6,6 +6,8 @@
 
 **Summary of the evidence.** The core (Rama's birthday on the ninth day of the bright half of Chaitra, the last day of spring Navaratri, with home and temple worship, Ramayana readings and, in South India, a ceremonial wedding) is supported by Britannica, Brandeis, the Pluralism Project and Hinduism Today, and the birth itself by Valmiki's text. The weak points are **regional specifics** (Bhadrachalam, panakam and other foods, differences between Vaishnava traditions), where only promotional or non-scholarly pages were readable, and **decision 2**: Britannica's article devotes a section to the festival's political dimensions, which the owner wants kept to a minimum.
 
+> **P3-06 revision (2026-11-12, F-04):** Hinduism Today says devotees make and serve panaka and spiced buttermilk to the public; temples are mentioned only for sweets such as khoa. The guide now says so.
+
 ## 1. Source inventory
 
 **Two different statuses are kept apart in this pack.** The *How read* column is the **content read status**: which part of the page was actually read and how (in a browser, by a fetch agent, a search-result summary that is not relied on). The **terms review status** (whether the publisher's terms, copyright or linking page was read, and what it says) is in section 2. A source can be fully read for content and still have its terms unreviewed; an unread terms page is recorded as such and is never treated as permission.

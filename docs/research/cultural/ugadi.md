@@ -4,6 +4,8 @@
 
 **This is the thinnest of the three packs.** Only one reputable source (Britannica) was readable. The government cultural portal, the temple board and several academic references could not be read or did not mention Ugadi. A second reputable source is the main gap.
 
+> **P3-06 revision (2026-11-12, F-05):** the standard neutral accommodations sentence was added to the college guide.
+
 ## 1. Sources
 
 | ID | Title and publisher | Type | URL | Read | Supports |
