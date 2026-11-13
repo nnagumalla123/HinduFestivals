@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import type { Festival, FestivalOccurrence } from "@/lib/festivals/types";
@@ -15,6 +16,19 @@ export function SavedFestivals({
   occurrences: readonly FestivalOccurrence[];
 }) {
   const { saved, ready, persistent } = useSavedFestivals();
+  // Where keyboard focus should go after a Remove: a festival's slug, or null for the Explore link.
+  const focusAfterRemove = useRef<string | null | undefined>(undefined);
+
+  useEffect(() => {
+    const target = focusAfterRemove.current;
+    if (target === undefined) return;
+    focusAfterRemove.current = undefined;
+    const el =
+      target === null
+        ? document.getElementById("my-festivals-explore-link")
+        : document.querySelector<HTMLElement>(`[data-remove-slug="${CSS.escape(target)}"]`);
+    el?.focus();
+  }, [saved]);
 
   if (!ready) {
     return (
@@ -27,6 +41,16 @@ export function SavedFestivals({
   // Unknown slugs (old or hand-edited storage) are simply not shown.
   const mine = festivals.filter((festival) => saved.includes(festival.slug));
 
+  // The removed card (and its focused button) disappears, which would drop focus to the page body.
+  // Before it goes, pick the next Remove button, else the previous one, else the Explore link.
+  const rememberFocusTarget = (event: React.MouseEvent<HTMLUListElement>) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>("[data-remove-slug]");
+    if (!button) return;
+    const all = [...event.currentTarget.querySelectorAll<HTMLElement>("[data-remove-slug]")];
+    const i = all.indexOf(button);
+    focusAfterRemove.current = (all[i + 1] ?? all[i - 1])?.dataset.removeSlug ?? null;
+  };
+
   return (
     <>
       {!persistent && (
@@ -38,14 +62,14 @@ export function SavedFestivals({
         <EmptyState
           title="No saved festivals yet"
           description="Tap Save on any festival you want to keep close. It will show up here, on this device."
-          action={<ButtonLink href="/explore">Explore festivals</ButtonLink>}
+          action={<ButtonLink href="/explore" id="my-festivals-explore-link">Explore festivals</ButtonLink>}
         />
       ) : (
         <>
           <p role="status" className="text-ink-muted">
             {mine.length} saved {mine.length === 1 ? "festival" : "festivals"}
           </p>
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul className="grid gap-4 sm:grid-cols-2" onClickCapture={rememberFocusTarget}>
             {mine.map((festival) => (
               <FestivalCard
                 key={festival.slug}

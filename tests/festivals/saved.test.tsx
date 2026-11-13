@@ -142,6 +142,40 @@ describe("My Festivals list", () => {
   });
 });
 
+describe("keyboard focus after Remove", () => {
+  const slugs = ["diwali", "ugadi", "holi"];
+  const removeButton = (name: string) => screen.getByRole("button", { name: new RegExp(`Remove ${name}`) });
+  const setup = () => {
+    window.localStorage.setItem(SAVED_KEY, JSON.stringify(slugs));
+    render(<SavedFestivals festivals={contentFestivals} occurrences={[]} />);
+  };
+
+  it("moves to the next Remove button", () => {
+    setup();
+    const ugadi = removeButton("Ugadi");
+    ugadi.focus();
+    fireEvent.click(ugadi);
+    expect(removeButton("Holi")).toHaveFocus();
+  });
+
+  it("moves to the previous Remove button when the last item was removed", () => {
+    setup();
+    const holi = removeButton("Holi");
+    holi.focus();
+    fireEvent.click(holi);
+    expect(removeButton("Ugadi")).toHaveFocus();
+  });
+
+  it("moves to the Explore link when the list becomes empty", () => {
+    window.localStorage.setItem(SAVED_KEY, JSON.stringify(["holi"]));
+    render(<SavedFestivals festivals={contentFestivals} occurrences={[]} />);
+    const holi = removeButton("Holi");
+    holi.focus();
+    fireEvent.click(holi);
+    expect(screen.getByRole("link", { name: "Explore festivals" })).toHaveFocus();
+  });
+});
+
 describe("where the save controls appear", () => {
   it("is on every festival detail page", async () => {
     for (const { slug, name } of contentFestivals) {

@@ -6,7 +6,10 @@ import { buildEntries, parseDay, parseMonth, parseView } from "@/lib/festivals/c
 import { REFERENCE_CALENDAR } from "@/lib/festivals/constants";
 import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
 
-export const metadata: Metadata = { title: "Calendar" };
+export const metadata: Metadata = {
+  title: "Calendar",
+  description: "A festival calendar for Atlanta, GA in 2027. Dates appear here only once they have been verified.",
+};
 
 type Props = { searchParams: Promise<{ [key: string]: string | string[] | undefined }> };
 

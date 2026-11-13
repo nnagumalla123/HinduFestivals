@@ -8,7 +8,10 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
 import { MAX_QUERY_LENGTH, searchFestivals } from "@/lib/festivals/search";
 
-export const metadata: Metadata = { title: "Explore festivals" };
+export const metadata: Metadata = {
+  title: "Explore festivals",
+  description: "Browse ten Hindu festivals and search by name, other names or deity. Each has a sourced guide to its meaning and traditions.",
+};
 
 type Props = { searchParams: Promise<{ [key: string]: string | string[] | undefined }> };
 

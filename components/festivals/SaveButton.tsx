@@ -27,6 +27,7 @@ export function SaveButton({
       variant={saved && mode === "toggle" ? "primary" : "secondary"}
       onClick={() => (saved ? unsave(slug) : save(slug))}
       className={className}
+      data-remove-slug={mode === "remove" ? slug : undefined}
     >
       <span aria-hidden="true" className="mr-2">
         {mode === "remove" ? "✕" : saved ? "★" : "☆"}

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import { FeaturedFestivals } from "@/components/home/FeaturedFestivals";
 import { NextFestival } from "@/components/home/NextFestival";
@@ -9,6 +10,12 @@ import { buildEntries } from "@/lib/festivals/calendar";
 import { FEATURED_SLUGS } from "@/lib/festivals/featured";
 import { todayInReferenceZone } from "@/lib/festivals/next-festival";
 import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
+
+export const metadata: Metadata = {
+  title: { absolute: "Desi Days | Hindu festival guides for the diaspora" },
+  description:
+    "Learn what Hindu festivals mean, how they are celebrated, and how to observe them away from home. Save the ones you care about.",
+};
 
 export default async function Home() {
   // "Today" changes, so this page must be built per visit and never frozen at build time.

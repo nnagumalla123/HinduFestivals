@@ -149,7 +149,14 @@ describe("/festivals/[slug]", () => {
   });
 
   it("sets a page title from the festival name", async () => {
-    expect(await generateMetadata(slugProps("holi"))).toEqual({ title: "Holi" });
+    const holi = await generateMetadata(slugProps("holi"));
+    expect(holi.title).toBe("Holi");
+    expect(holi.description).toMatch(/^Holi: The festival of colors\./);
     expect(await generateMetadata(slugProps("nope"))).toEqual({ title: "Festival not found" });
+    for (const { slug } of contentFestivals) {
+      const m = await generateMetadata(slugProps(slug));
+      expect(m.description).toBeTruthy();
+      expect(String(m.description)).not.toMatch(/20\d\d|verified/i); // never implies a date
+    }
   });
 });

@@ -20,7 +20,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const festival = await getFestivalBySlug(slug);
-  return { title: festival ? festival.name : "Festival not found" };
+  if (!festival) return { title: "Festival not found" };
+  // No dates here: none are verified yet, and the description must never imply one.
+  const lead = festival.subtitle ? `${festival.name}: ${festival.subtitle}.` : `${festival.name}.`;
+  return {
+    title: festival.name,
+    description: `${lead} A sourced guide to its meaning, traditions and how to celebrate it, including away from home.`,
+  };
 }
 
 export default async function FestivalPage({ params }: Props) {
