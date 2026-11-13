@@ -106,7 +106,8 @@
 
 **Gate:** Public site shows 10 reviewed guides and only verified dates (each with Atlanta, GA and 2027), drafts and unreviewed text cannot reach any public page, public pages are read-only and guest-accessible. Supabase is not part of this gate.
 
-## Phase 4 — Authentication and personalization
+## Phase 4 — Saved festivals (revised MVP scope)
+> **Revised scope (owner decision 2026-11-12): this section's Supabase, authentication, database, onboarding, region-filter and account items are REMOVED from the MVP, and Phase 5 (email reminders) is DROPPED from the MVP.** This is a personal portfolio project: finish and deploy efficiently. Phase 4 is now a simple browser-based My Festivals using `localStorage`: save and unsave any of the ten festivals; persistence after refresh in the same browser; My Festivals page using the existing festival cards, with remove and a friendly empty state linking to Explore; a clear save/unsave control on detail pages (and cards if appropriate); consistent state across pages and tabs; graceful handling of unavailable or invalid storage; guest-first experience and reviewed content preserved; every occurrence empty and every date unverified; no countdowns or reminders; no new dependencies or backend. The original checklist below is kept for history and is **deferred** (not part of the MVP).
 **Goal:** Secure accounts and saved preferences.
 - [ ] Implement Supabase email/password signup, verification, login, logout, callback and safe redirect.
 - [ ] Add user-owned tables, RLS, constraints, migrations, tests.
@@ -119,7 +120,7 @@
 - [ ] Integration test two-account isolation and unauthenticated mutation denial.
 **Gate:** J2 and J4 pass, private data isolated, no auto-follow from region.
 
-## Phase 5 — Email reminders
+## Phase 5 — Email reminders (DROPPED from the MVP, owner decision 2026-11-12; kept for history)
 **Goal:** Reliable opt-in notifications only for followed verified occurrences.
 - [ ] Choose provider and verify sender domain; add secret placeholders.
 - [ ] Add reminder preferences and delivery state migration/constraints.
