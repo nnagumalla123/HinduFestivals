@@ -39,17 +39,9 @@ describe("SiteShell accessibility structure", () => {
     expect(names).toEqual(["Main", "Mobile"]);
   });
 
-  it("provides a labeled sign-in link on both desktop and mobile", () => {
+  it("has no sign-in or account controls (there are no accounts)", () => {
     renderShell();
-    const signIn = screen.getAllByRole("link", { name: "Sign in" });
-    expect(signIn).toHaveLength(2);
-    signIn.forEach((l) => expect(l).toHaveAttribute("href", "/login"));
-  });
-
-  it("hides the decorative account icon from assistive technology", () => {
-    const { container } = renderShell();
-    const svg = container.querySelector("header svg");
-    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(screen.queryByRole("link", { name: /sign in|log in|account/i })).not.toBeInTheDocument();
   });
 
   it("shows the 'Desi Days' wordmark in the header, linking home", () => {

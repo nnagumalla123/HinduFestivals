@@ -64,7 +64,7 @@ describe("NavLinks", () => {
   });
 
   it("marks nothing current on pages outside the primary nav", () => {
-    usePathname.mockReturnValue("/login");
+    usePathname.mockReturnValue("/some-other-page");
     render(<NavLinks variant="desktop" />);
     const list = screen.getByRole("list");
     expect(within(list).queryByRole("link", { current: "page" })).toBeNull();

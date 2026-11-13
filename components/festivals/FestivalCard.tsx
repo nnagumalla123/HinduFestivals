@@ -4,6 +4,7 @@ import { isVerified } from "@/lib/festivals/occurrences";
 import type { Festival, FestivalOccurrence } from "@/lib/festivals/types";
 import type { SearchResult } from "@/lib/festivals/search";
 import { OccurrenceDate } from "./OccurrenceDate";
+import { SaveButton } from "./SaveButton";
 
 /**
  * One festival in a list. Renders an <li>, so place it inside a <ul>.
@@ -15,6 +16,7 @@ export function FestivalCard({
   matchedOn,
   occurrences = [],
   headingLevel = 2,
+  saveMode = "toggle",
 }: {
   festival: Festival;
   /** This festival's occurrences. Only verified ones are shown, each with its location, year and tradition label. */
@@ -22,6 +24,8 @@ export function FestivalCard({
   matchedOn?: SearchResult["matchedOn"];
   /** Heading level for the festival name, to fit the page outline (h2 on Explore, h3 under a section on Home). */
   headingLevel?: 2 | 3;
+  /** "remove" turns the save button into a Remove button (My Festivals). */
+  saveMode?: "toggle" | "remove";
 }) {
   const Heading = `h${headingLevel}` as const;
   const verified = occurrences.filter(isVerified).sort((a, b) => a.startDate.localeCompare(b.startDate));
@@ -61,6 +65,10 @@ export function FestivalCard({
             <OccurrenceDate />
           </div>
         )}
+      </div>
+      {/* z-10 lifts the button above the heading link stretched over the card. */}
+      <div className="relative z-10 mt-2">
+        <SaveButton slug={festival.slug} name={festival.name} mode={saveMode} />
       </div>
     </Card>
   );

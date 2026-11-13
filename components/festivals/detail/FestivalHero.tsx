@@ -3,7 +3,7 @@ import { OccurrenceDate } from "@/components/festivals/OccurrenceDate";
 import { isVerified } from "@/lib/festivals/occurrences";
 import type { Festival, FestivalOccurrence } from "@/lib/festivals/types";
 import { Countdown } from "./Countdown";
-import { FollowAction } from "./FollowAction";
+import { SaveButton } from "../SaveButton";
 
 /**
  * Typographic hero (no photo: we have no licensed imagery yet, PRD section 11).
@@ -12,7 +12,7 @@ import { FollowAction } from "./FollowAction";
  * Atlanta reference time zone, or from `today` when one is passed (tests). Unverified or past dates get none.
  * Several occurrences (for example tradition-specific ones) are listed separately, each with its own
  * label and countdown.
- * The follow action is a sign-in prompt for guests (accounts arrive in Phase 4).
+ * The save button keeps the festival in this browser (localStorage); there are no accounts.
  */
 export function FestivalHero({
   festival,
@@ -50,7 +50,10 @@ export function FestivalHero({
             </div>
           )}
         </div>
-        <FollowAction slug={festival.slug} name={festival.name} />
+        <div className="mt-3 flex flex-col items-start gap-2">
+          <SaveButton slug={festival.slug} name={festival.name} />
+          <p className="text-sm text-ink-muted">Saved on this device only. No account needed.</p>
+        </div>
       </div>
     </header>
   );

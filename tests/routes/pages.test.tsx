@@ -5,11 +5,7 @@ import CalendarPage from "@/app/calendar/page";
 import ExplorePage from "@/app/explore/page";
 import FestivalPage, { generateMetadata, generateStaticParams } from "@/app/festivals/[slug]/page";
 import Home from "@/app/page";
-import LoginPage from "@/app/login/page";
 import MyFestivalsPage from "@/app/my-festivals/page";
-import OnboardingPage from "@/app/onboarding/page";
-import SettingsPage from "@/app/settings/page";
-import SignupPage from "@/app/signup/page";
 import { contentFestivals } from "../fixtures/festivals";
 
 // `connection()` only works inside a real request; in unit tests there is none, so it becomes a no-op.
@@ -17,22 +13,10 @@ vi.mock("next/server", () => ({ connection: async () => {} }));
 
 const slugProps = (slug: string) => ({ params: Promise.resolve({ slug }) });
 
-describe("static pages render without login", () => {
-  // Server components are plain functions, so we can call them and render the result.
+describe("pages render for guests", () => {
   it.each([
-    ["/my-festivals", () => <MyFestivalsPage />, /my festivals/i],
-    ["/signup", () => <SignupPage />, /create an account/i],
-    ["/onboarding", () => <OnboardingPage />, /welcome/i],
-    ["/settings", () => <SettingsPage />, /settings/i],
-  ] as Array<[string, () => ReactElement, RegExp]>)("%s has one h1", (_path, element, heading) => {
-    render(element());
-    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    expect(screen.getByRole("heading", { level: 1, name: heading })).toBeInTheDocument();
-  });
-
-  it.each([
+    ["/my-festivals", async () => MyFestivalsPage(), /my festivals/i],
     ["/", async () => Home(), /your traditions, wherever life takes you/i],
-    ["/login", async () => LoginPage({ searchParams: Promise.resolve({}) }), /sign in/i],
   ] as Array<[string, () => Promise<ReactElement>, RegExp]>)("%s has one h1", async (_path, element, heading) => {
     render(await element());
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);

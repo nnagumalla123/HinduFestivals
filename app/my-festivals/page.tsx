@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
+import { SavedFestivals } from "@/components/festivals/SavedFestivals";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { ButtonLink } from "@/components/ui/Button";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { listPublishedFestivals, listVerifiedOccurrences } from "@/lib/festivals/queries";
 
 export const metadata: Metadata = { title: "My Festivals" };
 
-// Placeholder. Following festivals needs accounts (Phase 4). Reading never does.
-export default function MyFestivalsPage() {
+// The saved list lives in this browser's localStorage, so the server can't know it:
+// it passes every festival to a client component, which shows only the saved ones.
+export default async function MyFestivalsPage() {
+  const [festivals, occurrences] = await Promise.all([listPublishedFestivals(), listVerifiedOccurrences()]);
   return (
     <PageContainer>
       <SectionHeading
         level={1}
         title="My Festivals"
-        description="The festivals you follow, and when they are coming up."
+        description="The festivals you have saved. They are kept in this browser, so no account is needed."
       />
-      <EmptyState
-        title="Sign in to follow festivals"
-        description="Everything on this site is free to read without an account. Signing in will let you follow festivals and, if you choose, get email reminders."
-        action={<ButtonLink href="/login">Sign in</ButtonLink>}
-      />
+      <SavedFestivals festivals={festivals} occurrences={occurrences} />
     </PageContainer>
   );
 }
